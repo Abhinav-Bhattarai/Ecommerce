@@ -19,7 +19,7 @@ const URI = process.env.URI
 // allows json entry and dispatch upto 50mb
 app.use(bodyparser.json({limit: '50mb'}))
 
-// socket connection 
+// socket connection for real-time functions  
 io.on('connection', (socket)=>{
     socket.on('disconnect', ()=>{
         console.log('user disconnected')
