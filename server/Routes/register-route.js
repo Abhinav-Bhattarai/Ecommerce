@@ -40,7 +40,8 @@ router.post('/', (req, res)=>{
                 if(state){
                 if(username_check && password_check && Confirm_Check){
                     Data.save().then((response)=>{
-                        jwt.sign(response, process.env.JWT_AUTH_KEY, (err, token)=>{
+                        const DAY_3 = 84600*3 
+                        jwt.sign(response, process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                             if(err){
                                 return res.json({err})
                             }
@@ -48,7 +49,7 @@ router.post('/', (req, res)=>{
                         })
                     })
                 }}else{
-                    return res.json({InvalidCredentials: ture})
+                    return res.json({InvalidCredentials: true})
                 }
             })
     

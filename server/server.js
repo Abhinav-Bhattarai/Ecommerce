@@ -4,6 +4,7 @@ import socket from 'socket.io';
 import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import RegisterRoute from './Routes/register-route.js';
 
 // dot_env config
 dotenv.config()
@@ -27,6 +28,7 @@ io.on('connection', (socket)=>{
 })
 
 // api endpoints
+app.use('/register', RegisterRoute)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
