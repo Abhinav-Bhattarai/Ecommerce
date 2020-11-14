@@ -18,7 +18,7 @@ router.post('/', (req, res)=>{
             if(response.length >= 1){
                 bcrypt.compare(Password, response[0].Password, (err, status)=>{
                     if(status === true){
-                    jwt.sign({Username, Password}, process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
+                    jwt.sign(response[0].toJSON(), process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                         if(err){
                             return res.json({err})
                         }

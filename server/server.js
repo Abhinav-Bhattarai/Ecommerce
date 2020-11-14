@@ -5,6 +5,8 @@ import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import RegisterRoute from './Routes/register-route.js';
+import JWTCheck from './Routes/check-jwt.js';
+import LoginRoute from './Routes/login-route.js';
 
 // dot_env config
 dotenv.config()
@@ -29,6 +31,8 @@ io.on('connection', (socket)=>{
 
 // api endpoints
 app.use('/register', RegisterRoute)
+app.use('/login', LoginRoute)
+app.use('/check', JWTCheck)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{

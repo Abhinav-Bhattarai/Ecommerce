@@ -43,7 +43,7 @@ router.post('/', (req, res)=>{
                 if(username_check && password_check && Confirm_Check){
                     Data.save().then((response)=>{
                         const DAY_3 = 84600*3 
-                        jwt.sign(response, process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
+                        jwt.sign(response.toJSON(), process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                             if(err){
                                 return res.json({err})
                             }
