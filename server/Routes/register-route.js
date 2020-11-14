@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import RegistrationModel from '../Models/register-model.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ router.post('/', (req, res)=>{
     const Username = req.body.Username
     let Password = req.body.Password
     let Confirm = req.body.Confirm
+    const Email = req.body.Email
     bcrypt.hash(Password, 10).then((hash)=>{
         Password = hash
         bcrypt.hash(Confirm, 10).then((hash)=>{
@@ -45,6 +47,27 @@ router.post('/', (req, res)=>{
                             if(err){
                                 return res.json({err})
                             }
+                            const transporter = nodemailer.createTransport({
+                                service: 'gmail',
+                                auth:{
+                                    user: 'lightweb69@gmail.com',
+                                    password: 'pythonjs123'
+                                }
+                            })
+                            const MailOptions = {
+                                from: 'lightweb69@gmail.com',
+                                to: Email,
+                                subject: "Thank you for registering to LightWeb",
+                                text: "We welcome you to Light Web. If you have any queries you can contact us in this email 'lightweb69@gmail.com'."
+                            }
+                            transporter.sendMail(MailOptions, (err, info)=>{
+                                if(err){
+                                    console.log(err)
+                                }else{
+                                    console.log('Email Sent', info)
+                                }
+
+                            })
                             return res.json({token})
                         })
                     })
