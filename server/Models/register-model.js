@@ -22,6 +22,10 @@ const MainSchema = new Schema({
         type: [{item: String, price: Number}]
     },
 
+    RecentSoldItems:{
+        type: [{item: String, price: Number}]
+    },
+
     ActiveStatus: {
         type: Boolean
     }

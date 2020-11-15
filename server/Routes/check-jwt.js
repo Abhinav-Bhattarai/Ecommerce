@@ -8,11 +8,11 @@ const router = express.Router()
 
 router.get('/:token', (req, res)=>{
     jwt.verify(req.params.token, process.env.JWT_AUTH_KEY, (err, response)=>{
-        if(err){return res.json({err})}
+        if(err){return res.json({})}
         if(response){
             return res.json(response)
         }else{
-            return res.json({invalid: true})
+            return res.json({})
         }
     })
 })

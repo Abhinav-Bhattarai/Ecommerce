@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
 
-const Mainpage = () => {
+const LandingPage = () => {
     return (
         <Fragment>
-
+            
         </Fragment>
     )
 }
 
-export default Mainpage
+export default LandingPage
