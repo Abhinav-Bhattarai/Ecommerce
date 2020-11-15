@@ -50,8 +50,8 @@ router.post('/', (req, res)=>{
                             const transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth:{
-                                    user: 'lightweb69@gmail.com',
-                                    password: 'pythonjs123'
+                                    user: process.env.Username,
+                                    password: process.env.Password
                                 }
                             })
                             const MailOptions = {
