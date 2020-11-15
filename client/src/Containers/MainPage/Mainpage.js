@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 const Mainpage = () => {
 
@@ -9,7 +12,7 @@ const Mainpage = () => {
     useEffect(()=>{
         // socket client connections
         const username = localStorage.getItem('username')
-        const ENDPOINT = 'http://localhost:8000';
+        const ENDPOINT = process.env.PROXY;
         const connection = io.connect(ENDPOINT, {query: {username}})
         connection.emit('join', username)
         SetSocket(connection)
