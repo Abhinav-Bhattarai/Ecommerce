@@ -1,0 +1,42 @@
+.search-bar{
+    display: block;
+    margin: 0px auto;
+    padding: 15px 3%;
+    font-size: 18px;
+    width: 50%;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(251, 253, 250, 0.8);
+    color: #000000;
+}
+
+.search-bar-fix{
+    position: fixed;
+    width: 100%;
+    top: 72px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Search-icon{
+    font-size: 25px;
+    border-radius: 50%;
+    color: white;
+    padding: 10px 1%;
+    background-color: #ff385c;
+    position: absolute;
+    top: 2px;
+    right: 23%;
+}
+
+.search-bar-rel{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.search-bar:focus{
+    outline: none;
+}

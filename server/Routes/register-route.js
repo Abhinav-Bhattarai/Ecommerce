@@ -55,7 +55,7 @@ router.post('/', (req, res)=>{
                                 }
                             })
                             const MailOptions = {
-                                from: 'lightweb69@gmail.com',
+                                from: process.env.Username,
                                 to: Email,
                                 subject: "Thank you for registering to LightWeb",
                                 text: "We welcome you to Light Web. If you have any queries you can contact us in this email 'lightweb69@gmail.com'."

@@ -1,0 +1,26 @@
+.side-nav-container{
+    background-color: rgba(253, 252, 250, 0.2);
+    width: 4.5%;
+    position: fixed;
+    top: 150px;
+    left: 1%;
+    border-radius: 30px;
+    height: 520px;
+}
+
+.sidebar-icon{
+    color: #24ffa4;
+    font-size: 34px;
+    transition: 0.2s;
+}
+
+.side-nav-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px auto;
+}
+
+.sidebar-icon:hover{
+    transform: scale(1.1);
+}
