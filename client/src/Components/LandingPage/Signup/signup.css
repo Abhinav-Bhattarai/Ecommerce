@@ -1,0 +1,92 @@
+.signup-container{
+    position: fixed;
+    top: 50px;
+    left: 26%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    width: 50%;
+    height: 650px;
+    border-radius: 15px;
+}
+
+.signup-header{
+    padding: 20px 3%;
+    border-bottom: 1px solid rgb(197, 180, 180);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+   
+}
+
+.cross-icon{
+    /* margin-right: auto; */
+    color: rgb(107, 106, 106);
+    font-weight: 100;
+    font-size: 20px;
+    transition: 0.2s;
+    padding: 4px 1%;
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    left: 2%;
+}
+
+.cross-icon:hover{
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
+.signup-input-container{
+    margin: 25px auto;
+    width: 100%;
+}
+
+
+.signup-input-rel{
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+}
+
+
+.signup-input{
+    display: block;
+    width: 80%;
+    margin: 0px auto;
+    padding: 15px 3%;
+    color: black;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #AFAFAF;
+}
+
+.signup-input-container label{
+    display: block;
+    width: 40%;
+    font-weight: 500;
+    margin: 8px 7%;
+    margin-top: 10px;
+}
+
+.signup-input:focus{
+    outline: none;
+    border: 1px solid rgb(206, 68, 68);
+}
+
+.signup-input-container label:nth-child(1){
+    margin-top: 5px;
+}
+
+.signup-btn{
+    padding: 16px 3%;
+    width: 88%;
+    font-weight: 600;
+    color: white;
+    font-size: 18px;
+    display: block;
+    margin: 15px auto;
+    background-image: linear-gradient(to right, #fc2d53, rgb(255, 64, 64), rgb(247, 68, 68));
+    border: none;
+    border-radius: 10px;
+}

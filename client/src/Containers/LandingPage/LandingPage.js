@@ -1,32 +1,39 @@
 import React, { Fragment, useState } from 'react';
-import BG from '../../assets/airbnb-bg.jpg';
-import Navbar from '../../Components/NavBar/navbar';
-import SearchBar from '../../Components/SearchBar/searchbar';
-import SideNav from '../../Components/SideNav/side-nav';
+import Store from '../../Components/Store/store';
+import LandingPageContext from './LandingPageContext';
+import uuid from 'react-uuid';
 
-const LandingPage = () => {
+const LandingPage = (props) => {
 
-    const [window_height] = useState(window.innerHeight)
+    const [signup_popup, SetSignupPopup] = useState(false)
+    const [login_popup, SetLoginPopup] = useState(false)
+    const [contactus_popup, SetContactusPopup] = useState(false)
+
+    const TriggerSignupPopup = ()=>{
+        props.history.push(`/${uuid()}/?signup`)
+        SetSignupPopup(!signup_popup)
+    }
+
+    const TriggerLoginPopup = ()=>{
+        props.history.push(`/${uuid()}/?login`)
+        SetLoginPopup(!login_popup)
+    }
+
+    const TriggerContactPopup = ()=>{
+        props.history.push(`/${uuid()}/#contact-us`)
+        SetContactusPopup(!contactus_popup)
+    }
 
     return (
         <Fragment>
-            <article>
-            <img src={BG} alt='bg' className='landingpage-bg' style={{
-                    width: '100%',
-                    height: `${window_height}px`,
-                    opacity: '0.88',
-                    position: 'fixed',
-                    top: '0',
-                    left: '0',
-                    zIndex: '-2'
-            }}/>            
-            <Navbar/>
-            <SearchBar/>
-            <SideNav/>
-            <main className='landing-page-container' style={{height: `${window_height}px`}}>
-
-            </main>
-            </article>
+            <LandingPageContext.Provider value={{
+                TriggerSignupPopup: TriggerSignupPopup,
+                TriggerLoginPopup: TriggerLoginPopup,
+                Signup_state: signup_popup,
+                Login_state: login_popup
+            }}>
+                <Store/>
+            </LandingPageContext.Provider>
         </Fragment>
     )
 }

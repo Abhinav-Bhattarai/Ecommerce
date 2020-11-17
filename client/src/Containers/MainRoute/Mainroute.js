@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 import axios from 'axios';
 
 import LandingPageGuard from '../../HOC/Guards/LandingPageGuard';
@@ -34,14 +34,14 @@ class Mainroute extends Component {
                 
                     <MainPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/forms' exact component={Mainpage}/>
+                            <Route path='/main' exact component={Mainpage}/>
                             <Route component={Mainpage}/>
                         </Switch>
                     </MainPageGuard>
 
                     <LandingPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/forms' exact component={LandingPage}/>
+                            <Route path='/main' exact component={LandingPage}/>
                             <Route component={LandingPage}/>
                         </Switch>
                     </LandingPageGuard>
@@ -51,4 +51,4 @@ class Mainroute extends Component {
     }
 }
 
-export default Mainroute;
+export default withRouter(Mainroute);
