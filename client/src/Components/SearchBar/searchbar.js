@@ -11,10 +11,10 @@ const SearchIcon = ()=>{
     )
 }
 
-const SearchBar = () => {
+const SearchBar = (props) => {
     return (
        <Fragment>
-           <div className='search-bar-fix'>
+           <div className='search-bar-fix' style={{filter: `blur(${props.blur})`}}>
                <div className='search-bar-rel'>
                     <input className='search-bar' type='text' placeholder='Search For Products'/>
                     <SearchIcon/>

@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import './signup.css';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa'
+import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';
 
 const TimesIcon = ()=>{
     return (
@@ -12,11 +13,12 @@ const TimesIcon = ()=>{
 }
 
 const Signup = () => {
+    const Context = useContext(LandingPageContext)
     return (
         <Fragment>
             <main className='signup-container'>
                 <header className='signup-header'>
-                    <TimesIcon/>
+                    <span onClick={Context.TriggerSignupPopup}><TimesIcon/></span>
                     <div style={{
                         fontWeight: '700',
                         fontSize: '18px'

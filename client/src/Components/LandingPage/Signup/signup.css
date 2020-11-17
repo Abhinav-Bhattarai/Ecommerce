@@ -1,3 +1,12 @@
+@keyframes open{
+    from{
+        opacity: 0;;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
 .signup-container{
     position: fixed;
     top: 50px;
@@ -8,6 +17,13 @@
     width: 50%;
     height: 650px;
     border-radius: 15px;
+    animation-name: open;
+    animation-duration: 0.7905s;
+}
+
+.login-container{
+    top: 100px;
+    height: 500px;
 }
 
 .signup-header{

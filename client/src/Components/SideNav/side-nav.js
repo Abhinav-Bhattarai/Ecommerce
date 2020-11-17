@@ -43,10 +43,10 @@ const SoldIcon = ()=>{
     )
 }
 
-const SideNav = () => {
+const SideNav = (props) => {
     return (
        <Fragment>
-           <div className='side-nav-container'>
+           <div className='side-nav-container' style={{filter: `blur(${props.blur})`}}>
                 <div className='side-nav-icon-container'>
                     <Icon/>
                 </div>

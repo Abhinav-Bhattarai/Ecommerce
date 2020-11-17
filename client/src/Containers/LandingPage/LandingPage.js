@@ -24,13 +24,24 @@ const LandingPage = (props) => {
         SetContactusPopup(!contactus_popup)
     }
 
+    const ClearScreenHandler = ()=>{
+        if(signup_popup){
+            SetSignupPopup(false)
+        }
+        if(login_popup){
+            SetLoginPopup(false)
+        }
+    }
+
     return (
         <Fragment>
             <LandingPageContext.Provider value={{
                 TriggerSignupPopup: TriggerSignupPopup,
                 TriggerLoginPopup: TriggerLoginPopup,
                 Signup_state: signup_popup,
-                Login_state: login_popup
+                Login_state: login_popup,
+                ClearScreenHandler: ClearScreenHandler,
+                TriggerContactPopup: TriggerContactPopup
             }}>
                 <Store/>
             </LandingPageContext.Provider>
