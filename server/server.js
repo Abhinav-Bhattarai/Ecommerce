@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import RegisterRoute from './Routes/register-route.js';
 import JWTCheck from './Routes/check-jwt.js';
 import LoginRoute from './Routes/login-route.js';
+import ContactRoute from './Routes/Contact-us.js';
 
 // dot_env config
 dotenv.config()
@@ -33,6 +34,7 @@ io.on('connection', (socket)=>{
 app.use('/register', RegisterRoute)
 app.use('/login', LoginRoute)
 app.use('/check', JWTCheck)
+app.use('/contact', ContactRoute)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
