@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema
 
 const MainSchema = new Schema({
-    Username: {
+    Email: {
         type: String,
         required: true
     },
@@ -28,6 +28,11 @@ const MainSchema = new Schema({
 
     ActiveStatus: {
         type: Boolean
+    },
+    
+    Phone: {
+        type: Number,
+        required: true
     }
 })
 

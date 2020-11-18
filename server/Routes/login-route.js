@@ -9,12 +9,12 @@ dotenv.config()
 const router = express.Router()
 
 router.post('/', (req, res)=>{
-    const Username = req.body.Username
+    const Email = req.body.Email
     let Password = req.body.Password
     bcrypt.hash(Password, 10).then((hash)=>{
         Password = hash
         const DAY_3 = 84600*3 
-        RegistrationModel.find().where("Username").equals(Username).then((response)=>{
+        RegistrationModel.find().where("Email").equals(Email).then((response)=>{
             if(response.length >= 1){
                 bcrypt.compare(Password, response[0].Password, (err, status)=>{
                     if(status === true){

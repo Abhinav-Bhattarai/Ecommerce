@@ -10,21 +10,22 @@ dotenv.config()
 const router = express.Router()
 
 router.post('/', (req, res)=>{
-    const Username = req.body.Username
     let Password = req.body.Password
     let Confirm = req.body.Confirm
     const Email = req.body.Email
+    const Phone = req.body.Phone
     bcrypt.hash(Password, 10).then((hash)=>{
         Password = hash
         bcrypt.hash(Confirm, 10).then((hash)=>{
             Confirm = hash
             const Data = new RegistrationModel({
-                Username,
+                Email,
                 Password,
-                ActiveStatus: true
+                ActiveStatus: true,
+                Phone: parseInt(Phone)
             })
             let username_check = false
-            if(Username.length >= 5){
+            if(Email.length >= 10){
                 username_check = true
             }
             let password_check = false
@@ -45,7 +46,7 @@ router.post('/', (req, res)=>{
                         const DAY_3 = 84600*3 
                         jwt.sign(response.toJSON(), process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                             if(err){
-                                return res.json({err})
+                                return res.json({invalid_credentials: true})
                             }
                             const transporter = nodemailer.createTransport({
                                 service: 'gmail',
@@ -72,7 +73,7 @@ router.post('/', (req, res)=>{
                         })
                     })
                 }}else{
-                    return res.json({InvalidCredentials: true})
+                    return res.json({invalid_credentials: true})
                 }
             })
     
