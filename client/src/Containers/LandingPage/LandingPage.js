@@ -48,7 +48,10 @@ const LandingPage = (props) => {
 
     const ChangeSignupNumber = (event)=>{
         const value = event.target.value
-        SetSignupPhone(value)
+        const number_regex = /[0-9]/
+        if(number_regex.exec(value[value.length - 1])){
+            SetSignupPhone(value)
+        }
     }
 
     const ChangeLoginEmail = (event)=>{
@@ -135,7 +138,22 @@ const LandingPage = (props) => {
                 Signup_state: signup_popup,
                 Login_state: login_popup,
                 ClearScreenHandler: ClearScreenHandler,
-                TriggerContactPopup: TriggerContactPopup
+                TriggerContactPopup: TriggerContactPopup,
+                signup_email: signup_email,
+                signup_password,
+                signup_confirm: signup_confirm,
+                signup_phone,
+                login_email,
+                login_password,
+                SignupChangeEmail: (e)=>{ChangeSignupEmail(e)},
+                SignupChangePassword: (e)=>{ChangeSignupPassword(e)},
+                SignupChangeConfirm: (e)=>{ChangeSignupConfirm(e)},
+                SignupChangePhone: (e)=>{ChangeSignupNumber(e)},
+                LoginChangeEmail: (e)=>{ChangeLoginEmail(e)},
+                LoginChangePassword: (e)=>{ChangeLoginPassword(e)},
+                SignupSubmitHandler: (e)=>{SignupSubmitHandler(e)},
+                LoginSubmitHandler: (e)=>{LoginSubmitHandler(e)}
+
             }}>
                 <Store/>
             </LandingPageContext.Provider>

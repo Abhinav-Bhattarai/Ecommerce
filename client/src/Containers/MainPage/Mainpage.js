@@ -1,7 +1,7 @@
-// import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import dotenv from 'dotenv';
+import axios from 'axios';
 
 dotenv.config()
 
@@ -17,6 +17,10 @@ const Mainpage = () => {
         connection.emit('join', username)
         SetSocket(connection)
         // axios requests for search algorithm maybe and other things also external endpoints
+        axios.get(`/check/${localStorage.getItem('e-token')}`).then((response)=>{
+            const data = response.data
+            console.log(data)
+        })
         
     }, [])
 

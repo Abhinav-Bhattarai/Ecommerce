@@ -24,17 +24,19 @@ const Login = () => {
                         fontSize: '18px'
                     }}>Login to Continue</div>
                 </header>
+                <form onSubmit={Context.SubmitLoginHandler}>
                 <main className='signup-input-container'>
                     <label>Email</label>
                     <div className='signup-input-rel'>
-                        <input type='text' autoFocus className='signup-input'/>
+                        <input type='email' autoFocus className='signup-input' onChange={Context.LoginChangeEmail} value={Context.login_email}/>
                     </div>    
                     <label>Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input'/>
+                        <input type='password' className='signup-input' onChange={Context.LoginChangePassword} value={Context.login_password}/>
                     </div>
                 </main>
                 <button className='signup-btn'>Continue</button>
+                </form>
                 <div style={{
                     fontWeight: '500',
                     fontSize: '14px',
