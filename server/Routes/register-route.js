@@ -51,24 +51,25 @@ router.post('/', (req, res)=>{
                                     const transporter = nodemailer.createTransport({
                                         service: 'gmail',
                                         auth: {
-                                            user: process.env.Username,
+                                            user: process.env.Email,
                                             pass: process.env.Password
                                         }
-                                    })
-                                    const MailOptions = {
-                                        from: process.env.Username,
-                                        to: Email,
-                                        subject: "Thank you for registering to LightWeb",
-                                        text: "We welcome you to Light Web. If you have any queries you can contact us in this email 'lightweb69@gmail.com'."
-                                    }
-                                    transporter.sendMail(MailOptions, (err, info)=>{
+                                    });
+                                    
+                                    transporter.sendMail({
+                                       from: 'Light Web Community',
+                                       to: Email,
+                                       subject: 'Light web Invitation', 
+                                       html: '<h1 style="margin: 10px auto; text-align: center;">Welcome to Light Web</h1><div style="padding: 10px 2%; margin: 10px auto; font-size: 16px">Please confirm your Email to further continue with LightWeb.</div><a href="https://localhost:3000" style="width: 95%; display:block; margin:10px auto; padding:18px 4%; background-color: #ff374e; color:#fff; font-size:20px; border: none;  border-radius: 10px; margin-top:30px; text-align: center;">Accept to Confirm</a>'
+                                    }, (err, info)=>{
                                         if(err){
                                             console.log(err)
-                                        }else{
-                                            console.log('Email Sent', info)
                                         }
-        
+                                        if(!err){
+                                        console.log(info)}
                                     })
+                                    
+
                                     return res.json({token})
                                 })
                             })
