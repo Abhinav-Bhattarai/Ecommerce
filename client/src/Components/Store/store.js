@@ -50,9 +50,9 @@ const Store = () => {
                 <SearchBar blur={blur}/>
                 <SideNav blur={blur}/>
                 <main className='product-home-container'>
-                    <ProductCards/>
-                    <ProductCards/>
-                    <ProductCards/>
+                    <ProductCards blur={blur}/>
+                    <ProductCards blur={blur}/>
+                    <ProductCards blur={blur}/>
                 </main>
             </article>
             {Signup_jsx}

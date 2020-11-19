@@ -1,7 +1,53 @@
 .product-cards{
+    position: relative;
     width: 65%;
     padding: 10px 2%;
     height: 400px;
-    background-color: rgba(250, 252, 251, 0.5);
+    background-color: rgba(250, 252, 251, 0.8);
     margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.product-card-img{
+    margin: auto 3%;
+    margin-left: 1%;
+    width: 50%;
+    border-radius: 13px;
+    height: 95%;
+}
+
+.product-description-container{
+    display: flex;
+    flex-direction: column; 
+}
+
+.product-home-title{
+    text-align: center;
+    font-weight: 600;
+    margin: 20px auto;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.product-home-desc{
+    font-size: 20px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.heart-icon{
+    position: absolute;
+    top: 5px;
+    right: 1%;
+    color: grey;
+    font-size: 30px;
+    padding: 5px 1%;
+    transition: 0.2s;
+    cursor: context-menu;
+}
+
+.heart-icon:hover{
+    color: #ff385c;
 }
