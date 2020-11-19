@@ -18,6 +18,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
+}
+
+.scroll-hide{
+    transform: translateY(-200px);
+    transition: 0.4s;
+    transition-delay: 0.2;
 }
 
 .Search-icon{

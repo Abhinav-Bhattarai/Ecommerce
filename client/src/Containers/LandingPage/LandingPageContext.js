@@ -5,6 +5,7 @@ const LandingPageContext = React.createContext({
     TriggerLoginPopup: ()=>{},
     Signup_state: false,
     Login_state: false,
+    Contactus_state: false,
     ClearScreenHandler: ()=>{},
     TriggerContactPopup: ()=>{},
     signup_email: '',
@@ -20,7 +21,12 @@ const LandingPageContext = React.createContext({
     login_password: '',
     LoginChangeEmail: ()=>{},
     LoginChangePassword: '',
-    SubmitLoginHandler: ()=>{}
+    SubmitLoginHandler: ()=>{},
+    contactus_from: '',
+    contactus_reason: '',
+    ChangeContactusFrom: ()=>{},
+    ChangeContactusReason: ()=>{},
+    SubmitContact: ()=>{}
 })
 
 export default LandingPageContext

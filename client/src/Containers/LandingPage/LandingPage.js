@@ -15,6 +15,8 @@ const LandingPage = (props) => {
     const [signup_phone, SetSignupPhone] = useState('')
     const [login_email, SetLoginEmail] = useState('')
     const [login_password, SetLoginPassword] = useState('')
+    const [contact_from, SetContactFrom] = useState('')
+    const [contact_reason, SetContactReason] = useState('')
 
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
@@ -62,6 +64,16 @@ const LandingPage = (props) => {
     const ChangeLoginPassword = (event)=>{
         const value = event.target.value
         SetLoginPassword(value)
+    }
+
+    const ChangeContactFrom = (event)=>{
+        const value = event.target.value
+        SetContactFrom(value)
+    }
+
+    const ChangeContactReason = (event)=>{
+        const value = event.target.value
+        SetContactReason(value)
     }
 
     const SignupSubmitHandler = (event)=>{
@@ -121,12 +133,33 @@ const LandingPage = (props) => {
         }
     }
 
+    const ContactSubmitHandler = (event)=>{
+        event.preventDefault()
+        console.log('hello from outside')
+        if(contact_from.length >= 11 && contact_reason.length >= 10){
+            const context = {
+                Username: contact_from,
+                Message: contact_reason
+            }
+            console.log('hello')
+            axios.post('/contact', context).then((response)=>{
+                console.log(response.data)
+                SetContactFrom('')
+                SetContactReason('')
+                SetContactusPopup(false)
+            })
+        }
+    }
+
     const ClearScreenHandler = ()=>{
         if(signup_popup){
             SetSignupPopup(false)
         }
         if(login_popup){
             SetLoginPopup(false)
+        }
+        if(contactus_popup){
+            SetContactusPopup(false)
         }
     }
 
@@ -137,6 +170,7 @@ const LandingPage = (props) => {
                 TriggerLoginPopup: TriggerLoginPopup,
                 Signup_state: signup_popup,
                 Login_state: login_popup,
+                Contactus_state: contactus_popup,
                 ClearScreenHandler: ClearScreenHandler,
                 TriggerContactPopup: TriggerContactPopup,
                 signup_email: signup_email,
@@ -152,8 +186,12 @@ const LandingPage = (props) => {
                 LoginChangeEmail: (e)=>{ChangeLoginEmail(e)},
                 LoginChangePassword: (e)=>{ChangeLoginPassword(e)},
                 SignupSubmitHandler: (e)=>{SignupSubmitHandler(e)},
-                LoginSubmitHandler: (e)=>{LoginSubmitHandler(e)}
-
+                LoginSubmitHandler: (e)=>{LoginSubmitHandler(e)},
+                contactus_from: contact_from,
+                contactus_reason: contact_reason,
+                ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
+                ChangeContactusReason: (e)=>{ChangeContactReason(e)},
+                SubmitContact: (e)=>{ContactSubmitHandler(e)}
             }}>
                 <Store/>
             </LandingPageContext.Provider>

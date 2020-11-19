@@ -6,12 +6,13 @@
     left: 1%;
     border-radius: 30px;
     height: 520px;
+    z-index: 2;
 }
 
 .sidebar-icon{
     color: #24ffa4;
     font-size: 34px;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .side-nav-icon-container{
@@ -22,5 +23,5 @@
 }
 
 .sidebar-icon:hover{
-    transform: scale(1.13);
+    transform: scale(1.2);
 }

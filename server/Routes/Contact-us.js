@@ -10,20 +10,23 @@ router.post('/', (req, res)=>{
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.Username,
-            password: process.env.Password
+            user: process.env.Email,
+            pass: process.env.Password
         }
-    })
-    const MailOptions = {
-        from: process.env.Username,
-        to: 'jsdeveloper48@gmail.com',
-        subject: `Customer Contact: ${req.body.username}`,
-        text: req.body.message
-    }
-    transporter.sendMail(MailOptions, (err, info)=>{
-        if(err){console.log('error')}
-        else{
-            console.log('message sent to admin', info)
+    });
+    
+    transporter.sendMail({
+       from: 'Light Web Community',
+       to: 'jsdeveloper48@gmail.com',
+       subject: 'Light Web: Contact Us FeedBacks', 
+       html: `<h1 style="margin: 10px auto; margin-bottom: 50px; text-align: center;">${req.body.Username}</h1><div>${req.body.Message}</div>`
+    }, (err, info)=>{
+        if(err){
+            console.log(err)
+        }
+        if(!err){
+            console.log(info)
+            return res.json({success: true})
         }
     })
 })

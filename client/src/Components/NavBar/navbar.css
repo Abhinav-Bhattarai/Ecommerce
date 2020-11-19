@@ -22,7 +22,13 @@
     transition: 0.2s;
 }
 
-.navbar-items:nth-child(4){
+.scroll-nav{
+    background-color: rgb(233, 45, 77);
+    transition: background 0.1s;
+    transition-delay: 0.2s;
+}
+
+.navbar-contact{
     margin-right: 4%;
     background-color: #ff374e;
 }
@@ -31,6 +37,16 @@
     background-color: rgba(253, 253, 250, 0.2);
 }
 
-.navbar-items:nth-child(4):hover{
-    background-color: rgb(250, 79, 49);
+.navbar-contact:hover{
+    background-color: rgb(253, 55, 19);
+}
+
+.scroll-contact{
+    background-color: rgb(37, 122, 250);
+    transition: background 0s;
+    transition-delay: 0.2s;
+}
+
+.scroll-contact:hover{
+    background-color: rgb(40, 80, 119);
 }

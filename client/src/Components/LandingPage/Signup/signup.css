@@ -17,6 +17,7 @@
     width: 50%;
     height: 650px;
     border-radius: 15px;
+    z-index: 3;
     animation-name: open;
     animation-duration: 0.7905s;
 }
@@ -92,6 +93,14 @@
 
 .signup-input-container label:nth-child(1){
     margin-top: 5px;
+}
+
+
+.contact-input{
+    height: 145px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .signup-btn{
