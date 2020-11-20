@@ -17,6 +17,7 @@ const LandingPage = (props) => {
     const [login_password, SetLoginPassword] = useState('')
     const [contact_from, SetContactFrom] = useState('')
     const [contact_reason, SetContactReason] = useState('')
+    const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)
 
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
@@ -162,6 +163,43 @@ const LandingPage = (props) => {
             SetContactusPopup(false)
         }
     }
+
+    const InfiniteScroll = ()=>{
+        if(localStorage.getItem('WishList')){
+            const WishListArray = localStorage.getItem('WishList')
+            axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+                const data = response.data
+                // implementing binary search O(n^2/2)
+                for(i of WishListArray){
+                    const item = i.item_name
+                    const first_letter_wishlist = i.item_name[0]
+                    const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                    const first_letter_total_product = data[TotalProductMidIndex][0]
+                    if(item === data[TotalProductMidIndex]){
+                        // match
+                    }else{
+                        if(first_letter_wishlist > first_letter_total_product){
+                            // to right search
+                            for(let j=TotalProductMidIndex; j <= data.length - 1; j++){
+                                // condditional loop break
+                            }
+                        }else{
+                            // to left search
+                            for(let k=TotalProductMidIndex; k >= 0; k--){
+                                // conditional loop break
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    useEffect(()=>{
+       window.addEventListener('scroll', ()=>{
+        //    if(window.scrollY)
+       })
+    })
 
     return (
         <Fragment>
