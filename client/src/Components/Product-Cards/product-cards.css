@@ -8,6 +8,11 @@
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    transition: background 0.2s;
+}
+
+.product-cards:hover{
+    background-color: rgba(250, 252, 251, 0.9);
 }
 
 .product-card-img{
@@ -49,5 +54,35 @@
 }
 
 .heart-icon:hover{
-    color: #ff385c;
+    color: #ff385c !important;
+}
+
+.Product-home-price{
+    font-size: 22px;
+    font-weight: 700;
+    color: rgb(54, 136, 79);
+    margin: 5px auto;
+    text-align: start;
+    width: 100%;
+}
+
+.product-home-contact{
+    width: 100%;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 5px auto;
+    color: rgb(119, 65, 61);
+}
+
+.product-home-date{
+    position: absolute;
+    font-weight: 400;
+    font-size: 17px;
+    bottom: 5px;
+    color: grey;
+    right: 1%;
+}
+
+.Product-home-price::after, .product-home-contact::after{
+    content: '*';
 }

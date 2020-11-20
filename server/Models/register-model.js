@@ -18,12 +18,17 @@ const MainSchema = new Schema({
         default: new Date(parseInt(Date.now())).toLocaleDateString()
     },
 
-    RecentPurchases:{
+    Purchases:{
         type: [{item: String, price: Number}]
     },
 
-    RecentSoldItems:{
+    SoldItems:{
         type: [{item: String, price: Number}]
+    },
+
+    WishListedItems: {
+        type: [{item_name: String, item_id: String}],
+        default: []
     },
 
     ActiveStatus: {
