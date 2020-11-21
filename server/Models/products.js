@@ -43,6 +43,11 @@ const Schema = new ProductSchema({
      DisclosedBuyer: {
          type: {email: String, Phone: Number},
          default: {}
+     },
+     
+     WishListed: {
+         type: Boolean,
+         default: false
      }
 })
 

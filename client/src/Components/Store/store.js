@@ -12,6 +12,7 @@ import Home from './Routes/HomeRoute/home';
 import Cart from './Routes/CartRoute/cart';
 import SoldItems from './Routes/SoldItemsRoute/sold-items';
 import Wishlist from './Routes/WishlistRoute/wishlist';
+import History from './Routes/HistoryRoute/history';
 
 const Store = () => {
     const [window_height] = useState(window.innerHeight)

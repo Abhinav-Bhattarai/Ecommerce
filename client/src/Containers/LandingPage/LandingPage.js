@@ -18,6 +18,15 @@ const LandingPage = (props) => {
     const [contact_from, SetContactFrom] = useState('')
     const [contact_reason, SetContactReason] = useState('')
     const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)
+    const [product_list, SetProductList] = useState(null)
+    const [wishlist, SetWishlist] = useState(null)
+
+    // useEffect(()=>{
+    //     axios.get('/wishlist/:username').then((response)=>{
+    //         const data = response.data
+    //         SetWishlist(data)
+    //     })
+    // }, [])
 
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
@@ -166,59 +175,93 @@ const LandingPage = (props) => {
 
     // const InfiniteScroll = ()=>{
     //     if(localStorage.getItem('WishList')){
-    //         const WishListArray = localStorage.getItem('WishList')
+    //         const WishListArray = [...localStorage.getItem('WishList')]
     //         axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //             const data = response.data
+    //             const data = [...response.data]
     //             // implementing binary search O(n^2/2)
+    //             let i = 0
     //             for(i of WishListArray){
     //                 const item = i.item_name
+    //                 const item_id = i.item_id
     //                 const first_letter_wishlist = i.item_name[0]
     //                 const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                 const first_letter_total_product = data[TotalProductMidIndex].ItemName[0]
+    //                 const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
     //                 if(item === data[TotalProductMidIndex]){
+    //                     if(item_id === data[TotalProductMidIndex]._id){
+    //                         data[TotalProductMidIndex].Wishlisted = true
+    //                     }
     //                     // match
     //                 }else{
-    //                     if(first_letter_wishlist > first_letter_total_product){
+    //                     if(first_letter_wishlist > first_letter_total_product_mid_index){
     //                         // to right search
-    //                         for(let j=TotalProductMidIndex; j <= data.length - 1; j++){
+    //                         let j = TotalProductMidIndex
+    //                         for(j; j <= data.length - 1; j++){
     //                             // condditional loop break
+    //                             if(item_id === data[j]._id){
+    //                                 data[j].Wishlisted = true
+    //                             }
+
     //                         }
     //                     }else{
     //                         // to left search
-    //                         for(let k=TotalProductMidIndex; k >= 0; k--){
+    //                         let k = TotalProductMidIndex
+    //                         for(k; k >= 0; k--){
     //                             // conditional loop break
+    //                             if(item_id === data[k]._id){
+    //                                 data[k].Wishlisted = true
+    //                             }
+
     //                         }
     //                     }
     //                 }
     //             }
+    //             const dummy = [...product_list]
+    //             SetProductList(data)
     //         })
     //     }else{
     //         axios.get('/wishlist').then((wishlist)=>{
-    //             const WishListArray = wishlist.data
+    //             const WishListArray = [...wishlist.data]
     //             axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //                 const data = response.data
+    //                 const data = [...response.data]
     //                 // implementing binary search O(n^2/2)
+    //                 let i = 0
     //                 for(i of WishListArray){
     //                     const item = i.item_name
+    //                     const item_id = i.item_id
     //                     const first_letter_wishlist = i.item_name[0]
     //                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                     const first_letter_total_product = data[TotalProductMidIndex].ItemName[0]
+    //                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
     //                     if(item === data[TotalProductMidIndex]){
+    //                         if(item_id === data[TotalProductMidIndex]._id){
+    //                             data[TotalProductMidIndex].Wishlisted = true
+    //                         }
     //                         // match
     //                     }else{
-    //                         if(first_letter_wishlist > first_letter_total_product){
+    //                         if(first_letter_wishlist > first_letter_total_product_mid_index){
     //                             // to right search
-    //                             for(let j=TotalProductMidIndex; j <= data.length - 1; j++){
+    //                             let j = TotalProductMidIndex
+    //                             for(j; j <= data.length - 1; j++){
     //                                 // condditional loop break
+    //                                 if(item_id === data[j]._id){
+    //                                     data[j].Wishlisted = true
+    //                                 }
+    
     //                             }
     //                         }else{
     //                             // to left search
-    //                             for(let k=TotalProductMidIndex; k >= 0; k--){
+    //                             let k=TotalProductMidIndex
+    //                             for(k; k >= 0; k--){
     //                                 // conditional loop break
+    //                                 if(item_id === data[k]._id){
+    //                                     data[k].Wishlisted = true
+    //                                 }
+    
     //                             }
     //                         }
     //                     }
     //                 }
+    //                 const dummy = [...product_list]
+    //                 SetProductList(data)
     //             })
     //         })
     //     }
@@ -226,59 +269,93 @@ const LandingPage = (props) => {
 
     // useEffect(()=>{
     //     if(localStorage.getItem('WishList')){
-    //         const WishListArray = localStorage.getItem('WishList')
-    //         axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //             const data = response.data
+    //         const WishListArray = [...localStorage.getItem('WishList')]
+    //         axios.get(`/products/0`).then((response)=>{
+    //             const data = [...response.data]
     //             // implementing binary search O(n^2/2)
+    //             let i = 0
     //             for(i of WishListArray){
     //                 const item = i.item_name
+    //                 const item_id = i.item_id
     //                 const first_letter_wishlist = i.item_name[0]
     //                 const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                 const first_letter_total_product = data[TotalProductMidIndex].ItemName[0]
+    //                 const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
     //                 if(item === data[TotalProductMidIndex]){
+    //                     if(item_id === data[TotalProductMidIndex]._id){
+    //                         data[TotalProductMidIndex].Wishlisted = true
+    //                     }
     //                     // match
     //                 }else{
-    //                     if(first_letter_wishlist > first_letter_total_product){
+    //                     if(first_letter_wishlist > first_letter_total_product_mid_index){
     //                         // to right search
-    //                         for(let j=TotalProductMidIndex; j <= data.length - 1; j++){
+    //                         let j = TotalProductMidIndex
+    //                         for(j; j <= data.length - 1; j++){
     //                             // condditional loop break
+    //                             if(item_id === data[j]._id){
+    //                                 data[j].Wishlisted = true
+    //                             }
+
     //                         }
     //                     }else{
     //                         // to left search
-    //                         for(let k=TotalProductMidIndex; k >= 0; k--){
+    //                         let k=TotalProductMidIndex
+    //                         for(k; k >= 0; k--){
     //                             // conditional loop break
+    //                             if(item_id === data[k]._id){
+    //                                 data[k].Wishlisted = true
+    //                             }
+
     //                         }
     //                     }
     //                 }
     //             }
+
+    //             SetProductList(data)
     //         })
     //     }else{
     //         axios.get('/wishlist').then((wishlist)=>{
-    //             const WishListArray = wishlist.data
-    //             axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //                 const data = response.data
+    //             const WishListArray = [...wishlist.data]
+    //             axios.get(`/products/0`).then((response)=>{
+    //                 const data = [...response.data]
     //                 // implementing binary search O(n^2/2)
+    //                 let i = 0
     //                 for(i of WishListArray){
     //                     const item = i.item_name
+    //                     const item_id = i.item_id
     //                     const first_letter_wishlist = i.item_name[0]
     //                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                     const first_letter_total_product = data[TotalProductMidIndex].ItemName[0]
+    //                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
     //                     if(item === data[TotalProductMidIndex]){
+    //                         if(item_id === data[TotalProductMidIndex]._id){
+    //                             data[TotalProductMidIndex].Wishlisted = true
+    //                         }
     //                         // match
     //                     }else{
-    //                         if(first_letter_wishlist > first_letter_total_product){
+    //                         if(first_letter_wishlist > first_letter_total_product_mid_index){
     //                             // to right search
-    //                             for(let j=TotalProductMidIndex; j <= data.length - 1; j++){
+    //                             let j = TotalProductMidIndex
+    //                             for(j; j <= data.length - 1; j++){
     //                                 // condditional loop break
+    //                                 if(item_id === data[j]._id){
+    //                                     data[j].Wishlisted = true
+    //                                 }
+    
     //                             }
     //                         }else{
     //                             // to left search
-    //                             for(let k=TotalProductMidIndex; k >= 0; k--){
+    //                             let k=TotalProductMidIndex
+    //                             for(k; k >= 0; k--){
     //                                 // conditional loop break
+    //                                 if(item_id === data[k]._id){
+    //                                     data[k].Wishlisted = true
+    //                                 }
+    
     //                             }
     //                         }
     //                     }
     //                 }
+    
+    //                 SetProductList(data)
     //             })
     //         })
     //     }
@@ -286,7 +363,9 @@ const LandingPage = (props) => {
 
     useEffect(()=>{
        window.addEventListener('scroll', ()=>{
-        //    if(window.scrollY)
+            if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                
+            }
        })
     })
 

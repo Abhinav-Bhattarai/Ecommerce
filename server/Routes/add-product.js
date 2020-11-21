@@ -50,7 +50,7 @@ router.post('/', (req, res)=>{
 router.get('/:n', (req, res)=>{
     const number = req.params.n
     ProductModel.find().sort({'date': 1}).skip(number*10).limit(10).then((response)=>{
-        return res.json(response)
+        return res.json(response.sort({'ItemName': 1}))
     })
 })
 
