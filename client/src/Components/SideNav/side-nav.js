@@ -47,19 +47,19 @@ const SideNav = (props) => {
     return (
        <Fragment>
            <div className='side-nav-container' style={{filter: `blur(${props.blur})`}}>
-                <div className='side-nav-icon-container'>
+                <div className='side-nav-icon-container' data-tool-tip='Home'>
                     <Icon/>
                 </div>
-                <div className='side-nav-icon-container'>
+                <div className='side-nav-icon-container' data-tool-tip='WishList'>
                     <FavoraitesIcon/>
                 </div>
-                <div className='side-nav-icon-container'>
+                <div className='side-nav-icon-container' data-tool-tip='Cart'>
                     <CartIcon/>
                 </div>
-                <div className='side-nav-icon-container'>
+                <div className='side-nav-icon-container' data-tool-tip='History'>
                     <HistoryIcon/>
                 </div>
-                <div className='side-nav-icon-container'>
+                <div className='side-nav-icon-container' data-tool-tip='Sold Items'>
                     <SoldIcon/>
                 </div>
            </div>

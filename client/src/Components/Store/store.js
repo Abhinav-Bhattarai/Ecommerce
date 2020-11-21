@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
-import './store.css';
+import { Switch, Route } from 'react-router-dom';
 import BG from '../../assets/airbnb-bg.jpg';
 import Navbar from '../../Components/NavBar/navbar';
 import SearchBar from '../../Components/SearchBar/searchbar';
@@ -8,7 +8,10 @@ import LandingPageContext from '../../Containers/LandingPage/LandingPageContext'
 import Signup from '../LandingPage/Signup/signup';
 import Login from '../LandingPage/Signin/login';
 import Contact from '../LandingPage/Contact/contact';
-import ProductCards from '../Product-Cards/product-cards';
+import Home from './Routes/HomeRoute/home';
+import Cart from './Routes/CartRoute/cart';
+import SoldItems from './Routes/SoldItemsRoute/sold-items';
+import Wishlist from './Routes/WishlistRoute/wishlist';
 
 const Store = () => {
     const [window_height] = useState(window.innerHeight)
@@ -49,11 +52,14 @@ const Store = () => {
                 <Navbar blur={blur}/>
                 <SearchBar blur={blur}/>
                 <SideNav blur={blur}/>
-                <main className='product-home-container'>
-                    <ProductCards blur={blur}/>
-                    <ProductCards blur={blur}/>
-                    <ProductCards blur={blur}/>
-                </main>
+                <Switch>
+                    <Route exact path='/e-commerce/#home' render={()=><Home blur={blur}/>}/> 
+                    <Route exact path='/e-commerce/#wishList' render={()=><Wishlist blur={blur}/>}/>                    
+                    <Route exact path='/e-commerce/#cartItems' render={()=><Cart blur={blur}/>}/>                    
+                    <Route exact path='/e-commerce/#history' render={()=><History blur={blur}/>}/>
+                    <Route exact path='/e-commerce/#soldItems' render={()=><SoldItems blur={blur}/>}/>
+                    <Route render={()=><Home blur={blur}/>}/>
+                </Switch>
             </article>
             {Signup_jsx}
             {Login_jsx}
