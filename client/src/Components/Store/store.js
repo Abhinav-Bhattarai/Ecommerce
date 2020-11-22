@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import BG from '../../assets/airbnb-bg.jpg';
 import Navbar from '../../Components/NavBar/navbar';
 import SearchBar from '../../Components/SearchBar/searchbar';
@@ -54,11 +54,12 @@ const Store = () => {
                 <SearchBar blur={blur}/>
                 <SideNav blur={blur}/>
                 <Switch>
-                    <Route exact path='/e-commerce/#home' render={()=><Home blur={blur}/>}/> 
-                    <Route exact path='/e-commerce/#wishList' render={()=><Wishlist blur={blur}/>}/>                    
-                    <Route exact path='/e-commerce/#cartItems' render={()=><Cart blur={blur}/>}/>                    
-                    <Route exact path='/e-commerce/#history' render={()=><History blur={blur}/>}/>
-                    <Route exact path='/e-commerce/#soldItems' render={()=><SoldItems blur={blur}/>}/>
+                
+                    <Route exact path='/e-commerce/home' render={()=><Home blur={blur}/>}/> 
+                    <Route exact path='/e-commerce/wishList' render={()=><Wishlist blur={blur}/>}/>                    
+                    <Route exact path='/e-commerce/cartItems' render={()=><Cart blur={blur}/>}/>                    
+                    <Route exact path='/e-commerce/history' render={()=><History blur={blur}/>}/>
+                    <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur}/>}/>
                     <Route render={()=><Home blur={blur}/>}/>
                 </Switch>
             </article>
@@ -70,4 +71,4 @@ const Store = () => {
     )
 }
 
-export default Store
+export default withRouter(Store)

@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import './side-nav.css';
 import { IconContext } from 'react-icons';
 import { FaHistory, FaHome, FaShoppingBag, FaShoppingCart, FaStar } from 'react-icons/fa';
+import StoreContext from '../Store/StoreContext';
+import { withRouter } from 'react-router';
 
 const Icon = ()=>{
     return (
@@ -44,22 +46,23 @@ const SoldIcon = ()=>{
 }
 
 const SideNav = (props) => {
+    const Context = useContext(StoreContext)
     return (
        <Fragment>
            <div className='side-nav-container' style={{filter: `blur(${props.blur})`}}>
-                <div className='side-nav-icon-container' data-tool-tip='Home'>
+                <div className='side-nav-icon-container' onClick={Context.HomeIconClick} data-tool-tip='Home'>
                     <Icon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='WishList'>
+                <div className='side-nav-icon-container' onClick={Context.WishListIconClick} data-tool-tip='WishList'>
                     <FavoraitesIcon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='Cart'>
+                <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={Context.CartIconClick}>
                     <CartIcon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='History'>
+                <div className='side-nav-icon-container' onClick={Context.HistoryIconClick} data-tool-tip='History'>
                     <HistoryIcon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='Sold Items'>
+                <div className='side-nav-icon-container' onClick={Context.SoldItemsIconClick} data-tool-tip='Sold Items'>
                     <SoldIcon/>
                 </div>
            </div>
@@ -67,4 +70,4 @@ const SideNav = (props) => {
     )
 }
 
-export default SideNav
+export default withRouter(SideNav)

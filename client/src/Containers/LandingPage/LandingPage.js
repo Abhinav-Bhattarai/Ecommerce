@@ -3,6 +3,9 @@ import Store from '../../Components/Store/store';
 import LandingPageContext from './LandingPageContext';
 import uuid from 'react-uuid';
 import axios from 'axios';
+import { FaSmile } from 'react-icons/fa';
+import { withRouter } from 'react-router';
+import StoreContext from '../../Components/Store/StoreContext';
 
 const LandingPage = (props) => {
 
@@ -20,6 +23,7 @@ const LandingPage = (props) => {
     const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)
     const [product_list, SetProductList] = useState(null)
     const [wishlist, SetWishlist] = useState(null)
+    const [infinite_scroll_status, SetInfiniteScrollStatus] = useState(false)
 
     // useEffect(()=>{
     //     axios.get('/wishlist/:username').then((response)=>{
@@ -173,101 +177,114 @@ const LandingPage = (props) => {
         }
     }
 
-    // const InfiniteScroll = ()=>{
-    //     if(localStorage.getItem('WishList')){
-    //         const WishListArray = [...localStorage.getItem('WishList')]
-    //         axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //             const data = [...response.data]
-    //             // implementing binary search O(n^2/2)
-    //             let i = 0
-    //             for(i of WishListArray){
-    //                 const item = i.item_name
-    //                 const item_id = i.item_id
-    //                 const first_letter_wishlist = i.item_name[0]
-    //                 const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                 const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-    //                 if(item === data[TotalProductMidIndex]){
-    //                     if(item_id === data[TotalProductMidIndex]._id){
-    //                         data[TotalProductMidIndex].Wishlisted = true
-    //                     }
-    //                     // match
-    //                 }else{
-    //                     if(first_letter_wishlist > first_letter_total_product_mid_index){
-    //                         // to right search
-    //                         let j = TotalProductMidIndex
-    //                         for(j; j <= data.length - 1; j++){
-    //                             // condditional loop break
-    //                             if(item_id === data[j]._id){
-    //                                 data[j].Wishlisted = true
-    //                             }
-
-    //                         }
-    //                     }else{
-    //                         // to left search
-    //                         let k = TotalProductMidIndex
-    //                         for(k; k >= 0; k--){
-    //                             // conditional loop break
-    //                             if(item_id === data[k]._id){
-    //                                 data[k].Wishlisted = true
-    //                             }
-
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             const dummy = [...product_list]
-    //             SetProductList(data)
-    //         })
-    //     }else{
-    //         axios.get('/wishlist').then((wishlist)=>{
-    //             const WishListArray = [...wishlist.data]
-    //             axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //                 const data = [...response.data]
-    //                 // implementing binary search O(n^2/2)
-    //                 let i = 0
-    //                 for(i of WishListArray){
-    //                     const item = i.item_name
-    //                     const item_id = i.item_id
-    //                     const first_letter_wishlist = i.item_name[0]
-    //                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-    //                     if(item === data[TotalProductMidIndex]){
-    //                         if(item_id === data[TotalProductMidIndex]._id){
-    //                             data[TotalProductMidIndex].Wishlisted = true
-    //                         }
-    //                         // match
-    //                     }else{
-    //                         if(first_letter_wishlist > first_letter_total_product_mid_index){
-    //                             // to right search
-    //                             let j = TotalProductMidIndex
-    //                             for(j; j <= data.length - 1; j++){
-    //                                 // condditional loop break
-    //                                 if(item_id === data[j]._id){
-    //                                     data[j].Wishlisted = true
-    //                                 }
+    // FileEncoder To Binary Bit64 and need to apply onChange event listener
+    const FileEncoder = (event)=>{
+        const file = event.target.files[0]
+        console.log(file)
+        const reader = new FileReader()
+        reader.onloadend = ()=>{
+            console.log(reader.result)
+        }
+        reader.readAsDataURL(file)
+    }
     
-    //                             }
-    //                         }else{
-    //                             // to left search
-    //                             let k=TotalProductMidIndex
-    //                             for(k; k >= 0; k--){
-    //                                 // conditional loop break
-    //                                 if(item_id === data[k]._id){
-    //                                     data[k].Wishlisted = true
-    //                                 }
+
+    const InfiniteScroll = ()=>{
+        if(localStorage.getItem('WishList')){
+            const WishListArray = [...localStorage.getItem('WishList')]
+            axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+                const data = [...response.data]
+                // implementing binary search O(n^2/2)
+                let i = 0
+                for(i of WishListArray){
+                    const item = i.item_name
+                    const item_id = i.item_id
+                    const first_letter_wishlist = i.item_name[0]
+                    const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                    const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+                    if(item === data[TotalProductMidIndex]){
+                        if(item_id === data[TotalProductMidIndex]._id){
+                            data[TotalProductMidIndex].Wishlisted = true
+                        }
+                        // match
+                    }else{
+                        if(first_letter_wishlist > first_letter_total_product_mid_index){
+                            // to right search
+                            let j = TotalProductMidIndex
+                            for(j; j <= data.length - 1; j++){
+                                // condditional loop break
+                                if(item_id === data[j]._id){
+                                    data[j].Wishlisted = true
+                                }
+
+                            }
+                        }else{
+                            // to left search
+                            let k = TotalProductMidIndex
+                            for(k; k >= 0; k--){
+                                // conditional loop break
+                                if(item_id === data[k]._id){
+                                    data[k].Wishlisted = true
+                                }
+
+                            }
+                        }
+                    }
+                }
+                const dummy = [...product_list]
+                SetProductList(data)
+            })
+        }else{
+            axios.get('/wishlist').then((wishlist)=>{
+                const WishListArray = [...wishlist.data]
+                axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+                    const data = [...response.data]
+                    // implementing binary search O(n^2/2)
+                    let i = 0
+                    for(i of WishListArray){
+                        const item = i.item_name
+                        const item_id = i.item_id
+                        const first_letter_wishlist = i.item_name[0]
+                        const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                        const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+                        if(item === data[TotalProductMidIndex]){
+                            if(item_id === data[TotalProductMidIndex]._id){
+                                data[TotalProductMidIndex].Wishlisted = true
+                            }
+                            // match
+                        }else{
+                            if(first_letter_wishlist > first_letter_total_product_mid_index){
+                                // to right search
+                                let j = TotalProductMidIndex
+                                for(j; j <= data.length - 1; j++){
+                                    // condditional loop break
+                                    if(item_id === data[j]._id){
+                                        data[j].Wishlisted = true
+                                    }
     
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //                 const dummy = [...product_list]
-    //                 SetProductList(data)
-    //             })
-    //         })
-    //     }
-    // }
+                                }
+                            }else{
+                                // to left search
+                                let k=TotalProductMidIndex
+                                for(k; k >= 0; k--){
+                                    // conditional loop break
+                                    if(item_id === data[k]._id){
+                                        data[k].Wishlisted = true
+                                    }
+    
+                                }
+                            }
+                        }
+                    }
+                    const dummy = [...product_list]
+                    SetProductList(data)
+                })
+            })
+        }
+    }
 
     // useEffect(()=>{
+    //   if(product_list === null){
     //     if(localStorage.getItem('WishList')){
     //         const WishListArray = [...localStorage.getItem('WishList')]
     //         axios.get(`/products/0`).then((response)=>{
@@ -358,19 +375,53 @@ const LandingPage = (props) => {
     //                 SetProductList(data)
     //             })
     //         })
-    //     }
+    //     }}
     // }, [])
 
     useEffect(()=>{
        window.addEventListener('scroll', ()=>{
-            if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-                
-            }
+           if(infinite_scroll_status === false){
+                if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                    // calling Infinite Scroll Option
+                    SetInfiniteScrollStatus(true)
+                    InfiniteScroll()
+                }
+            }   
        })
     })
+    // Side Nav Clicks
+    const HomeIconClick = ()=>{
+        console.log('home')
+        props.history.push('/e-commerce/home')
+    }
+
+    const WishListIconClick = ()=>{
+        console.log('clicked')
+        props.history.push('/e-commerce/wishList')
+    }
+
+    const HistoryIconClick = ()=>{
+        console.log('history')
+        props.history.push('/e-commerce/history')
+    }
+
+    const SoldItemsIconClick = ()=>{
+        props.history.push('/e-commerce/soldItems')
+    }
+
+    const CartIconClick = ()=>{
+        props.history.push('/e-commerce/cartItems')
+    }
 
     return (
         <Fragment>
+            <StoreContext.Provider value={{
+                    HomeIconClick,
+                    WishListIconClick,
+                    HistoryIconClick,
+                    SoldItemsIconClick,
+                    CartIconClick
+            }}>
             <LandingPageContext.Provider value={{
                 TriggerSignupPopup: TriggerSignupPopup,
                 TriggerLoginPopup: TriggerLoginPopup,
@@ -401,8 +452,9 @@ const LandingPage = (props) => {
             }}>
                 <Store/>
             </LandingPageContext.Provider>
+            </StoreContext.Provider>
         </Fragment>
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage)
