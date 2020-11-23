@@ -27,6 +27,10 @@ class Mainroute extends Component {
             })
         }
     }
+    
+    AuthenticationChange = (authenticated)=>{
+        this.setState({authentication_status: !authenticated})
+    }
 
     render() {
         return (
@@ -34,15 +38,15 @@ class Mainroute extends Component {
                 
                     <MainPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/main' exact component={Mainpage}/>
-                            <Route component={Mainpage}/>
+                            <Route path='/main' exact  render={()=><Mainpage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
+                            <Route render={()=><Mainpage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
                         </Switch>
                     </MainPageGuard>
 
                     <LandingPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/main' exact component={LandingPage}/>
-                            <Route component={LandingPage}/>
+                            <Route path='/main' exact render={()=><LandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
+                            <Route render={()=><LandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
                         </Switch>
                     </LandingPageGuard>
                 

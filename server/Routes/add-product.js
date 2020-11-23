@@ -56,8 +56,9 @@ router.get('/:n', (req, res)=>{
 
 router.delete('/:product_id', (req, res)=>{
     ProductModel.findByIdAndDelete(req.params.product_id).then((response)=>{
-        console.log(response)
         return res.json({product_deleted: true})
+    }).catch((err)=>{
+        console.log(err)
     })
 })
 

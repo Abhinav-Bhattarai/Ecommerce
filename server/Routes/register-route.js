@@ -38,14 +38,12 @@ router.post('/', (req, res)=>{
                         }
                     }
                     
-                        console.log(state)
                         if(state){
                         if(username_check && password_check){
                             Data.save().then((response)=>{
                                 const DAY_3 = 84600*3 
                                 jwt.sign(response.toJSON(), process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                                     if(err){
-                                        console.log('jwt error')
                                         return res.json({invalid_credentials: true})
                                     }
                                     const transporter = nodemailer.createTransport({
@@ -63,18 +61,17 @@ router.post('/', (req, res)=>{
                                        html: '<h1 style="margin: 10px auto; text-align: center;">Welcome to Light Web</h1><div style="padding: 10px 2%; margin: 10px auto; font-size: 16px">Please confirm your Email to further continue with LightWeb.</div><a href="https://localhost:3000" style="width: 95%; display:block; margin:10px auto; padding:18px 4%; background-color: #ff374e; color:#fff; font-size:20px; border: none;  border-radius: 10px; margin-top:30px; text-align: center;">Accept to Confirm</a>'
                                     }, (err, info)=>{
                                         if(err){
-                                            console.log(err)
+                                            
                                         }
                                         if(!err){
-                                        console.log(info)}
-                                    })
+                                        
+                                    }})
                                     
 
-                                    return res.json({token})
+                                    return res.json({token, Data})
                                 })
                             })
                         }}else{
-                            console.log('clause error')
                             return res.json({invalid_credentials: true})
                         }
             
