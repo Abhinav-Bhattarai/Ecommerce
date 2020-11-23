@@ -41,15 +41,15 @@ const Mainpage = () => {
 
     
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
-    const FileEncoder = (event)=>{
-        const file = event.target.files[0]
-        console.log(file)
-        const reader = new FileReader()
-        reader.onloadend = ()=>{
-            console.log(reader.result)
-        }
-        reader.readAsDataURL(file)
-    }
+    // const FileEncoder = (event)=>{
+    //     const file = event.target.files[0]
+    //     console.log(file)
+    //     const reader = new FileReader()
+    //     reader.onloadend = ()=>{
+    //         console.log(reader.result)
+    //     }
+    //     reader.readAsDataURL(file)
+    // }
     
 
     const InfiniteScroll = ()=>{
@@ -97,6 +97,7 @@ const Mainpage = () => {
                 const dummy = [...product_list]
                 data.map((element)=>{
                     dummy.push(element)
+                    return null
                 })
                 SetProductList(dummy)
                 SetInfiniteScrollStatus(false)
@@ -206,7 +207,8 @@ const Mainpage = () => {
                 })//
             })
         }}
-    }, [])
+    }, // eslint-disable-next-line
+    []) 
 
     useEffect(()=>{
        window.addEventListener('scroll', ()=>{
