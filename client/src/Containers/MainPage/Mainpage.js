@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import MainPageContext from './MainPageContext';
+import Store from '../../Components/Store/store';
 
 dotenv.config()
 
@@ -15,7 +17,7 @@ const Mainpage = () => {
 
     useEffect(()=>{
         // socket client connections
-        const username = localStorage.getItem('email')
+        const username = localStorage.getItem('Email')
         const ENDPOINT = process.env.PROXY;
         const connection = io.connect(ENDPOINT, {query: {username}})
         connection.emit('join', username)
@@ -39,17 +41,15 @@ const Mainpage = () => {
         }
     })
 
-    
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
-    // const FileEncoder = (event)=>{
-    //     const file = event.target.files[0]
-    //     console.log(file)
-    //     const reader = new FileReader()
-    //     reader.onloadend = ()=>{
-    //         console.log(reader.result)
-    //     }
-    //     reader.readAsDataURL(file)
-    // }
+    const FileEncoder = (event)=>{
+        const file = event.target.files[0]
+        const reader = new FileReader()
+        reader.onloadend = ()=>{
+            console.log(reader.result)
+        }
+        reader.readAsDataURL(file)
+    }
     
 
     const InfiniteScroll = ()=>{
@@ -79,7 +79,6 @@ const Mainpage = () => {
                                 if(item_id === data[j]._id){
                                     data[j].Wishlisted = true
                                 }
-
                             }
                         }else{
                             // to left search
@@ -224,7 +223,9 @@ const Mainpage = () => {
 
     return (
         <Fragment>
-
+            <MainPageContext.Provider value={{}}>
+                <Store/>
+            </MainPageContext.Provider>
         </Fragment>
     )
 }

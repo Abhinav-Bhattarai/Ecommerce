@@ -11,6 +11,7 @@ import ContactRoute from './Routes/Contact-us.js';
 import DeleteRouter from './Routes/deleter.js';
 import ProductRouter from './Routes/add-product.js';
 import WishListRouter from './Routes/wishlist.js';
+import AdminRouter from './Routes/Make-admin.js';
 
 // dot_env config
 dotenv.config()
@@ -41,6 +42,7 @@ app.use('/contact', ContactRoute)
 app.use('/delete', DeleteRouter)
 app.use('/product', ProductRouter)
 app.use('/wishlist', WishListRouter)
+app.use('/admin', AdminRouter)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
