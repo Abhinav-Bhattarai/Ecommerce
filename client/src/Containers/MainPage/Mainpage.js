@@ -53,11 +53,11 @@ const Mainpage = () => {
     
 
     const InfiniteScroll = ()=>{
-        if(wishlist.length >= 1){
-            const WishListArray = [wishlist]
+            const WishListArray = [...wishlist]
             axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
                 const data = [...response.data]
                 // implementing binary search O(n^2/2)
+                if(WishListArray.length >= 1){
                 let i = 0
                 for(i of WishListArray){
                     const item = i.item_name
@@ -93,7 +93,7 @@ const Mainpage = () => {
                             }
                         }
                     }
-                }
+                }}
                 const dummy = [...product_list]
                 data.map((element)=>{
                     dummy.push(element)
@@ -102,9 +102,6 @@ const Mainpage = () => {
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
             })
-        }else{
-
-        }
     }
 
     useEffect(()=>{
@@ -202,6 +199,7 @@ const Mainpage = () => {
                         }
                     }
                     }
+                    SetWishlist(WishListArray)
                     SetProductList(data)
                     SetInfiniteScrollStatus(false)
                     SetInfiniteScrollNum(infinite_scroll_num + 1) 
