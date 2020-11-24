@@ -26,7 +26,7 @@ const ProductCards = (props) => {
                 <img src={ProductImg} alt='Product-img' className='product-card-img'/>
                 <article className='product-description-container'>
                     <header className='product-home-title'>BACKGROUND TITLE</header>
-                    <footer className='product-home-desc'>This is my background if you want to buy this please do contact me from light web. I am totally free to contact at this moment so yeah this is it .... </footer>
+                    <footer className='product-home-desc'>This is my background if you want to buy this please do contact me from light web. I am totally free to contact at this moment so yeah this is it.... </footer>
                     <div className='Product-home-price'>Price: Rs1000</div>
                     <div className='product-home-contact'>Phone: 9861937406</div>
                 </article>

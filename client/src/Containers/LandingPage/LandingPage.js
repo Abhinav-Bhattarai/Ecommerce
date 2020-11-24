@@ -170,12 +170,10 @@ const LandingPage = (props) => {
                 Message: contact_reason
             }
             console.log('hello')
-            axios.post('/contact', context).then((response)=>{
-                console.log(response.data)
-                SetContactFrom('')
-                SetContactReason('')
-                SetContactusPopup(false)
-            })
+            axios.post('/contact', context).then((response)=>{})
+            SetContactFrom('')
+            SetContactReason('')
+            SetContactusPopup(false)
         }
     }
 

@@ -69,9 +69,9 @@
     transition: 0.2s;
 }
 
-.Product-home-price:hover{
+/* .Product-home-price:hover{
     background-color: rgb(238, 77, 71);
-}
+} */
 
 .product-home-contact{
     width: 90%;
@@ -88,6 +88,6 @@
     background-color: rgb(79, 169, 221);
 }
 
-.Product-home-price::after, .product-home-contact::after{
+/* .Product-home-price::after, .product-home-contact::after{
     content: '*';
-}
+} */

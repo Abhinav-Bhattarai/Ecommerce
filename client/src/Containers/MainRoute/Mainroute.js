@@ -1,11 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, Suspense } from 'react';
 import { Route, Switch, withRouter } from 'react-router';
 import axios from 'axios';
 
 import LandingPageGuard from '../../HOC/Guards/LandingPageGuard';
 import MainPageGuard from '../../HOC/Guards/MainPageGuard';
-import LandingPage from '../LandingPage/LandingPage';
-import Mainpage from '../MainPage/Mainpage';
+
+const AsyncMainPage = React.lazy(()=>{
+    return import('../MainPage/Mainpage')
+})
+
+const AsyncLandingPage = React.lazy(()=>{
+    return import('../LandingPage/LandingPage')
+})
 
 class Mainroute extends Component {
 
@@ -38,15 +44,21 @@ class Mainroute extends Component {
                 
                     <MainPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/main' exact  render={()=><Mainpage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
-                            <Route render={()=><Mainpage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
+                            <Route path='/main' exact render={()=><Suspense fallback={<h1>fallback</h1>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
+                            }/>
+                            
+                            <Route render={()=><Suspense fallback={<h1>fallback</h1>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
+                            }/>
                         </Switch>
                     </MainPageGuard>
 
                     <LandingPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/main' exact render={()=><LandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
-                            <Route render={()=><LandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/>}/>
+
+                            <Route path='/main' exact render={()=><Suspense fallback={<h2>hello</h2>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
+
+                            <Route render={()=><Suspense fallback={<h2>hello</h2>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
+
                         </Switch>
                     </LandingPageGuard>
                 
