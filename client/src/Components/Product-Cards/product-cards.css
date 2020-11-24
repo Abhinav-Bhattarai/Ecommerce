@@ -10,10 +10,10 @@
     cursor: pointer;
     transition: background 0.2s;
 }
-
+/* 
 .product-cards:hover{
     background-color: rgba(250, 252, 251, 0.9);
-}
+} */
 
 .product-card-img{
     margin: auto 3%;
@@ -38,7 +38,7 @@
 
 .product-home-desc{
     font-size: 20px;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
 }
 
@@ -58,29 +58,34 @@
 }
 
 .Product-home-price{
-    font-size: 22px;
-    font-weight: 700;
-    color: rgb(54, 136, 79);
-    margin: 5px auto;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 11px 5%;
+    background-color: rgb(64, 204, 59);
+    color: white;
+    margin: 4px auto;
     text-align: start;
-    width: 100%;
+    width: 90%;
+    transition: 0.2s;
+}
+
+.Product-home-price:hover{
+    background-color: rgb(238, 77, 71);
 }
 
 .product-home-contact{
-    width: 100%;
-    font-size: 22px;
-    font-weight: 700;
-    margin: 5px auto;
-    color: rgb(119, 65, 61);
+    width: 90%;
+    padding: 11px 5%;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 4px auto;
+    color: white;
+    background-color: rgb(67, 147, 194);
+    transition: 0.2s;
 }
 
-.product-home-date{
-    position: absolute;
-    font-weight: 400;
-    font-size: 17px;
-    bottom: 5px;
-    color: grey;
-    right: 1%;
+.product-home-contact:hover{
+    background-color: rgb(79, 169, 221);
 }
 
 .Product-home-price::after, .product-home-contact::after{

@@ -191,121 +191,122 @@ const LandingPage = (props) => {
         }
     }
 
-    const InfiniteScroll = ()=>{
-        const WishListArray = [...wishlist]
-        axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-            const data = [...response.data]
-            // implementing binary search O(n^2/2)
-            if(WishListArray.length >= 1){
-            let i = 0
-            for(i of WishListArray){
-                const item = i.item_name
-                const item_id = i.item_id
-                const first_letter_wishlist = i.item_name[0]
-                const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-                const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-                if(item === data[TotalProductMidIndex]){
-                    if(item_id === data[TotalProductMidIndex]._id){
-                        data[TotalProductMidIndex].Wishlisted = true
-                    }
-                    // match
-                }else{
-                    if(first_letter_wishlist > first_letter_total_product_mid_index){
-                        // to right search
-                        let j = TotalProductMidIndex
-                        for(j; j <= data.length - 1; j++){
-                            // condditional loop break
-                            if(item_id === data[j]._id){
-                                data[j].Wishlisted = true
-                            }
 
-                        }
-                    }else{
-                        // to left search
-                        let k = TotalProductMidIndex
-                        for(k; k >= 0; k--){
-                            // conditional loop break
-                            if(item_id === data[k]._id){
-                                data[k].Wishlisted = true
-                            }
+    // const InfiniteScroll = ()=>{
+    //     const WishListArray = [...wishlist]
+    //     axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+    //         const data = [...response.data]
+    //         // implementing binary search O(n^2/2)
+    //         if(WishListArray.length >= 1){
+    //         let i = 0
+    //         for(i of WishListArray){
+    //             const item = i.item_name
+    //             const item_id = i.item_id
+    //             const first_letter_wishlist = i.item_name[0]
+    //             const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+    //             const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+    //             if(item === data[TotalProductMidIndex]){
+    //                 if(item_id === data[TotalProductMidIndex]._id){
+    //                     data[TotalProductMidIndex].Wishlisted = true
+    //                 }
+    //                 // match
+    //             }else{
+    //                 if(first_letter_wishlist > first_letter_total_product_mid_index){
+    //                     // to right search
+    //                     let j = TotalProductMidIndex
+    //                     for(j; j <= data.length - 1; j++){
+    //                         // condditional loop break
+    //                         if(item_id === data[j]._id){
+    //                             data[j].Wishlisted = true
+    //                         }
 
-                        }
-                    }
-                }
-            }}
-            const dummy = [...product_list]
-            data.map((element)=>{
-                dummy.push(element)
-                return null
-            })
-            SetProductList(dummy)
-            SetInfiniteScrollStatus(false)
-            SetInfiniteScrollNum(infinite_scroll_num + 1) 
-        })
-    }
+    //                     }
+    //                 }else{
+    //                     // to left search
+    //                     let k = TotalProductMidIndex
+    //                     for(k; k >= 0; k--){
+    //                         // conditional loop break
+    //                         if(item_id === data[k]._id){
+    //                             data[k].Wishlisted = true
+    //                         }
 
-    useEffect(()=>{
-        if(product_list === null){
-            if(localStorage.getItem('WishList')){
-                const WishListArray = [...localStorage.getItem('WishList')]
-                axios.get(`/products/0`).then((response)=>{
-                    const data = [...response.data]
-                    // implementing binary search O(n^2/2)
-                    let i = 0
-                    for(i of WishListArray){
-                        const item = i.item_name
-                        const item_id = i.item_id
-                        const first_letter_wishlist = i.item_name[0]
-                        const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-                        const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-                        if(item === data[TotalProductMidIndex]){
-                            if(item_id === data[TotalProductMidIndex]._id){
-                                data[TotalProductMidIndex].Wishlisted = true
-                            }
-                            // match
-                        }else{
-                            if(first_letter_wishlist > first_letter_total_product_mid_index){
-                                // to right search
-                                let j = TotalProductMidIndex
-                                for(j; j <= data.length - 1; j++){
-                                    // condditional loop break
-                                    if(item_id === data[j]._id){
-                                        data[j].Wishlisted = true
-                                    }
+    //                     }
+    //                 }
+    //             }
+    //         }}
+    //         const dummy = [...product_list]
+    //         data.map((element)=>{
+    //             dummy.push(element)
+    //             return null
+    //         })
+    //         SetProductList(dummy)
+    //         SetInfiniteScrollStatus(false)
+    //         SetInfiniteScrollNum(infinite_scroll_num + 1) 
+    //     })
+    // }
+
+    // useEffect(()=>{
+    //     if(product_list === null){
+    //         if(localStorage.getItem('WishList')){
+    //             const WishListArray = [...localStorage.getItem('WishList')]
+    //             axios.get(`/products/0`).then((response)=>{
+    //                 const data = [...response.data]
+    //                 // implementing binary search O(n^2/2)
+    //                 let i = 0
+    //                 for(i of WishListArray){
+    //                     const item = i.item_name
+    //                     const item_id = i.item_id
+    //                     const first_letter_wishlist = i.item_name[0]
+    //                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+    //                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+    //                     if(item === data[TotalProductMidIndex]){
+    //                         if(item_id === data[TotalProductMidIndex]._id){
+    //                             data[TotalProductMidIndex].Wishlisted = true
+    //                         }
+    //                         // match
+    //                     }else{
+    //                         if(first_letter_wishlist > first_letter_total_product_mid_index){
+    //                             // to right search
+    //                             let j = TotalProductMidIndex
+    //                             for(j; j <= data.length - 1; j++){
+    //                                 // condditional loop break
+    //                                 if(item_id === data[j]._id){
+    //                                     data[j].Wishlisted = true
+    //                                 }
     
-                                }
-                            }else{
-                                // to left search
-                                let k=TotalProductMidIndex
-                                for(k; k >= 0; k--){
-                                    // conditional loop break
-                                    if(item_id === data[k]._id){
-                                        data[k].Wishlisted = true
-                                    }
+    //                             }
+    //                         }else{
+    //                             // to left search
+    //                             let k=TotalProductMidIndex
+    //                             for(k; k >= 0; k--){
+    //                                 // conditional loop break
+    //                                 if(item_id === data[k]._id){
+    //                                     data[k].Wishlisted = true
+    //                                 }
     
-                                }
-                            }
-                        }
-                    }
-                    SetWishlist(WishListArray)
-                    SetProductList(data)
-                    SetInfiniteScrollStatus(false)
-                    SetInfiniteScrollNum(infinite_scroll_num + 1) 
-                })
-            }}}, // eslint-disable-next-line
-            [])
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 SetWishlist(WishListArray)
+    //                 SetProductList(data)
+    //                 SetInfiniteScrollStatus(false)
+    //                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
+    //             })
+    //         }}}, // eslint-disable-next-line
+    //         [])
 
-    useEffect(()=>{
-       window.addEventListener('scroll', ()=>{
-           if(infinite_scroll_status === false){
-                if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-                    // calling Infinite Scroll Option
-                    SetInfiniteScrollStatus(true)
-                    InfiniteScroll()
-                }
-            }   
-       })
-    })
+    // useEffect(()=>{
+    //    window.addEventListener('scroll', ()=>{
+    //        if(infinite_scroll_status === false){
+    //             if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    //                 // calling Infinite Scroll Option
+    //                 SetInfiniteScrollStatus(true)
+    //                 InfiniteScroll()
+    //             }
+    //         }   
+    //    })
+    // })
 
     // Side Nav Clicks
     const HomeIconClick = ()=>{
@@ -329,6 +330,37 @@ const LandingPage = (props) => {
 
     const CartIconClick = ()=>{
         props.history.push('/e-commerce/cartItems')
+    }
+
+        
+    const TriggerWishlist = (e, wishlist_triggered)=>{
+        if(wishlist_triggered === false){
+            e.target.style.color = ' #ff385c'
+            // const dummy = [...WishList]
+            // dummmy.push({item_id, item_name})
+            // SetWishlist(dummy)
+            // further axios request
+            // const context = {
+            //     item_name: '',
+            //     item_id: ''
+            // }
+            // axios.put('/wishlist/add', context).then((response)=>{
+            //     console.log(response.data)
+            // })
+        }else{
+            e.target.style.color = 'grey'
+            // const dummy = [...WishList]
+            // dummmy.push({item_id, item_name})
+            // SetWishlist(dummy)
+            // further axios request
+            // const context = {
+            //     item_name: '',
+            //     item_id: ''
+            // }
+            // axios.put('/wishlist/remove', context).then((response)=>{
+            //     console.log(response.data)
+            // })
+        }
     }
 
     return (
@@ -366,7 +398,8 @@ const LandingPage = (props) => {
                 contactus_reason: contact_reason,
                 ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
                 ChangeContactusReason: (e)=>{ChangeContactReason(e)},
-                SubmitContact: (e)=>{ContactSubmitHandler(e)}
+                SubmitContact: (e)=>{ContactSubmitHandler(e)},
+                Triggerwishlist: (e, wishlist)=>TriggerWishlist(e, wishlist)
             }}>
                 <Store/>
             </LandingPageContext.Provider>
