@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import BG from '../../assets/airbnb-bg.jpg';
 import Navbar from '../../Components/NavBar/navbar';
 import SearchBar from '../../Components/SearchBar/searchbar';
 import SideNav from '../../Components/SideNav/side-nav';
@@ -36,11 +35,15 @@ const Store = () => {
         blur = '3px'
     }
 
+    useEffect(()=>{
+        console.log('mounted')
+    }, [])
+
     return (
         <Fragment>
             <main>
             <article onClick={Context.ClearScreenHandler}>
-                <img src={BG} alt='bg' className='landingpage-bg' style={{
+                <img src={process.env.PUBLIC_URL + '/airbnb-bg.jpg'} alt='bg' className='landingpage-bg' style={{
                         width: '100%',
                         height: `${window_height}px`,
                         filter: `blur(${blur})`,
