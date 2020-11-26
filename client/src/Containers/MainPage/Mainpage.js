@@ -19,6 +19,10 @@ const Mainpage = (props) => {
     const [contact_from, SetContactFrom] = useState('')
     const [contact_reason, SetContactReason] = useState('')
     const [contactus_popup, SetContactusPopup] = useState(false)
+    const [product_img, SetProductImage] = useState('')
+    const [product_name, SetProductName] = useState('')
+    const [product_price, SetProductPrice] = useState('')
+    const [product_desc, SetProductDesc] = useState('')
 
     useEffect(()=>{
         // socket client connections
@@ -53,9 +57,38 @@ const Mainpage = (props) => {
         const file = event.target.files[0]
         const reader = new FileReader()
         reader.onloadend = ()=>{
+            SetProductImage(reader.result)
         }
         reader.readAsDataURL(file)
     }
+
+    // const ChangeProductName = (event)=>{
+    //     const value = event.target.value
+    //     SetProductName(value)
+    // }
+
+    // const ChangeProductPrice = (event)=>{
+    //     const value = event.target.value
+    //     SetProductPrice(value)
+    // }
+
+    // const ChangeProductDesc = (event)=>{
+    //     const value = event.target.value
+    //     SetProductDesc(value)
+    // }
+
+    // const SubmitProductForSaleHandler = ()=>{
+    //     const Context = {
+    //         Seller: localStorage.getItem('email'),
+    //         Price: product_price,
+    //         Description: product_desc,
+    //         ItemName: product_name,
+    //         Image: product_img
+    //     }
+    //     axios.post('/product', Context).then((response)=>{
+    //         console.log(response.data)
+    //     })
+    // }
     
 
     const InfiniteScroll = ()=>{

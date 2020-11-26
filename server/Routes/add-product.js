@@ -13,7 +13,7 @@ router.post('/', (req, res)=>{
     const ItemName = req.body.ItemName
     const Image = req.body.ProductImage
     const Description = req.body.Description
-
+    // add the phone no too
     // ES6 OP
     const Data = new ProductModel({
         Seller, Price, ItemName, Image, Description
