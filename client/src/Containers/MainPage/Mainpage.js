@@ -5,10 +5,11 @@ import axios from 'axios';
 import MainPageContext from './MainPageContext';
 import Store from '../../Components/Store/store';
 import { withRouter } from 'react-router';
+import uuid from 'react-uuid';
 
 dotenv.config()
 
-const Mainpage = () => {
+const Mainpage = (props) => {
 
     const [socket, SetSocket] = useState(null)
     const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)

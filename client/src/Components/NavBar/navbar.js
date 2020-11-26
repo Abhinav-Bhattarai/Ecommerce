@@ -6,10 +6,8 @@ import './navbar.css';
 
 const Navbar = (props) => {
     const [scroll, SetScroll] = useState(false)
-    let Context = useContext(LandingPageContext)
-    if(props.type){
-        Context = useContext(MainPageContext)
-    }
+    const Context = useContext(LandingPageContext)
+    const Context1 = useContext(MainPageContext)
     window.addEventListener('scroll', ()=>{
         if(scroll === false){
             if(window.scrollY >= 10){
@@ -34,12 +32,12 @@ const Navbar = (props) => {
                 <Logo/>
                 <div className='navbar-items'>USER</div>
                 <div className='navbar-items'>LOGOUT</div>
-                <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context.TriggerContactPopup}>CONTACT</div>
+                <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context1.TriggerContactPopup}>CONTACT</div>
             </nav>:<nav className={`navbar ${className}`} style={{filter: `blur(${props.blur})`}}>
                 <Logo/>
-                <div className='navbar-items' onClick={Context.TriggerLoginPopup}>SIGNIN</div>
-                <div className='navbar-items' onClick={Context.TriggerSignupPopup}>SIGNUP</div>
-                <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context.TriggerContactPopup}>CONTACT</div>
+                <div className='navbar-items' onClick={Context1.TriggerLoginPopup}>SIGNIN</div>
+                <div className='navbar-items' onClick={Context1.TriggerSignupPopup}>SIGNUP</div>
+                <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context1.TriggerContactPopup}>CONTACT</div>
             </nav>
             }
         </Fragment>

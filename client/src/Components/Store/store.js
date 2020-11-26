@@ -16,10 +16,8 @@ import MainPageContext from '../../Containers/MainPage/MainPageContext';
 
 const Store = (props) => {
     const [window_height] = useState(window.innerHeight)
-    let Context = useContext(LandingPageContext)
-    if(props.type){
-        Context = useContext(MainPageContext)
-    }
+    const Context = useContext(LandingPageContext)
+    const Context1 = useContext(MainPageContext)
     let Signup_jsx = null
     let Login_jsx = null
     let Contactus_jsx = null
@@ -39,10 +37,15 @@ const Store = (props) => {
         blur = '3px'
     }
 
+    if(Context1.contactus_popup){
+        Contactus_jsx = <Contact/>
+        blur = '3px'
+    }
+
     return (
         <Fragment>
             <main>
-            <article onClick={Context.ClearScreenHandler}>
+            <article onClick={(props.type)?Context1.ClearScreenHandler:Context.ClearScreenHandler}>
                 <img src={process.env.PUBLIC_URL + '/airbnb-bg.jpg'} alt='bg' className='landingpage-bg' style={{
                         width: '100%',
                         height: `${window_height}px`,
@@ -73,5 +76,6 @@ const Store = (props) => {
         </Fragment>
     )
 }
+
 
 export default withRouter(Store)
