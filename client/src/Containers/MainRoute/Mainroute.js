@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import LandingPageGuard from '../../HOC/Guards/LandingPageGuard';
 import MainPageGuard from '../../HOC/Guards/MainPageGuard';
+import LogoPage from '../../Components/UI/Logo Page/logo-page';
 
 const AsyncMainPage = React.lazy(()=>{
     return import('../MainPage/Mainpage')
@@ -44,10 +45,10 @@ class Mainroute extends Component {
                 
                     <MainPageGuard auth={this.state.authentication_status}>
                         <Switch>
-                            <Route path='/main' exact render={()=><Suspense fallback={<h1>fallback</h1>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
+                            <Route path='/main' exact render={()=><Suspense fallback={<LogoPage/>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
                             }/>
                             
-                            <Route render={()=><Suspense fallback={<h1>fallback</h1>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
+                            <Route render={()=><Suspense fallback={<LogoPage/>}><AsyncMainPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>
                             }/>
                         </Switch>
                     </MainPageGuard>
@@ -55,9 +56,9 @@ class Mainroute extends Component {
                     <LandingPageGuard auth={this.state.authentication_status}>
                         <Switch>
 
-                            <Route path='/main' exact render={()=><Suspense fallback={<h2>hello</h2>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
+                            <Route path='/main' exact render={()=><Suspense fallback={<LogoPage/>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
 
-                            <Route render={()=><Suspense fallback={<h2>hello</h2>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
+                            <Route render={()=><Suspense fallback={<LogoPage/>}><AsyncLandingPage ChangeAuthentication={(status)=>this.AuthenticationChange(status)}/></Suspense>}/>
 
                         </Switch>
                     </LandingPageGuard>

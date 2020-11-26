@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import MainPageContext from './MainPageContext';
 import Store from '../../Components/Store/store';
+import { withRouter } from 'react-router';
 
 dotenv.config()
 
@@ -14,6 +15,9 @@ const Mainpage = () => {
     const [product_list, SetProductList] = useState(null)
     const [wishlist, SetWishlist] = useState([])
     const [infinite_scroll_status, SetInfiniteScrollStatus] = useState(false)
+    const [contact_from, SetContactFrom] = useState('')
+    const [contact_reason, SetContactReason] = useState('')
+    const [contactus_popup, SetContactusPopup] = useState(false)
 
     useEffect(()=>{
         // socket client connections
@@ -23,21 +27,23 @@ const Mainpage = () => {
         connection.emit('join', username)
         SetSocket(connection)
         // axios requests for search algorithm maybe and other things also external endpoints
-        axios.get(`/check/${localStorage.getItem('token')}`).then((response)=>{
-            const data = response.data
-            console.log(data)
-        })
+        // axios.get(`/check/${localStorage.getItem('token')}`).then((response)=>{
+        //     const data = response.data
+        //     console.log(data)
+        // })
         
     }, [])
 
     useEffect(()=>{
         // socket receiver / listerner
-        socket.on('client-receiver', (sender, msg)=>{
-
-        })
-        return ()=>{
-            // reduces socket redundancy
-            socket.off('client-receiver')
+        if(socket){
+            socket.on('client-receiver', (sender, msg)=>{
+                console.log(sender, msg)
+            })
+            return ()=>{
+                // reduces socket redundancy
+                socket.off('client-receiver')
+            }
         }
     })
 
@@ -46,7 +52,6 @@ const Mainpage = () => {
         const file = event.target.files[0]
         const reader = new FileReader()
         reader.onloadend = ()=>{
-            console.log(reader.result)
         }
         reader.readAsDataURL(file)
     }
@@ -102,6 +107,21 @@ const Mainpage = () => {
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
             })
+    }
+
+    const TriggerContactPopup = ()=>{
+        props.history.push(`/${uuid()}/#contact-us`)
+        SetContactusPopup(!contactus_popup)
+    }
+
+    const ChangeContactFrom = (event)=>{
+        const value = event.target.value
+        SetContactFrom(value)
+    }
+
+    const ChangeContactReason = (event)=>{
+        const value = event.target.value
+        SetContactReason(value)
     }
 
     useEffect(()=>{
@@ -221,13 +241,28 @@ const Mainpage = () => {
        })
     })
 
+    const ClearScreenHandler = ()=>{
+        if(contactus_popup){
+            SetContactusPopup(false)
+        }
+    }
+
     return (
         <Fragment>
-            <MainPageContext.Provider value={{}}>
-                <Store/>
+            <MainPageContext.Provider value={{
+                FileEncoder: (e)=>{FileEncoder(e)},
+                ChangeContactFrom: (e)=>ChangeContactFrom(e),
+                ChangeContactReason: (e)=>ChangeContactReason(e),
+                TriggerContactPopup: TriggerContactPopup,
+                contact_from: contact_from,
+                contactus_popup: contactus_popup,
+                contact_reason: contact_reason,
+                ClearScreenHandler
+            }}>
+                <Store type="MainPage"/>
             </MainPageContext.Provider>
         </Fragment>
     )
 }
 
-export default Mainpage
+export default withRouter(Mainpage)

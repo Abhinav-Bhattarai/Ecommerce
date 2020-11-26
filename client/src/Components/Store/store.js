@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import Navbar from '../../Components/NavBar/navbar';
 import SearchBar from '../../Components/SearchBar/searchbar';
@@ -12,10 +12,14 @@ import Cart from './Routes/CartRoute/cart';
 import SoldItems from './Routes/SoldItemsRoute/sold-items';
 import Wishlist from './Routes/WishlistRoute/wishlist';
 import History from './Routes/HistoryRoute/history';
+import MainPageContext from '../../Containers/MainPage/MainPageContext';
 
-const Store = () => {
+const Store = (props) => {
     const [window_height] = useState(window.innerHeight)
-    const Context = useContext(LandingPageContext)
+    let Context = useContext(LandingPageContext)
+    if(props.type){
+        Context = useContext(MainPageContext)
+    }
     let Signup_jsx = null
     let Login_jsx = null
     let Contactus_jsx = null
@@ -35,10 +39,6 @@ const Store = () => {
         blur = '3px'
     }
 
-    useEffect(()=>{
-        console.log('mounted')
-    }, [])
-
     return (
         <Fragment>
             <main>
@@ -53,8 +53,8 @@ const Store = () => {
                         left: '0',
                         zIndex: '-2'
                 }}/>      
-                <Navbar blur={blur}/>
-                <SearchBar blur={blur}/>
+                <Navbar blur={blur} {...props}/>
+                <SearchBar blur={blur} {...props}/>
                 <SideNav blur={blur}/>
                 <Switch>
                 

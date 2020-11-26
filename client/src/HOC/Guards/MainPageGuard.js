@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 const MainPageGuard = (props) => {
     let jsx = null
-    if(props.auth){
+    if(props.auth === true){
         jsx = props.children
     }
     return (

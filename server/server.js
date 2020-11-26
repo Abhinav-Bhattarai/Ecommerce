@@ -22,13 +22,14 @@ const io = socket(server)
 const PORT = process.env.PORT
 const URI = process.env.URI
 
-// middleware 
+// middleware
 
 // allows json entry and dispatch upto 50mb
 app.use(bodyparser.json({limit: '50mb'}))
 
 // socket connection for real-time functions  
 io.on('connection', (socket)=>{
+    socket.emit('client-receiver', 'hi', 'hello')
     socket.on('disconnect', ()=>{
         console.log('user disconnected')
     })

@@ -128,7 +128,8 @@ const LandingPage = (props) => {
                     SetSignupPopup(false)
                     localStorage.clear()
                     localStorage.setItem('User-data', data.Data)
-                    localStorage.setItem('token', data.token)
+                    localStorage.setItem('Email', data.Data.Email)
+                    localStorage.setItem('auth-token', data.token)
                     props.ChangeAuthentication(false)
                     // auth function from parent component
                 }
@@ -153,7 +154,8 @@ const LandingPage = (props) => {
                     SetLoginPopup(false)
                     localStorage.clear()
                     localStorage.setItem('User-data', data.Data)
-                    localStorage.setItem('token', data.token)
+                    localStorage.setItem('Email', data.Data.Email)
+                    localStorage.setItem('auth-token', data.token)
                     props.ChangeAuthentication(false)
                     // auth function from parent component
                 }
@@ -163,13 +165,11 @@ const LandingPage = (props) => {
 
     const ContactSubmitHandler = (event)=>{
         event.preventDefault()
-        console.log('hello from outside')
         if(contact_from.length >= 11 && contact_reason.length >= 10){
             const context = {
                 Username: contact_from,
                 Message: contact_reason
             }
-            console.log('hello')
             axios.post('/contact', context).then((response)=>{})
             SetContactFrom('')
             SetContactReason('')
@@ -190,135 +190,133 @@ const LandingPage = (props) => {
     }
 
 
-    // const InfiniteScroll = ()=>{
-    //     const WishListArray = [...wishlist]
-    //     axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
-    //         const data = [...response.data]
-    //         // implementing binary search O(n^2/2)
-    //         if(WishListArray.length >= 1){
-    //         let i = 0
-    //         for(i of WishListArray){
-    //             const item = i.item_name
-    //             const item_id = i.item_id
-    //             const first_letter_wishlist = i.item_name[0]
-    //             const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //             const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-    //             if(item === data[TotalProductMidIndex]){
-    //                 if(item_id === data[TotalProductMidIndex]._id){
-    //                     data[TotalProductMidIndex].Wishlisted = true
-    //                 }
-    //                 // match
-    //             }else{
-    //                 if(first_letter_wishlist > first_letter_total_product_mid_index){
-    //                     // to right search
-    //                     let j = TotalProductMidIndex
-    //                     for(j; j <= data.length - 1; j++){
-    //                         // condditional loop break
-    //                         if(item_id === data[j]._id){
-    //                             data[j].Wishlisted = true
-    //                         }
+    const InfiniteScroll = ()=>{
+        const WishListArray = [...wishlist]
+        if(product_list){
+        axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+            const data = [...response.data]
+            // implementing binary search O(n^2/2)
+            if(WishListArray.length >= 1){
+            let i = 0
+            for(i of WishListArray){
+                const item = i.item_name
+                const item_id = i.item_id
+                const first_letter_wishlist = i.item_name[0]
+                const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+                if(item === data[TotalProductMidIndex]){
+                    if(item_id === data[TotalProductMidIndex]._id){
+                        data[TotalProductMidIndex].Wishlisted = true
+                    }
+                    // match
+                }else{
+                    if(first_letter_wishlist > first_letter_total_product_mid_index){
+                        // to right search
+                        let j = TotalProductMidIndex
+                        for(j; j <= data.length - 1; j++){
+                            // condditional loop break
+                            if(item_id === data[j]._id){
+                                data[j].Wishlisted = true
+                            }
 
-    //                     }
-    //                 }else{
-    //                     // to left search
-    //                     let k = TotalProductMidIndex
-    //                     for(k; k >= 0; k--){
-    //                         // conditional loop break
-    //                         if(item_id === data[k]._id){
-    //                             data[k].Wishlisted = true
-    //                         }
+                        }
+                    }else{
+                        // to left search
+                        let k = TotalProductMidIndex
+                        for(k; k >= 0; k--){
+                            // conditional loop break
+                            if(item_id === data[k]._id){
+                                data[k].Wishlisted = true
+                            }
 
-    //                     }
-    //                 }
-    //             }
-    //         }}
-    //         const dummy = [...product_list]
-    //         data.map((element)=>{
-    //             dummy.push(element)
-    //             return null
-    //         })
-    //         SetProductList(dummy)
-    //         SetInfiniteScrollStatus(false)
-    //         SetInfiniteScrollNum(infinite_scroll_num + 1) 
-    //     })
-    // }
+                        }
+                    }
+                }
+            }}
+            const dummy = [...product_list]
+            data.map((element)=>{
+                dummy.push(element)
+                return null
+            })
+            SetProductList(dummy)
+            SetInfiniteScrollStatus(false)
+            SetInfiniteScrollNum(infinite_scroll_num + 1) 
+        })}
+    }
 
-    // useEffect(()=>{
-    //     if(product_list === null){
-    //         if(localStorage.getItem('WishList')){
-    //             const WishListArray = [...localStorage.getItem('WishList')]
-    //             axios.get(`/products/0`).then((response)=>{
-    //                 const data = [...response.data]
-    //                 // implementing binary search O(n^2/2)
-    //                 let i = 0
-    //                 for(i of WishListArray){
-    //                     const item = i.item_name
-    //                     const item_id = i.item_id
-    //                     const first_letter_wishlist = i.item_name[0]
-    //                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-    //                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-    //                     if(item === data[TotalProductMidIndex]){
-    //                         if(item_id === data[TotalProductMidIndex]._id){
-    //                             data[TotalProductMidIndex].Wishlisted = true
-    //                         }
-    //                         // match
-    //                     }else{
-    //                         if(first_letter_wishlist > first_letter_total_product_mid_index){
-    //                             // to right search
-    //                             let j = TotalProductMidIndex
-    //                             for(j; j <= data.length - 1; j++){
-    //                                 // condditional loop break
-    //                                 if(item_id === data[j]._id){
-    //                                     data[j].Wishlisted = true
-    //                                 }
+    useEffect(()=>{
+        if(product_list === null){
+            if(localStorage.getItem('WishList')){
+                const WishListArray = [...localStorage.getItem('WishList')]
+                axios.get(`/products/0`).then((response)=>{
+                    const data = [...response.data]
+                    // implementing binary search O(n^2/2)
+                    let i = 0
+                    for(i of WishListArray){
+                        const item = i.item_name
+                        const item_id = i.item_id
+                        const first_letter_wishlist = i.item_name[0]
+                        const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                        const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+                        if(item === data[TotalProductMidIndex]){
+                            if(item_id === data[TotalProductMidIndex]._id){
+                                data[TotalProductMidIndex].Wishlisted = true
+                            }
+                            // match
+                        }else{
+                            if(first_letter_wishlist > first_letter_total_product_mid_index){
+                                // to right search
+                                let j = TotalProductMidIndex
+                                for(j; j <= data.length - 1; j++){
+                                    // condditional loop break
+                                    if(item_id === data[j]._id){
+                                        data[j].Wishlisted = true
+                                    }
     
-    //                             }
-    //                         }else{
-    //                             // to left search
-    //                             let k=TotalProductMidIndex
-    //                             for(k; k >= 0; k--){
-    //                                 // conditional loop break
-    //                                 if(item_id === data[k]._id){
-    //                                     data[k].Wishlisted = true
-    //                                 }
+                                }
+                            }else{
+                                // to left search
+                                let k=TotalProductMidIndex
+                                for(k; k >= 0; k--){
+                                    // conditional loop break
+                                    if(item_id === data[k]._id){
+                                        data[k].Wishlisted = true
+                                    }
     
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //                 SetWishlist(WishListArray)
-    //                 SetProductList(data)
-    //                 SetInfiniteScrollStatus(false)
-    //                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
-    //             })
-    //         }}}, // eslint-disable-next-line
-    //         [])
+                                }
+                            }
+                        }
+                    }
+                    SetWishlist(WishListArray)
+                    SetProductList(data)
+                    SetInfiniteScrollStatus(false)
+                    SetInfiniteScrollNum(infinite_scroll_num + 1) 
+                })
+            }}}, // eslint-disable-next-line
+            [])
 
-    // useEffect(()=>{
-    //    window.addEventListener('scroll', ()=>{
-    //        if(infinite_scroll_status === false){
-    //             if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-    //                 // calling Infinite Scroll Option
-    //                 SetInfiniteScrollStatus(true)
-    //                 InfiniteScroll()
-    //             }
-    //         }   
-    //    })
-    // })
+    useEffect(()=>{
+       window.addEventListener('scroll', ()=>{
+           if(infinite_scroll_status === false){
+                if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                    // calling Infinite Scroll Option
+                    SetInfiniteScrollStatus(true)
+                    InfiniteScroll()
+                }
+            }   
+       })
+    })
 
     // Side Nav Clicks
     const HomeIconClick = ()=>{
-        console.log('home')
         props.history.push('/e-commerce/home')
     }
 
     const WishListIconClick = ()=>{
-        console.log('clicked')
         props.history.push('/e-commerce/wishList')
     }
 
     const HistoryIconClick = ()=>{
-        console.log('history')
         props.history.push('/e-commerce/history')
     }
 
@@ -334,32 +332,33 @@ const LandingPage = (props) => {
     const TriggerWishlist = (e, wishlist_triggered)=>{
         if(wishlist_triggered === false){
             e.target.style.color = ' #ff385c'
-            // const dummy = [...WishList]
+            // const dummy = [...wishlist]
             // dummmy.push({item_id, item_name})
             // SetWishlist(dummy)
+            // localStorage.setItem('WishList', dummy)
             // further axios request
             // const context = {
             //     item_name: '',
             //     item_id: ''
             // }
             // axios.put('/wishlist/add', context).then((response)=>{
-            //     console.log(response.data)
             // })
         }else{
             e.target.style.color = 'grey'
-            // const dummy = [...WishList]
+            // const dummy = [...wishlist]
             // dummmy.push({item_id, item_name})
             // SetWishlist(dummy)
+            // localStorage.setItem('WishList', dummy)
             // further axios request
             // const context = {
             //     item_name: '',
             //     item_id: ''
             // }
             // axios.put('/wishlist/remove', context).then((response)=>{
-            //     console.log(response.data)
             // })
         }
     }
+
 
     return (
         <Fragment>
@@ -368,7 +367,9 @@ const LandingPage = (props) => {
                     WishListIconClick,
                     HistoryIconClick,
                     SoldItemsIconClick,
-                    CartIconClick
+                    CartIconClick,
+                    WishListItems: wishlist,
+                    TotalItems: product_list
             }}>
             <LandingPageContext.Provider value={{
                 TriggerSignupPopup: TriggerSignupPopup,

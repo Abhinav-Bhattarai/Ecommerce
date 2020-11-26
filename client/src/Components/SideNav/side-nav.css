@@ -22,7 +22,7 @@
     justify-content: center;
     margin: 53px auto;
 }
-
+/* 
 .side-nav-icon-container:hover::after{
     content: attr(data-tool-tip);
     position: absolute;
@@ -38,13 +38,13 @@
     display: block;
     right: 0;
     transition: 0.2s;
-}
+} */
 
 .side-nav-icon-container:nth-child(5):hover::after{
     padding: 5px 30%;
 }
 
-.side-nav-icon-container:hover::before{
+/* .side-nav-icon-container:hover::before{
     content: '';
     width: 15px;
     height: 15px;
@@ -52,7 +52,7 @@
     background-color: #fd3358;
     position: absolute;
     right: -36%;
-}
+} */
 
 .sidebar-icon:hover{
     transform: scale(1.2);
