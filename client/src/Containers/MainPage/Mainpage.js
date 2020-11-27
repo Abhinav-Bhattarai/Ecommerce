@@ -62,33 +62,34 @@ const Mainpage = (props) => {
         reader.readAsDataURL(file)
     }
 
-    // const ChangeProductName = (event)=>{
-    //     const value = event.target.value
-    //     SetProductName(value)
-    // }
+    const ChangeProductName = (event)=>{
+        const value = event.target.value
+        SetProductName(value)
+    }
 
-    // const ChangeProductPrice = (event)=>{
-    //     const value = event.target.value
-    //     SetProductPrice(value)
-    // }
+    const ChangeProductPrice = (event)=>{
+        const value = event.target.value
+        SetProductPrice(value)
+    }
 
-    // const ChangeProductDesc = (event)=>{
-    //     const value = event.target.value
-    //     SetProductDesc(value)
-    // }
+    const ChangeProductDesc = (event)=>{
+        const value = event.target.value
+        SetProductDesc(value)
+    }
 
-    // const SubmitProductForSaleHandler = ()=>{
-    //     const Context = {
-    //         Seller: localStorage.getItem('email'),
-    //         Price: product_price,
-    //         Description: product_desc,
-    //         ItemName: product_name,
-    //         Image: product_img
-    //     }
-    //     axios.post('/product', Context).then((response)=>{
-    //         console.log(response.data)
-    //     })
-    // }
+    const SubmitProductForSaleHandler = (event)=>{
+        event.preventDefault()
+        const Context = {
+            Seller: localStorage.getItem('email'),
+            Price: product_price,
+            Description: product_desc,
+            ItemName: product_name,
+            Image: product_img
+        }
+        axios.post('/product', Context).then((response)=>{
+            console.log(response.data)
+        })
+    }
     
 
     const InfiniteScroll = ()=>{
@@ -281,6 +282,20 @@ const Mainpage = (props) => {
         }
     }
 
+    const ContactSubmitHandler = (event)=>{
+        event.preventDefault()
+        if(contact_from.length >= 11 && contact_reason.length >= 10){
+            const context = {
+                Username: contact_from,
+                Message: contact_reason
+            }
+            axios.post('/contact', context).then((response)=>{})
+            SetContactFrom('')
+            SetContactReason('')
+            SetContactusPopup(false)
+        }
+    }
+
     return (
         <Fragment>
             <MainPageContext.Provider value={{
@@ -291,7 +306,16 @@ const Mainpage = (props) => {
                 contact_from: contact_from,
                 contactus_popup: contactus_popup,
                 contact_reason: contact_reason,
-                ClearScreenHandler
+                ClearScreenHandler,
+                SubmitProductForSaleHandler: (e)=>SubmitProductForSaleHandler(e),
+                ChangeProductName: (e)=>ChangeProductName(e),
+                ChangeProductDesc: (e)=>ChangeProductDesc(e),
+                ChangeProductPrice: (e)=>ChangeProductPrice(e),
+                SubmitContactHandler: (e)=>ContactSubmitHandler(e),
+                product_name,
+                product_desc,
+                product_img,
+                product_price
             }}>
                 <Store type="MainPage"/>
             </MainPageContext.Provider>

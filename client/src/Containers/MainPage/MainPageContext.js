@@ -5,10 +5,19 @@ const MainPageContext = React.createContext({
     TriggerContactPopup: ()=>{},
     ChangeContactFrom: ()=>{},
     ChangeContactReason: ()=>{},
+    SubmitContactHandler: ()=>{},
     contact_from: '',
     contact_reason: '',
     contactus_popup: false,
-    ClearScreenHandler: ()=>{}
+    ClearScreenHandler: ()=>{},
+    ChangeProductName: ()=>{},
+    ChangeProductDesc: ()=>{},
+    ChangeProductPrice: ()=>{},
+    product_name: '',
+    product_price: '',
+    product_desc: '',
+    product_image: '',
+    SubmitProductForSaleHandler: ()=>{}
 })
 
 export default MainPageContext

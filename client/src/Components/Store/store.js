@@ -38,7 +38,7 @@ const Store = (props) => {
     }
 
     if(Context1.contactus_popup){
-        Contactus_jsx = <Contact/>
+        Contactus_jsx = <Contact type='MainPage'/>
         blur = '3px'
     }
 
