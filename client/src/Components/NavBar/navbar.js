@@ -35,8 +35,8 @@ const Navbar = (props) => {
                 <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context1.TriggerContactPopup}>CONTACT</div>
             </nav>:<nav className={`navbar ${className}`} style={{filter: `blur(${props.blur})`}}>
                 <Logo/>
-                <div className='navbar-items' onClick={Context1.TriggerLoginPopup}>SIGNIN</div>
-                <div className='navbar-items' onClick={Context1.TriggerSignupPopup}>SIGNUP</div>
+                <div className='navbar-items' onClick={Context.TriggerLoginPopup}>SIGNIN</div>
+                <div className='navbar-items' onClick={Context.TriggerSignupPopup}>SIGNUP</div>
                 <div className={`navbar-items navbar-contact ${contact_bg}`} onClick={Context.TriggerContactPopup}>CONTACT</div>
             </nav>
             }

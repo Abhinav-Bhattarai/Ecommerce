@@ -17,7 +17,8 @@ const MainPageContext = React.createContext({
     product_price: '',
     product_desc: '',
     product_image: '',
-    SubmitProductForSaleHandler: ()=>{}
+    SubmitProductForSaleHandler: ()=>{},
+    TriggerWishList: ()=>{}
 })
 
 export default MainPageContext

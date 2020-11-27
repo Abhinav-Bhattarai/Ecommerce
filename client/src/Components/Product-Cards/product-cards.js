@@ -21,7 +21,7 @@ const ProductCards = (props) => {
     return (
         <Fragment>
             <main className='product-cards' style={{filter: `blur(${props.blur})`}}>
-            <span onClick={WishList}><span onClick={(e)=>Context.Triggerwishlist(e, wishlist_triggered)}><LoveIcon/></span></span>
+            <span onClick={WishList}><span onClick={(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon/></span></span>
                 <img src={props.ProductImage} alt='Product-img' className='product-card-img'/>
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>

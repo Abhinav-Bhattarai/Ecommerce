@@ -127,7 +127,7 @@ const LandingPage = (props) => {
                     SetSignupPhone('')
                     SetSignupPopup(false)
                     localStorage.clear()
-                    localStorage.setItem('User-data', data.Data)
+                    localStorage.setItem('User-data', JSON.stringify(data.Data))
                     localStorage.setItem('Email', data.Data.Email)
                     localStorage.setItem('auth-token', data.token)
                     props.ChangeAuthentication(false)
@@ -153,11 +153,11 @@ const LandingPage = (props) => {
                     SetLoginPassword('')
                     SetLoginPopup(false)
                     localStorage.clear()
-                    localStorage.setItem('User-data', data.Data)
+                    localStorage.setItem('User-data', JSON.stringify(data.Data))
                     localStorage.setItem('Email', data.Data.Email)
                     localStorage.setItem('auth-token', data.token)
-                    props.ChangeAuthentication(false)
                     // auth function from parent component
+                    props.ChangeAuthentication(false)
                 }
             })
         }
@@ -247,7 +247,7 @@ const LandingPage = (props) => {
     useEffect(()=>{
         if(product_list === null){
             if(localStorage.getItem('WishList')){
-                const WishListArray = [...localStorage.getItem('WishList')]
+                const WishListArray = [...localStorage.getItem(JSON.parse('WishList'))]
                 axios.get(`/products/0`).then((response)=>{
                     const data = [...response.data]
                     // implementing binary search O(n^2/2)
@@ -329,33 +329,19 @@ const LandingPage = (props) => {
     }
 
         
-    const TriggerWishlist = (e, wishlist_triggered)=>{
+    const TriggerWishlist = (e, wishlist_triggered, item_id, item_name)=>{
         if(wishlist_triggered === false){
             e.target.style.color = ' #ff385c'
-            // const dummy = [...wishlist]
-            // dummmy.push({item_id, item_name})
-            // SetWishlist(dummy)
-            // localStorage.setItem('WishList', dummy)
-            // further axios request
-            // const context = {
-            //     item_name: '',
-            //     item_id: ''
-            // }
-            // axios.put('/wishlist/add', context).then((response)=>{
-            // })
+            const dummy = [...wishlist]
+            dummy.push({item_id, item_name})
+            SetWishlist(dummy)
+            localStorage.setItem('WishList', JSON.stringify(dummy))
         }else{
             e.target.style.color = 'grey'
-            // const dummy = [...wishlist]
-            // dummmy.push({item_id, item_name})
-            // SetWishlist(dummy)
-            // localStorage.setItem('WishList', dummy)
-            // further axios request
-            // const context = {
-            //     item_name: '',
-            //     item_id: ''
-            // }
-            // axios.put('/wishlist/remove', context).then((response)=>{
-            // })
+            const dummy = [...wishlist]
+            dummy.push({item_id, item_name})
+            SetWishlist(dummy)
+            localStorage.setItem('WishList', JSON.stringify(dummy))
         }
     }
 
@@ -398,7 +384,7 @@ const LandingPage = (props) => {
                 ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
                 ChangeContactusReason: (e)=>{ChangeContactReason(e)},
                 SubmitContact: (e)=>{ContactSubmitHandler(e)},
-                Triggerwishlist: (e, wishlist)=>TriggerWishlist(e, wishlist)
+                Triggerwishlist: (e, wishlist, item_id, item_name)=>TriggerWishlist(e, wishlist, item_id, item_name)
             }}>
                 <Store/>
             </LandingPageContext.Provider>

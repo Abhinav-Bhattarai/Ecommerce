@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import dotenv from 'dotenv';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import MainPageContext from './MainPageContext';
 import Store from '../../Components/Store/store';
 import { withRouter } from 'react-router';
 import uuid from 'react-uuid';
+import StoreContext from '../../Components/Store/StoreContext';
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ const Mainpage = (props) => {
     const [product_name, SetProductName] = useState('')
     const [product_price, SetProductPrice] = useState('')
     const [product_desc, SetProductDesc] = useState('')
+    const InputFile = useRef(null)
 
     useEffect(()=>{
         // socket client connections
@@ -248,7 +250,6 @@ const Mainpage = (props) => {
                                     if(item_id === data[k]._id){
                                         data[k].Wishlisted = true
                                     }
-    
                                 }
                             }
                         }
@@ -261,6 +262,7 @@ const Mainpage = (props) => {
                 })//
             })
         }}
+        console.log(JSON.parse(localStorage.getItem('User-data')))
     }, // eslint-disable-next-line
     []) 
 
@@ -296,29 +298,93 @@ const Mainpage = (props) => {
         }
     }
 
+    const HomeIconClick = ()=>{
+        props.history.push('/e-commerce/home')
+    }
+
+    const WishListIconClick = ()=>{
+        props.history.push('/e-commerce/wishList')
+    }
+
+    const HistoryIconClick = ()=>{
+        props.history.push('/e-commerce/history')
+    }
+
+    const SoldItemsIconClick = ()=>{
+        props.history.push('/e-commerce/soldItems')
+    }
+
+    const CartIconClick = ()=>{
+        props.history.push('/e-commerce/cartItems')
+    }
+
+            
+    const TriggerWishlist = (e, wishlist_triggered, item_id, item_name)=>{
+        if(wishlist_triggered === false){
+            e.target.style.color = ' #ff385c'
+            const dummy = [...wishlist]
+            dummy.push({item_id, item_name})
+            SetWishlist(dummy)
+            localStorage.setItem('WishList', JSON.stringify(dummy))
+            // further axios request
+            const context = {
+                item_name: '',
+                item_id: ''
+            }
+            axios.put('/wishlist/add', context).then((response)=>{
+            })
+        }else{
+            e.target.style.color = 'grey'
+            const dummy = [...wishlist]
+            dummy.push({item_id, item_name})
+            SetWishlist(dummy)
+            localStorage.setItem('WishList', JSON.stringify(dummy))
+            // further axios request
+            const context = {
+                item_name,
+                item_id
+            }
+            axios.put('/wishlist/remove', context).then((response)=>{
+            })
+        }
+    }
+
     return (
         <Fragment>
-            <MainPageContext.Provider value={{
-                FileEncoder: (e)=>{FileEncoder(e)},
-                ChangeContactFrom: (e)=>ChangeContactFrom(e),
-                ChangeContactReason: (e)=>ChangeContactReason(e),
-                TriggerContactPopup: TriggerContactPopup,
-                contact_from: contact_from,
-                contactus_popup: contactus_popup,
-                contact_reason: contact_reason,
-                ClearScreenHandler,
-                SubmitProductForSaleHandler: (e)=>SubmitProductForSaleHandler(e),
-                ChangeProductName: (e)=>ChangeProductName(e),
-                ChangeProductDesc: (e)=>ChangeProductDesc(e),
-                ChangeProductPrice: (e)=>ChangeProductPrice(e),
-                SubmitContactHandler: (e)=>ContactSubmitHandler(e),
-                product_name,
-                product_desc,
-                product_img,
-                product_price
+            <StoreContext.Provider value={{
+                HomeIconClick,
+                WishListIconClick,
+                HistoryIconClick,
+                SoldItemsIconClick,
+                CartIconClick,
+                WishListItems: wishlist,
+                TotalItems: product_list
             }}>
-                <Store type="MainPage"/>
-            </MainPageContext.Provider>
+                <MainPageContext.Provider value={{
+                    FileEncoder: (e)=>{FileEncoder(e)},
+                    ChangeContactFrom: (e)=>ChangeContactFrom(e),
+                    ChangeContactReason: (e)=>ChangeContactReason(e),
+                    TriggerContactPopup: TriggerContactPopup,
+                    contact_from: contact_from,
+                    contactus_popup: contactus_popup,
+                    contact_reason: contact_reason,
+                    ClearScreenHandler,
+                    SubmitProductForSaleHandler: (e)=>SubmitProductForSaleHandler(e),
+                    ChangeProductName: (e)=>ChangeProductName(e),
+                    ChangeProductDesc: (e)=>ChangeProductDesc(e),
+                    ChangeProductPrice: (e)=>ChangeProductPrice(e),
+                    SubmitContactHandler: (e)=>ContactSubmitHandler(e),
+                    TriggerWishList: (e, status, item_name, item_id)=>TriggerWishlist(e, status, item_name, item_id),
+                    product_name,
+                    product_desc,
+                    product_img,
+                    product_price
+                }}>
+                    <Store type="MainPage"/>
+                </MainPageContext.Provider>
+            </StoreContext.Provider>
+            <input type='files' hidden onChange={FileEncoder} ref={InputFile}/>
+
         </Fragment>
     )
 }

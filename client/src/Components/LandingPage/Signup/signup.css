@@ -114,4 +114,9 @@
     background-image: linear-gradient(to right, #fc2d53, rgb(255, 64, 64), rgb(247, 68, 68));
     border: none;
     border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.signup-btn:focus{
+    outline: none;
 }

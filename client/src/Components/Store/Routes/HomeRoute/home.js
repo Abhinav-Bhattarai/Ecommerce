@@ -17,6 +17,7 @@ const Home = (props) => {
                 ProductImage={element.ProductImage} 
                 Description={element.Description} 
                 Wishlisted={element.Wishlisted}
+                _id= {element._id}
             />
             )
         })
