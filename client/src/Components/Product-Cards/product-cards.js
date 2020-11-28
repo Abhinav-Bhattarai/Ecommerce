@@ -3,6 +3,7 @@ import './product-cards.css';
 import { IconContext } from 'react-icons';
 import { FaStar } from 'react-icons/fa';
 import LandingPageContext from '../../Containers/LandingPage/LandingPageContext';
+import MainPageContext from '../../Containers/MainPage/MainPageContext';
 
 const LoveIcon = ()=>{
     return(
@@ -15,13 +16,14 @@ const LoveIcon = ()=>{
 const ProductCards = (props) => {
     const [wishlist_triggered, SetWishlistTrigger] = useState(false)
     const Context = useContext(LandingPageContext)
+    const Context1 = useContext(MainPageContext)
     const WishList = ()=>{
         SetWishlistTrigger(!wishlist_triggered)
     }
     return (
         <Fragment>
             <main className='product-cards' style={{filter: `blur(${props.blur})`}}>
-            <span onClick={WishList}><span onClick={(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon/></span></span>
+            <span onClick={WishList}><span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon/></span></span>
                 <img src={props.ProductImage} alt='Product-img' className='product-card-img'/>
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>

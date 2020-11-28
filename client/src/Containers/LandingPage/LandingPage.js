@@ -152,6 +152,7 @@ const LandingPage = (props) => {
                     SetLoginEmail('')
                     SetLoginPassword('')
                     SetLoginPopup(false)
+                    localStorage.removeItem('WishList')
                     localStorage.clear()
                     localStorage.setItem('User-data', JSON.stringify(data.Data))
                     localStorage.setItem('Email', data.Data.Email)
@@ -193,7 +194,7 @@ const LandingPage = (props) => {
     const InfiniteScroll = ()=>{
         const WishListArray = [...wishlist]
         if(product_list){
-        axios.get(`/products/${infinite_scroll_num}`).then((response)=>{
+        axios.get(`/product/${infinite_scroll_num}`).then((response)=>{
             const data = [...response.data]
             // implementing binary search O(n^2/2)
             if(WishListArray.length >= 1){
@@ -246,9 +247,10 @@ const LandingPage = (props) => {
 
     useEffect(()=>{
         if(product_list === null){
+            console.log(localStorage)
             if(localStorage.getItem('WishList')){
                 const WishListArray = [...localStorage.getItem(JSON.parse('WishList'))]
-                axios.get(`/products/0`).then((response)=>{
+                axios.get(`/product/0`).then((response)=>{
                     const data = [...response.data]
                     // implementing binary search O(n^2/2)
                     let i = 0
@@ -335,13 +337,13 @@ const LandingPage = (props) => {
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})
             SetWishlist(dummy)
-            localStorage.setItem('WishList', JSON.stringify(dummy))
+            // localStorage.setItem('WishList', JSON.stringify(dummy))
         }else{
             e.target.style.color = 'grey'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})
             SetWishlist(dummy)
-            localStorage.setItem('WishList', JSON.stringify(dummy))
+            // localStorage.setItem('WishList', JSON.stringify(dummy))
         }
     }
 

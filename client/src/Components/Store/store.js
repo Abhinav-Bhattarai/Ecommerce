@@ -61,12 +61,12 @@ const Store = (props) => {
                 <SideNav blur={blur}/>
                 <Switch>
                 
-                    <Route exact path='/e-commerce/home' render={()=><Home blur={blur}/>}/> 
-                    <Route exact path='/e-commerce/wishList' render={()=><Wishlist blur={blur}/>}/>                    
-                    <Route exact path='/e-commerce/cartItems' render={()=><Cart blur={blur}/>}/>                    
-                    <Route exact path='/e-commerce/history' render={()=><History blur={blur}/>}/>
-                    <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur}/>}/>
-                    <Route render={()=><Home blur={blur}/>}/>
+                    <Route exact path='/e-commerce/home' render={()=><Home blur={blur} {...props}/>}/> 
+                    <Route exact path='/e-commerce/wishList' render={()=><Wishlist blur={blur} {...props}/>}/>                    
+                    <Route exact path='/e-commerce/cartItems' render={()=><Cart blur={blur} {...props}/>}/>                    
+                    <Route exact path='/e-commerce/history' render={()=><History blur={blur} {...props}/>}/>
+                    <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur} {...props}/>}/>
+                    <Route render={()=><Home blur={blur} {...props}/>}/>
                 </Switch>
             </article>
             {Signup_jsx}

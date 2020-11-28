@@ -29,7 +29,6 @@ class Mainroute extends Component {
                     this.setState({
                         authentication_status: true
                     })
-                    localStorage.setItem('user-info', data)
                 }
             })
         }

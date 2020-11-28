@@ -1,10 +1,10 @@
 import redis from 'redis';
 
-const PORT = 8080
+const PORT = 6767
 const cache = redis.createClient(PORT)
 
-const CacheMiddleware = (req, res)=>{
-    
+const CacheMiddleware = (req, res, next)=>{
+
 }
 
 export default CacheMiddleware

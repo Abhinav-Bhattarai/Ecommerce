@@ -5,7 +5,8 @@ const router = express.Router()
 
 router.get('/:email', (req, res)=>{
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
-        return res.json(response)
+        const data = response[0].WishListedItems
+        return res.json(data)
     })
 })
 

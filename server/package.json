@@ -24,6 +24,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.6",
     "redis": "^3.0.2",
+    "redis-cli": "^2.0.0",
     "socket.io": "^2.3.0"
   }
 }

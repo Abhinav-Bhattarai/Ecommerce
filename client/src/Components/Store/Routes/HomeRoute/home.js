@@ -18,6 +18,7 @@ const Home = (props) => {
                 Description={element.Description} 
                 Wishlisted={element.Wishlisted}
                 _id= {element._id}
+                type={(props.type)?'MainPage':'LandingPage'}
             />
             )
         })
