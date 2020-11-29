@@ -27,8 +27,6 @@ const Mainpage = (props) => {
     const [request_redundancy, SetRequestRedundancy] = useState(false)
     const InputFile = useRef(null)
 
-
-
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
         const file = event.target.files[0]
