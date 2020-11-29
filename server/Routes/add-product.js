@@ -53,8 +53,8 @@ router.post('/', (req, res)=>{
 
 router.get('/:n', (req, res)=>{
     const number = req.params.n
-    ProductModel.find().sort({'date': 1}).skip(number*10).limit(10).then((response)=>{
-        console.log(response.data)
+    // addming two just for checking
+    ProductModel.find().sort({'date': 1}).skip(number*2).limit(2).then((response)=>{
         return res.json(response)
     })
 })

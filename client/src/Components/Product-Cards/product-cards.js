@@ -5,9 +5,13 @@ import { FaStar } from 'react-icons/fa';
 import LandingPageContext from '../../Containers/LandingPage/LandingPageContext';
 import MainPageContext from '../../Containers/MainPage/MainPageContext';
 
-const LoveIcon = ()=>{
+const LoveIcon = (props)=>{
+    let classname = ''
+    if(props.Wishlisted === true){
+        classname = 'wishlisted'
+    }
     return(
-        <IconContext.Provider value={{className: 'heart-icon'}}>
+        <IconContext.Provider value={{className: `heart-icon ${classname}`}}>
             <FaStar/>
         </IconContext.Provider>
     )
@@ -23,7 +27,7 @@ const ProductCards = (props) => {
     return (
         <Fragment>
             <main className='product-cards' style={{filter: `blur(${props.blur})`}}>
-            <span onClick={WishList}><span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon/></span></span>
+            <span onClick={WishList}><span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon Wishlisted={props.Wishlisted}/></span></span>
                 <img src={props.ProductImage} alt='Product-img' className='product-card-img'/>
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>

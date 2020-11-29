@@ -7,9 +7,10 @@ const Home = (props) => {
     const Context = useContext(StoreContext)
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
     if(Context.TotalItems){
-        product_cards_jsx = Context.TotalItems.map((element)=>{
+        product_cards_jsx = Context.TotalItems.map((element, i)=>{
             return (
             <ProductCards
+                key={i}
                 blur={props.blur} 
                 Seller={element.Seller}
                 Price={element.Price}
