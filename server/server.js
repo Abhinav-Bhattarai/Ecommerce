@@ -30,9 +30,9 @@ app.use(bodyparser.json({limit: '50mb'}))
 
 // socket connection for real-time functions  
 io.on('connection', (socket)=>{
-    socket.emit('client-receiver', 'hi', 'hello')
+    console.log('user', socket.handshake.query.username, 'connected')
     socket.on('disconnect', ()=>{
-        console.log('user disconnected')
+        console.log(`user ${socket.handshake.query.username} disconnected`)
     })
 })
 

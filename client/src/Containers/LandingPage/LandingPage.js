@@ -22,7 +22,8 @@ const LandingPage = (props) => {
     const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)
     const [product_list, SetProductList] = useState(null)
     const [wishlist, SetWishlist] = useState(null)
-    const [infinite_scroll_status, SetInfiniteScrollStatus] = useState(false)
+    const [infinite_scroll_status, SetInfiniteScrollStatus] = useState(null)
+    const [request_redundancy, SetRequestRedundancy] = useState(false)
 
     // useEffect(()=>{
     //     axios.get('/wishlist/:username').then((response)=>{
@@ -126,6 +127,7 @@ const LandingPage = (props) => {
                     SetSignupConfirm('')
                     SetSignupPhone('')
                     SetSignupPopup(false)
+                    localStorage.removeItem('WishList')
                     localStorage.clear()
                     localStorage.setItem('User-data', JSON.stringify(data.Data))
                     localStorage.setItem('Email', data.Data.Email)
@@ -190,64 +192,68 @@ const LandingPage = (props) => {
         }
     }
 
-
     const InfiniteScroll = ()=>{
-        const WishListArray = [...wishlist]
-        if(product_list){
-        axios.get(`/product/${infinite_scroll_num}`).then((response)=>{
-            const data = [...response.data]
-            // implementing binary search O(n^2/2)
-            if(WishListArray.length >= 1){
-            let i = 0
-            for(i of WishListArray){
-                const item = i.item_name
-                const item_id = i.item_id
-                const first_letter_wishlist = i.item_name[0]
-                const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
-                const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
-                if(item === data[TotalProductMidIndex]){
-                    if(item_id === data[TotalProductMidIndex]._id){
-                        data[TotalProductMidIndex].Wishlisted = true
-                    }
-                    // match
-                }else{
-                    if(first_letter_wishlist > first_letter_total_product_mid_index){
-                        // to right search
-                        let j = TotalProductMidIndex
-                        for(j; j <= data.length - 1; j++){
-                            // condditional loop break
-                            if(item_id === data[j]._id){
-                                data[j].Wishlisted = true
+        if(request_redundancy === false && product_list){
+            const WishListArray = [...wishlist]
+            axios.get(`/product/${infinite_scroll_num}`).then((response)=>{
+                // implementing binary search O(n^2/2)
+                const data = [...response.data]
+                const main_arr = [...product_list]
+                if(data.length >= 1){
+                if(data[data.length - 1]._id !== main_arr[main_arr.length - 1]._id){
+                    if(WishListArray.length >= 1){
+                    let i = 0
+                    for(i of WishListArray){
+                        const item = i.item_name
+                        const item_id = i.item_id
+                        const first_letter_wishlist = i.item_name[0]
+                        const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
+                        const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
+                        if(item === data[TotalProductMidIndex]){
+                            if(item_id === data[TotalProductMidIndex]._id){
+                                data[TotalProductMidIndex].Wishlisted = true
                             }
+                            // match
+                        }else{
+                            if(first_letter_wishlist > first_letter_total_product_mid_index){
+                                // to right search
+                                let j = TotalProductMidIndex
+                                for(j; j <= data.length - 1; j++){
+                                    // condditional loop break
+                                    if(item_id === data[j]._id){
+                                        data[j].Wishlisted = true
+                                    }
+                                }
+                            }else{
+                                // to left search
+                                let k = TotalProductMidIndex
+                                for(k; k >= 0; k--){
+                                    // conditional loop break
+                                    if(item_id === data[k]._id){
+                                        data[k].Wishlisted = true
+                                    }
 
-                        }
-                    }else{
-                        // to left search
-                        let k = TotalProductMidIndex
-                        for(k; k >= 0; k--){
-                            // conditional loop break
-                            if(item_id === data[k]._id){
-                                data[k].Wishlisted = true
+                                }
                             }
-
-                        }
                     }
+                }}
+                }}else{
+                    SetRequestRedundancy(true)
                 }
-            }}
-            const dummy = [...product_list]
-            data.map((element)=>{
-                dummy.push(element)
-                return null
-            })
-            SetProductList(dummy)
-            SetInfiniteScrollStatus(false)
-            SetInfiniteScrollNum(infinite_scroll_num + 1) 
-        })}
+                const dummy = [...product_list]
+                data.map((element)=>{
+                    dummy.push(element)
+                    return null
+                })
+                SetProductList(dummy)
+                SetInfiniteScrollStatus(false)
+                SetInfiniteScrollNum(infinite_scroll_num + 1)
+
+            })}
     }
 
     useEffect(()=>{
         if(product_list === null){
-            console.log(localStorage)
             if(localStorage.getItem('WishList')){
                 const WishListArray = [...localStorage.getItem(JSON.parse('WishList'))]
                 axios.get(`/product/0`).then((response)=>{
@@ -298,16 +304,24 @@ const LandingPage = (props) => {
             [])
 
     useEffect(()=>{
-       window.addEventListener('scroll', ()=>{
-           if(infinite_scroll_status === false){
-                if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-                    // calling Infinite Scroll Option
-                    SetInfiniteScrollStatus(true)
-                    InfiniteScroll()
-                }
-            }   
-       })
-    })
+        window.addEventListener('scroll', ()=>{
+            if(infinite_scroll_status === false && product_list){
+                if(typeof (product_list.length / 2) === "number"){
+                 if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                     // calling Infinite Scroll Option
+                     SetInfiniteScrollStatus(true)
+                 }
+             }
+             }   
+        })
+     })
+    
+     useEffect(()=>{
+         if(infinite_scroll_status === true){
+             InfiniteScroll()
+         }
+     }, //eslint-disable-next-line 
+     [infinite_scroll_status])
 
     // Side Nav Clicks
     const HomeIconClick = ()=>{

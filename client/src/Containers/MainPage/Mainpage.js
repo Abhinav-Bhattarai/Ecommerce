@@ -27,6 +27,21 @@ const Mainpage = (props) => {
     const [request_redundancy, SetRequestRedundancy] = useState(false)
     const InputFile = useRef(null)
 
+    useEffect(()=>{
+        const connection = io.connect(process.env.PROXY, {query: {username: localStorage.getItem('Email')}})
+        SetSocket(connection)
+    }, [])
+
+    useEffect(()=>{
+        socket.on('receiver', ()=>{
+
+        })
+
+        return ()=>{
+            socket.off('receiver')
+        }
+    })
+
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
         const file = event.target.files[0]
