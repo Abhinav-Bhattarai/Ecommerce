@@ -18,7 +18,7 @@ const LoveIcon = (props)=>{
 }
 
 const ProductCards = (props) => {
-    const [wishlist_triggered, SetWishlistTrigger] = useState(false)
+    const [wishlist_triggered, SetWishlistTrigger] = useState(props.Wishlisted)
     const Context = useContext(LandingPageContext)
     const Context1 = useContext(MainPageContext)
     const WishList = ()=>{

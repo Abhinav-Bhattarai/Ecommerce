@@ -17,18 +17,18 @@ router.put('/:type', (req, res)=>{
     RegistrationModel.findOne({Email: req.body.email}, (err, response)=>{
         if(type === 'add'){
             const data = {item_name, item_id}
-            response.WishListed.push(data)
+            response.WishListedItems.push(data)
             response.save().then(()=>{
                 return res.json({product_added: true})
             })
         }else{
-            const wishlisted = [...response.WishListed]
+            const wishlisted = [...response.WishListedItems]
             wishlisted.filter((product, i)=>{
                 if(product.item_id === item_id){
                     wishlisted.splice(i, 1)
                 }
             })
-            response.WishListed = wishlisted
+            response.WishListedItems = wishlisted
             response.save().then(()=>{
                 return res.json({product_removed: true})
             })
