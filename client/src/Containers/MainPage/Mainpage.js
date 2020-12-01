@@ -53,14 +53,13 @@ const Mainpage = (props) => {
             axios.post('/file', {result: reader.result}).then((response)=>{
             })
             const context = {
-                Seller: 'aweb5031@gmail.com',
+                Seller: localStorage.getItem('Email'),
                 Price: '8000',
                 ItemName: 'Something',
                 ProductImage: reader.result,
-                Description: 'hello world()'
+                Description: "A product description is the marketing copy used to describe a product's value proposition to potential customers. A compelling product description provides customers with details around features, problems it solves and other benefits to help generate a sale. ... A “good” product description will not do."
             }
-            axios.post('/product', context).then((response)=>{
-            })
+            axios.post('/product', context).then((response)=>{})
         }
         reader.readAsDataURL(file)
     }
@@ -83,14 +82,13 @@ const Mainpage = (props) => {
     const SubmitProductForSaleHandler = (event)=>{
         event.preventDefault()
         const Context = {
-            Seller: localStorage.getItem('email'),
+            Seller: localStorage.getItem('Email'),
             Price: product_price,
             Description: product_desc,
             ItemName: product_name,
             Image: product_img
         }
-        axios.post('/product', Context).then((response)=>{
-        })
+        axios.post('/product', Context).then((response)=>{})
     }
     
 
@@ -170,7 +168,6 @@ const Mainpage = (props) => {
     }
 
     useEffect(()=>{
-        console.log(JSON.parse(localStorage.WishList))
         if(product_list === null){
         if(localStorage.getItem('WishList')){
             const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
@@ -369,6 +366,7 @@ const Mainpage = (props) => {
             })
         }
     }
+
 
     return (
         <Fragment>

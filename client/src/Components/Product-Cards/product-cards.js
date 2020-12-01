@@ -18,7 +18,11 @@ const LoveIcon = (props)=>{
 }
 
 const ProductCards = (props) => {
-    const [wishlist_triggered, SetWishlistTrigger] = useState(props.Wishlisted)
+    let state = false
+    if(props.Wishlisted !== undefined){
+        state = props.Wishlisted
+    }
+    const [wishlist_triggered, SetWishlistTrigger] = useState(state)
     const Context = useContext(LandingPageContext)
     const Context1 = useContext(MainPageContext)
     const WishList = ()=>{
@@ -40,4 +44,4 @@ const ProductCards = (props) => {
     )
 }
 
-export default ProductCards
+export default React.memo(ProductCards)
