@@ -1,11 +1,22 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
+import { Route, Switch } from 'react-router';
 import ProductCards from '../../../Product-Cards/product-cards';
 import StoreContext from '../../StoreContext';
+import AllProducts from './all-product';
+import FullProduct from './FullProduct/fullproduct';
 import './home.css';
 
 const Home = (props) => {
     const Context = useContext(StoreContext)
+    const [product_data, SetProductData] = useState(null)
+
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
+
+    const ProductClick = (Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>{
+        SetProductData({Seller, Price, ItemName, ProductImage, Description, Wishlisted})
+        props.history.push(`/products/${ItemName}/${_id}`)
+    }
+
     if(Context.TotalItems){
         product_cards_jsx = Context.TotalItems.map((element, i)=>{
             return (
@@ -20,14 +31,21 @@ const Home = (props) => {
                 Wishlisted={element.Wishlisted}
                 _id= {element._id}
                 type={(props.type)?'MainPage':'LandingPage'}
+                Click={(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>ProductClick(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)}
             />
             )
         })
     }
+
     return (
         <Fragment>
             <main className='product-home-container'>
-                {product_cards_jsx}
+                <Switch>                 
+                    <Route path={`/products/:productname/:id`} exact render={()=>{
+                        return <FullProduct data={product_data}/>
+                    }}/>
+                    <Route render={()=><AllProducts jsx={product_cards_jsx}/>}/>
+                </Switch>
             </main>
         </Fragment>
     )

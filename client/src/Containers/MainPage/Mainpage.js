@@ -25,6 +25,7 @@ const Mainpage = (props) => {
     const [product_price, SetProductPrice] = useState('')
     const [product_desc, SetProductDesc] = useState('')
     const [request_redundancy, SetRequestRedundancy] = useState(false)
+    const [loader, SetLoader] = useState(false)
     const InputFile = useRef(null)
 
     useEffect(()=>{
@@ -93,6 +94,7 @@ const Mainpage = (props) => {
     
 
     const InfiniteScroll = ()=>{
+        
         if(request_redundancy === false){
             const WishListArray = [...wishlist]
             axios.get(`/product/${infinite_scroll_num}`).then((response)=>{
@@ -138,6 +140,7 @@ const Mainpage = (props) => {
                     }
                 }}
                 }}else{
+                    SetLoader(false)
                     SetRequestRedundancy(true)
                 }
                 const dummy = [...product_list]
@@ -148,8 +151,10 @@ const Mainpage = (props) => {
                 SetProductList(dummy)
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1)
-
-            })}
+                SetLoader(false)  
+            })}else{
+                SetLoader(false)
+            }  
     }
 
     const TriggerContactPopup = ()=>{
@@ -273,9 +278,10 @@ const Mainpage = (props) => {
     []) 
 
     useEffect(()=>{
+        
        window.addEventListener('scroll', ()=>{
            if(infinite_scroll_status === false && product_list){
-               if(typeof (product_list.length / 2) === "number"){
+               if(product_list.length >= 10 && typeof (product_list.length / 2) === "number"){
                 if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
                     // calling Infinite Scroll Option
                     SetInfiniteScrollStatus(true)
@@ -287,6 +293,7 @@ const Mainpage = (props) => {
 
     useEffect(()=>{
         if(infinite_scroll_status === true){
+            if(loader === false) SetLoader(true)
             InfiniteScroll()
         }
     }, //eslint-disable-next-line 
@@ -362,8 +369,7 @@ const Mainpage = (props) => {
                 item_id,
                 email: localStorage.getItem('Email')
             }
-            axios.put('/wishlist/remove', context).then((response)=>{
-            })
+            axios.put('/wishlist/remove', context).then((response)=>{})
         }
     }
 
@@ -399,7 +405,7 @@ const Mainpage = (props) => {
                     product_img,
                     product_price
                 }}>
-                    <Store type="MainPage"/>
+                    <Store type="MainPage" loader={loader}/>
                 </MainPageContext.Provider>
             </StoreContext.Provider>
             <input type='file' hidden onChange={FileEncoder} ref={InputFile}/>

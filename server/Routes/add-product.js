@@ -13,10 +13,11 @@ router.post('/', (req, res)=>{
     const ItemName = req.body.ItemName
     const ProductImage = req.body.ProductImage
     const Description = req.body.Description
+    const PostDate = new Date(parseInt(Date.now)).toLocaleDateString()
     // add the phone no too
     // ES6 OP
     const Data = new ProductModel({
-        Seller, Price, ItemName, ProductImage, Description
+        Seller, Price, ItemName, ProductImage, Description, PostDate
     })
 
     Data.save().then(()=>{

@@ -13,8 +13,7 @@ const Schema = new ProductSchema({
     },
 
     PostDate: {
-        type: String,
-        default: new Date(parseInt(Date.now)).toLocaleDateString()
+        type: String
     },
 
     ItemName: {

@@ -13,6 +13,7 @@ import ProductRouter from './Routes/add-product.js';
 import WishListRouter from './Routes/wishlist.js';
 import AdminRouter from './Routes/Make-admin.js';
 import FileRouter from  './Routes/file.js';
+import AlternateProductRoute from './Routes/alternate-product-search.js'; 
 
 // dot_env config
 dotenv.config()
@@ -46,6 +47,7 @@ app.use('/product', ProductRouter)
 app.use('/wishlist', WishListRouter)
 app.use('/admin', AdminRouter)
 app.use('/file', FileRouter)
+app.use('/alternate-product-search', AlternateProductRoute)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
