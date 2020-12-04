@@ -1,4 +1,6 @@
 $background: rgba(253, 251, 250, 0.95);
+$checkoutbg: #ff385c;
+$checkout_hover: #e74966;
 
 @mixin flex(){
     display: flex;
@@ -8,25 +10,127 @@ $background: rgba(253, 251, 250, 0.95);
 
 .fullproduct-container{
     position: relative;
-    width: 75%;
-    padding: 10px 0.5%;
-    height: 400px;
+    width: 65%;
+    padding: 15px 0.5%;
     background-color: $background;
     margin-top: 20px;
     display: flex;
-    flex-direction: row;
-    cursor: pointer;
+    flex-direction: column;
+
+    .full-product-ItemName{
+        text-align: center;
+        font-weight: 500;
+        font-size: 25px;
+        padding: 10px 2%;
+    }
 
     .full-product-image-container{
         @include flex();
-        width: 100%;
+        padding: 10px 1%;
         height: 350px;
+        position: relative;
+
+        .angular-icon-container{
+            position: absolute;
+            top: 47%;
+            left: 4%;
+        }
+
+        .angular-icon-container-2{
+            position: absolute;
+            top: 50%;
+            right: 4%;
+        }
+    }
+
+    .full-product-Description{
+        color: grey;
+        font-size: 18px;
+        padding: 10px 3%;
     }
 
     img{
-        width: 75%;
-        image-resolution: 1025;
+        width: 65%;
+        image-resolution: 1025px;
         height: 100%;
+        border-radius: 10px;
     }
 
+    .full-product-button-container{
+        display: flex;
+        justify-content: space-around;
+        padding: 5px 0%;
+    }
+
+    .full-product-seller-name{
+        display: flex;
+        align-items: center;
+        margin: 10px auto;
+        padding: 1px 3%;
+        &-icon{
+            margin: 0px 2%;
+            margin-right: 1%;
+        }
+
+        &-fullname{
+            font-size: 18px;
+            font-weight: 400;
+            color: rgb(65, 63, 63);
+        }
+
+        &-tag{
+            font-size: 23px;
+            font-weight: 600px;
+        }
+    }
+
+    .full-product-price{
+        width: 43%;
+        @include flex();
+        flex-direction: column;
+        background-color: rgb(40, 216, 40);
+        margin: 2px;
+        padding: 7px 2%;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover{
+            background-color: rgb(52, 231, 52);
+        }
+
+        &-tag{
+            font-weight: 200;
+            font-size: 19px;
+            color: rgb(243, 232, 232);
+            margin: 2px auto;
+        }
+
+        .tag{
+            color: white;
+            letter-spacing: 1px;
+            font-weight: 400;
+            font-size: 22px;
+        }
+
+    }
+
+    .full-product-wishlist{
+        background-color: $checkoutbg;
+        transition: 0.2s;
+
+        &:hover{
+            background-color: $checkout_hover;
+        }
+    }
+
+}
+
+.user-icon{
+    font-size: 42px;
+}
+
+.angular-icon{
+    color: grey;
+    font-size: 35px;
 }
