@@ -4,6 +4,10 @@ import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight, FaUserCircle } from 'react-icons/fa';
 import './fullproduct.scss';
 import { withRouter } from 'react-router';
+import io from 'socket.io-client';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 const UserIcon = ()=>{
     return (
@@ -35,6 +39,40 @@ const FullProduct = (props) => {
 
     const [data, Setdata] = useState(props.data?props.data:null)
     const [invalidity, SetInvalidity] = useState(false)
+    const [socket, SetSocket] = useState(null)
+    const [chat_input, SetChatInput] = useState('')
+    const [chat_list, SetChatList] = useState([])
+
+    useEffect(()=>{
+        if(props.data){
+            const ENDPOINT = process.env.PROXY
+            const connection = io.connect(ENDPOINT, {query: {username: localStorage.getItem('Email')}})
+            connection.emit('join-room', props.match.params.id)
+            SetSocket(connection)
+        }
+    }, [])
+
+    useEffect(()=>{
+        socket.on('client-receiver', (username, msg)=>{
+
+        })
+        return ()=>{
+            socket.off('client-receiver')
+        }
+    })
+
+    const ChangeChatInput = (event)=>{
+        const value = event.target.value
+        SetChatInput(value)
+    }
+
+    const SendMessageHandler = (event)=>{
+        event.preventDefault()
+        socket.emit('server-receiver', localStorage.getItem('Email'), chat_input, props.match.params.id)
+        // adding to comment-list
+        chat_list.push({user: localStorage.getItem('Email'), msg: chat_input})
+        SetChatInput('')
+    }
 
     useEffect(()=>{
         if(props.data === null){
@@ -51,6 +89,17 @@ const FullProduct = (props) => {
         }
     }, // eslint-disable-next-line
     [])
+
+    useEffect(()=>{
+        axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
+            const err = {invalid_id: true}
+            if(JSON.stringify(response.data) !== JSON.stringify(err)){
+                if(response.data.length >= 1){
+                    SetChatList(response.data)
+                }
+            }
+        })
+    }, [])
 
     let product_jsx = null
     if(data){

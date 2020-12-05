@@ -1,14 +1,10 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import io from 'socket.io-client';
-import dotenv from 'dotenv';
 import axios from 'axios';
 import MainPageContext from './MainPageContext';
 import Store from '../../Components/Store/store';
 import { withRouter } from 'react-router';
 import uuid from 'react-uuid';
 import StoreContext from '../../Components/Store/StoreContext';
-
-dotenv.config()
 
 const Mainpage = (props) => {
 
@@ -27,23 +23,6 @@ const Mainpage = (props) => {
     const [request_redundancy, SetRequestRedundancy] = useState(false)
     const [loader, SetLoader] = useState(false)
     const InputFile = useRef(null)
-
-    useEffect(()=>{
-        const connection = io.connect(process.env.PROXY, {query: {username: localStorage.getItem('Email')}})
-        SetSocket(connection)
-    }, [])
-
-    useEffect(()=>{
-        if(socket){
-            socket.on('receiver', ()=>{
-
-            })
-
-            return ()=>{
-                socket.off('receiver')
-            }
-        }
-    })
 
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{

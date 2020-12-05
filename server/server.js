@@ -14,6 +14,8 @@ import WishListRouter from './Routes/wishlist.js';
 import AdminRouter from './Routes/Make-admin.js';
 import FileRouter from  './Routes/file.js';
 import AlternateProductRoute from './Routes/alternate-product-search.js'; 
+import { profanity_list } from './profanity-list.js';
+import ProductReviewMessageRouter from './Routes/product-review-msg.js';
 
 // dot_env config
 dotenv.config()
@@ -30,10 +32,27 @@ const URI = process.env.URI
 app.use(bodyparser.json({limit: '50mb'}))
 
 // socket connection for real-time functions  
-io.on('connection', (socket)=>{
-    console.log('user', socket.handshake.query.username, 'connected')
+io.on('connect', (socket)=>{
+    const username = socket.handshake.query.username
+    socket.on('join-room', (room)=>{
+        socket.join(room)
+    })
+
+    socket.on('server-receiver', (client_id, msg, room)=>{
+        const profanity = profanity_list
+        const safe = profanity.filter((element)=>{
+            const regex_msg = new RegExp(`${element}`, 'g')
+            return regex_msg.exec(msg) !== null
+        })
+        if(JSON.stringify(safe) === "[]"){
+            socket.broadcast.to(room).emit('client-receiver', client_id, msg)
+        }else{
+            socket.emit('client-receiver-vulgarity', 'Profanity-detected')
+        }
+    })
+
     socket.on('disconnect', ()=>{
-        console.log(`user ${socket.handshake.query.username} disconnected`)
+        console.log('user disconnected')
     })
 })
 
@@ -48,6 +67,7 @@ app.use('/wishlist', WishListRouter)
 app.use('/admin', AdminRouter)
 app.use('/file', FileRouter)
 app.use('/alternate-product-search', AlternateProductRoute)
+app.use('/product-review-msg', ProductReviewMessageRouter)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{

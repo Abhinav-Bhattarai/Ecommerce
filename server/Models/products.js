@@ -47,6 +47,11 @@ const Schema = new ProductSchema({
      WishListed: {
          type: Boolean,
          default: false
+     },
+    
+     Messages: {
+         type: [{username: String, msg: String}],
+         default: []
      }
 })
 
