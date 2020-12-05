@@ -46,18 +46,27 @@ const FullProduct = (props) => {
     useEffect(()=>{
         if(props.data){
             const ENDPOINT = process.env.PROXY
-            const connection = io.connect(ENDPOINT, {query: {username: localStorage.getItem('Email')}})
+            const connection = io.connect(ENDPOINT)
             connection.emit('join-room', props.match.params.id)
             SetSocket(connection)
         }
     }, [])
 
     useEffect(()=>{
-        socket.on('client-receiver', (username, msg)=>{
+        if(socket){
+            socket.on('client-receiver', (username, msg)=>{
+                const dummy = [...chat_list]
+                dummy.push({username, msg})
+                SetChatList(dummy)
+            })
 
-        })
-        return ()=>{
-            socket.off('client-receiver')
+            socket.on('client-receiver-vulgarity', (msg)=>{
+                console.log(msg)
+            })
+            return ()=>{
+                socket.off('client-receiver')
+                socket.off('client-receiver-vulgarity')
+            }
         }
     })
 
@@ -70,7 +79,7 @@ const FullProduct = (props) => {
         event.preventDefault()
         socket.emit('server-receiver', localStorage.getItem('Email'), chat_input, props.match.params.id)
         // adding to comment-list
-        chat_list.push({user: localStorage.getItem('Email'), msg: chat_input})
+        chat_list.push({username: localStorage.getItem('Email'), msg: chat_input})
         SetChatInput('')
     }
 
@@ -90,16 +99,29 @@ const FullProduct = (props) => {
     }, // eslint-disable-next-line
     [])
 
-    useEffect(()=>{
-        axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
-            const err = {invalid_id: true}
-            if(JSON.stringify(response.data) !== JSON.stringify(err)){
-                if(response.data.length >= 1){
-                    SetChatList(response.data)
-                }
-            }
-        })
-    }, [])
+    // useEffect(()=>{
+    //     axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
+    //         const err = {invalid_id: true}
+    //         if(JSON.stringify(response.data) !== JSON.stringify(err)){
+    //             if(JSON.parse(response.data.length) >= 1){
+    //                 SetChatList(JSON.parse(response.data))
+    //             }
+    //         }
+    //     })
+    // }, [])
+
+    let comment_jsx = null
+    if(chat_list.length >= 1){
+       const dummy = [...chat_list] 
+       comment_jsx = dummy.map((element, i)=>{
+           return (
+               <main className='chat-area' key={i}>
+                    <div className='chat-area-pic'><UserIcon/></div>
+                    <div className='chat-area-msg'>{element.msg}</div>
+               </main>
+           )
+       })
+    }
 
     let product_jsx = null
     if(data){
@@ -127,6 +149,14 @@ const FullProduct = (props) => {
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>
                 </main>
+                <main className='review-container'>
+                <header className='review-input-container'>
+                    <div className='review-input-pic'><UserIcon/></div>
+                    <input className='review-input' type='text' value={chat_input} onChange={ChangeChatInput} placeholder='Leave a comment'/>
+                    <button className='review-send' onClick={SendMessageHandler}>Send</button>
+                </header>
+                </main>
+                {comment_jsx}
             </main>
         )
     }

@@ -8,7 +8,6 @@ import StoreContext from '../../Components/Store/StoreContext';
 
 const Mainpage = (props) => {
 
-    const [socket, SetSocket] = useState(null)
     const [infinite_scroll_num, SetInfiniteScrollNum] = useState(0)
     const [product_list, SetProductList] = useState(null)
     const [wishlist, SetWishlist] = useState([])

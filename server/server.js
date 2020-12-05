@@ -33,7 +33,6 @@ app.use(bodyparser.json({limit: '50mb'}))
 
 // socket connection for real-time functions  
 io.on('connect', (socket)=>{
-    const username = socket.handshake.query.username
     socket.on('join-room', (room)=>{
         socket.join(room)
     })
@@ -44,6 +43,7 @@ io.on('connect', (socket)=>{
             const regex_msg = new RegExp(`${element}`, 'g')
             return regex_msg.exec(msg) !== null
         })
+        console.log(safe, client_id, msg, room)
         if(JSON.stringify(safe) === "[]"){
             socket.broadcast.to(room).emit('client-receiver', client_id, msg)
         }else{
