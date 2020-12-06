@@ -5,6 +5,7 @@ import Store from '../../Components/Store/store';
 import { withRouter } from 'react-router';
 import uuid from 'react-uuid';
 import StoreContext from '../../Components/Store/StoreContext';
+import LogoPage from '../../Components/UI/Logo Page/logo-page';
 
 const Mainpage = (props) => {
 
@@ -22,6 +23,7 @@ const Mainpage = (props) => {
     const [request_redundancy, SetRequestRedundancy] = useState(false)
     const [loader, SetLoader] = useState(false)
     const InputFile = useRef(null)
+    const [spin_status, SetSpinStatus] = useState(false)
 
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
@@ -137,6 +139,7 @@ const Mainpage = (props) => {
 
     const TriggerContactPopup = ()=>{
         props.history.push(`/${uuid()}/#contact-us`)
+        SetContactFrom(localStorage.getItem('Email'))
         SetContactusPopup(!contactus_popup)
     }
 
@@ -198,6 +201,7 @@ const Mainpage = (props) => {
                 SetProductList(data)
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
+                SetSpinStatus(true)
             })
         }else{
             axios.get(`/wishlist/${localStorage.getItem('Email')}`).then((wishlist)=>{
@@ -242,7 +246,10 @@ const Mainpage = (props) => {
                                 }
                             }
                         }
+                        SetSpinStatus(true)
                     }
+                    }else{
+                        SetSpinStatus(true)
                     }
                     SetWishlist(WishListArray)
                     SetProductList(data)
@@ -354,39 +361,42 @@ const Mainpage = (props) => {
 
     return (
         <Fragment>
-            <StoreContext.Provider value={{
-                HomeIconClick,
-                WishListIconClick,
-                HistoryIconClick,
-                SoldItemsIconClick,
-                CartIconClick,
-                WishListItems: wishlist,
-                TotalItems: product_list
-            }}>
-                <MainPageContext.Provider value={{
-                    FileEncoder: (e)=>{FileEncoder(e)},
-                    ChangeContactFrom: (e)=>ChangeContactFrom(e),
-                    ChangeContactReason: (e)=>ChangeContactReason(e),
-                    TriggerContactPopup: TriggerContactPopup,
-                    contact_from: contact_from,
-                    contactus_popup: contactus_popup,
-                    contact_reason: contact_reason,
-                    ClearScreenHandler,
-                    SubmitProductForSaleHandler: (e)=>SubmitProductForSaleHandler(e),
-                    ChangeProductName: (e)=>ChangeProductName(e),
-                    ChangeProductDesc: (e)=>ChangeProductDesc(e),
-                    ChangeProductPrice: (e)=>ChangeProductPrice(e),
-                    SubmitContactHandler: (e)=>ContactSubmitHandler(e),
-                    TriggerWishList: (e, status, item_name, item_id)=>TriggerWishlist(e, status, item_name, item_id),
-                    product_name,
-                    product_desc,
-                    product_img,
-                    product_price
+            {(spin_status)?
+            <div>
+                <StoreContext.Provider value={{
+                    HomeIconClick,
+                    WishListIconClick,
+                    HistoryIconClick,
+                    SoldItemsIconClick,
+                    CartIconClick,
+                    WishListItems: wishlist,
+                    TotalItems: product_list
                 }}>
-                    <Store type="MainPage" loader={loader}/>
-                </MainPageContext.Provider>
-            </StoreContext.Provider>
-            <input type='file' hidden onChange={FileEncoder} ref={InputFile}/>
+                    <MainPageContext.Provider value={{
+                        FileEncoder: (e)=>{FileEncoder(e)},
+                        ChangeContactFrom: (e)=>ChangeContactFrom(e),
+                        ChangeContactReason: (e)=>ChangeContactReason(e),
+                        TriggerContactPopup: TriggerContactPopup,
+                        contact_from: contact_from,
+                        contactus_popup: contactus_popup,
+                        contact_reason: contact_reason,
+                        ClearScreenHandler,
+                        SubmitProductForSaleHandler: (e)=>SubmitProductForSaleHandler(e),
+                        ChangeProductName: (e)=>ChangeProductName(e),
+                        ChangeProductDesc: (e)=>ChangeProductDesc(e),
+                        ChangeProductPrice: (e)=>ChangeProductPrice(e),
+                        SubmitContactHandler: (e)=>ContactSubmitHandler(e),
+                        TriggerWishList: (e, status, item_name, item_id)=>TriggerWishlist(e, status, item_name, item_id),
+                        product_name,
+                        product_desc,
+                        product_img,
+                        product_price
+                    }}>
+                        <Store type="MainPage" loader={loader}/>
+                    </MainPageContext.Provider>
+                </StoreContext.Provider>
+                <input type='file' hidden onChange={FileEncoder} ref={InputFile}/>
+            </div>: <LogoPage/>}
 
         </Fragment>
     )

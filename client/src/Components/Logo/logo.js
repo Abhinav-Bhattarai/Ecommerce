@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import './logo.css';
 
-const Logo = () => {
+const Logo = (props) => {
     return (
         <Fragment>
-            <div className='LOGO'>LIGHT</div>
+            <div className={(props.type)?'LOGO-2':'LOGO'}>LIGHT</div>
         </Fragment>
     )
 }

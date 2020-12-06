@@ -50,7 +50,8 @@ const FullProduct = (props) => {
             connection.emit('join-room', props.match.params.id)
             SetSocket(connection)
         }
-    }, [])
+    }, //eslint-disable-next-line 
+    [])
 
     useEffect(()=>{
         if(socket){
@@ -77,10 +78,13 @@ const FullProduct = (props) => {
 
     const SendMessageHandler = (event)=>{
         event.preventDefault()
-        socket.emit('server-receiver', localStorage.getItem('Email'), chat_input, props.match.params.id)
-        // adding to comment-list
-        chat_list.push({username: localStorage.getItem('Email'), msg: chat_input})
-        SetChatInput('')
+        if(chat_input.length >= 5){
+            console.log('true')
+            socket.emit('server-receiver', localStorage.getItem('Email'), chat_input, props.match.params.id)
+            // adding to comment-list
+            chat_list.push({username: localStorage.getItem('Email'), msg: chat_input})
+            SetChatInput('')
+        }
     }
 
     useEffect(()=>{
@@ -93,6 +97,10 @@ const FullProduct = (props) => {
                     props.history.push('/main-product')
                 }else{
                     Setdata(response.data)
+                        const ENDPOINT = process.env.PROXY
+                        const connection = io.connect(ENDPOINT)
+                        connection.emit('join-room', props.match.params.id)
+                        SetSocket(connection)
                 }
             })
         }
