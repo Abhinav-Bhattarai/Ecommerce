@@ -30,11 +30,11 @@ const Contact = (props) => {
                 <main className='signup-input-container'>
                     <label>From</label>
                     <div className='signup-input-rel'>
-                        <input type='text' autoFocus className='signup-input' onChange={(props.type)?Context1.ChangeContactFrom:Context.ChangeContactusFrom} value={(props.type)?Context1.contact_from:Context.contactus_from}/>
+                        <input type='text' className='signup-input' spellCheck="false" onChange={(props.type)?Context1.ChangeContactFrom:Context.ChangeContactusFrom} value={(props.type)?Context1.contact_from:Context.contactus_from}/>
                     </div>    
                     <label>Queries / Suggestions</label>
                     <div className='signup-input-rel'>
-                        <textarea type='text' className='signup-input contact-input' onChange={(props.type)?Context1.ChangeContactReason:Context.ChangeContactusReason} value={(props.type)?Context1.contact_reason:Context.contactus_reason}/>
+                        <textarea type='text' autoFocus spellCheck="false" className='signup-input contact-input' onChange={(props.type)?Context1.ChangeContactReason:Context.ChangeContactusReason} value={(props.type)?Context1.contact_reason:Context.contactus_reason}/>
                     </div>
                 </main>
                 <button className='signup-btn'>Send Mail</button>

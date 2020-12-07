@@ -28,13 +28,6 @@ const LandingPage = (props) => {
     const [spin_status, SetSpinStatus] = useState(false)
     const [loader, SetLoader] = useState(false)
 
-    // useEffect(()=>{
-    //     axios.get('/wishlist/:username').then((response)=>{
-    //         const data = response.data
-    //         SetWishlist(data)
-    //     })
-    // }, [])
-
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
         SetSignupPopup(!signup_popup)
@@ -260,12 +253,11 @@ const LandingPage = (props) => {
 
     useEffect(()=>{
         if(product_list === null){
-            if(localStorage.getItem('WishList')){
-                const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
                 axios.get(`/product/0`).then((response)=>{
                     const data = [...response.data]
                     // implementing binary search O(n^2/2)
-                    if(WishListArray.length >= 1){
+                    if(localStorage.getItem('WishList')){
+                    const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
                     let i = 0
                     for(i of WishListArray){
                         const item = i.item_name
@@ -301,23 +293,21 @@ const LandingPage = (props) => {
                                 }
                             }
                         }
+                        SetWishlist(WishListArray)
                     }}else{
                         SetSpinStatus(true)
                     }
-    
-                    SetWishlist(WishListArray)
                     SetProductList(data)
                     SetInfiniteScrollStatus(false)
                     SetInfiniteScrollNum(infinite_scroll_num + 1) 
                 })
-            }
         }}, // eslint-disable-next-line
     [])
 
     useEffect(()=>{
         window.addEventListener('scroll', ()=>{
             if(infinite_scroll_status === false && product_list){
-                if(product_list.length >= 10 && typeof (product_list.length / 2) === "number"){
+                if(product_list.length >= 10 && typeof (product_list.length / 10) === "number"){
                  if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
                      // calling Infinite Scroll Option
                      SetInfiniteScrollStatus(true)

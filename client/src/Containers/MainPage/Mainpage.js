@@ -270,7 +270,7 @@ const Mainpage = (props) => {
         
        window.addEventListener('scroll', ()=>{
            if(infinite_scroll_status === false && product_list){
-               if(product_list.length >= 10 && typeof (product_list.length / 2) === "number"){
+               if(product_list.length >= 10 && typeof (product_list.length / 10) === "number"){
                 if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
                     // calling Infinite Scroll Option
                     SetInfiniteScrollStatus(true)
@@ -361,8 +361,6 @@ const Mainpage = (props) => {
             axios.put('/wishlist/remove', context).then((response)=>{})
         }
     }
-
-    console.log(spin_status)
 
     return (
         <Fragment>

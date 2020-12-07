@@ -28,7 +28,7 @@ const Signup = () => {
                 <main className='signup-input-container'>
                     <label>Email</label>
                     <div className='signup-input-rel'>
-                        <input type='email' autoFocus className='signup-input' onChange={Context.SignupChangeEmail} value={Context.signup_email}/>
+                        <input type='email' autoFocus spellCheck='false' className='signup-input' onChange={Context.SignupChangeEmail} value={Context.signup_email}/>
                     </div>    
                     <label>Password</label>
                     <div className='signup-input-rel'>
@@ -40,7 +40,7 @@ const Signup = () => {
                     </div>
                     <label>Phone no</label>
                     <div className='signup-input-rel'>
-                        <input type='Phone' className='signup-input' onChange={Context.SignupChangePhone} value={Context.signup_phone}/>
+                        <input type='Phone' spellCheck='false' className='signup-input' onChange={Context.SignupChangePhone} value={Context.signup_phone}/>
                     </div>
                 </main>
                 <button className='signup-btn'>Continue to e-commerce</button>

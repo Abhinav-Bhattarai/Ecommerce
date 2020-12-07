@@ -28,7 +28,7 @@ const Login = () => {
                 <main className='signup-input-container'>
                     <label>Email</label>
                     <div className='signup-input-rel'>
-                        <input type='email' autoFocus className='signup-input' onChange={Context.LoginChangeEmail} value={Context.login_email}/>
+                        <input type='email' spellCheck='false' autoFocus className='signup-input' onChange={Context.LoginChangeEmail} value={Context.login_email}/>
                     </div>    
                     <label>Password</label>
                     <div className='signup-input-rel'>
