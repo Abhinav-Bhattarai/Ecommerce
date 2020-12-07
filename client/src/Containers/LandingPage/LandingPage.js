@@ -150,7 +150,7 @@ const LandingPage = (props) => {
             axios.post('/login', context).then((response)=>{
                 const data = response.data
                 const invalidity = {invalid_credentials: true}
-                if(data !== invalidity){
+                if(JSON.stringify(data) !== JSON.stringify(invalidity)){
                     SetLoginEmail('')
                     SetLoginPassword('')
                     SetLoginPopup(false)
@@ -394,7 +394,7 @@ const LandingPage = (props) => {
                 LoginChangeEmail: (e)=>{ChangeLoginEmail(e)},
                 LoginChangePassword: (e)=>{ChangeLoginPassword(e)},
                 SignupSubmitHandler: (e)=>{SignupSubmitHandler(e)},
-                LoginSubmitHandler: (e)=>{LoginSubmitHandler(e)},
+                SubmitLoginHandler: (e)=>{LoginSubmitHandler(e)},
                 contactus_from: contact_from,
                 contactus_reason: contact_reason,
                 ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},

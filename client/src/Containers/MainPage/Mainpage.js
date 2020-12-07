@@ -160,6 +160,7 @@ const Mainpage = (props) => {
             axios.get(`/product/0`).then((response)=>{
                 const data = [...response.data]
                 // implementing binary search O(n^2/2)
+                if(WishListArray.length >= 1){
                 let i = 0
                 for(i of WishListArray){
                     const item = i.item_name
@@ -195,13 +196,14 @@ const Mainpage = (props) => {
                             }
                         }
                     }
+                }}else{
+                    SetSpinStatus(true)
                 }
 
                 SetWishlist(WishListArray)
                 SetProductList(data)
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
-                SetSpinStatus(true)
             })
         }else{
             axios.get(`/wishlist/${localStorage.getItem('Email')}`).then((wishlist)=>{
@@ -211,7 +213,7 @@ const Mainpage = (props) => {
                     if(data.length >= 1){
                     if(WishListArray.length >= 1){
                     localStorage.setItem('WishList', WishListArray)
-                    // implementing binary search O(n^2/2)
+                    // implementing binary search O(n^2/2) complexity = O(1) >= O(n) <= 100
                     let i = 0
                     for(i of WishListArray){
                         const item = i.item_name
@@ -255,6 +257,8 @@ const Mainpage = (props) => {
                     SetProductList(data)
                     SetInfiniteScrollStatus(false)
                     SetInfiniteScrollNum(infinite_scroll_num + 1) 
+                    }else{
+                        SetSpinStatus(true)
                     }
                 })//
             })
@@ -358,6 +362,7 @@ const Mainpage = (props) => {
         }
     }
 
+    console.log(spin_status)
 
     return (
         <Fragment>

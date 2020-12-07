@@ -62,7 +62,6 @@ const FullProduct = (props) => {
             })
 
             socket.on('client-receiver-vulgarity', (msg)=>{
-                console.log(msg)
             })
             return ()=>{
                 socket.off('client-receiver')
@@ -79,10 +78,17 @@ const FullProduct = (props) => {
     const SendMessageHandler = (event)=>{
         event.preventDefault()
         if(chat_input.length >= 5){
-            console.log('true')
             socket.emit('server-receiver', localStorage.getItem('Email'), chat_input, props.match.params.id)
             // adding to comment-list
             chat_list.push({username: localStorage.getItem('Email'), msg: chat_input})
+            const context = {
+                username: localStorage.getItem('Email'),
+                msg: chat_input,
+                id: props.match.params.id
+            }
+            axios.post('/product-review-msg', context).then((response)=>{
+                console.log(response.data)
+            })
             SetChatInput('')
         }
     }
@@ -107,16 +113,17 @@ const FullProduct = (props) => {
     }, // eslint-disable-next-line
     [])
 
-    // useEffect(()=>{
-    //     axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
-    //         const err = {invalid_id: true}
-    //         if(JSON.stringify(response.data) !== JSON.stringify(err)){
-    //             if(JSON.parse(response.data.length) >= 1){
-    //                 SetChatList(JSON.parse(response.data))
-    //             }
-    //         }
-    //     })
-    // }, [])
+    useEffect(()=>{
+        axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
+            const err = {invalid_id: true}
+            if(JSON.stringify(response.data) !== JSON.stringify(err)){
+                if(JSON.parse(response.data.length) >= 1){
+                    SetChatList(JSON.parse(response.data))
+                }
+            }
+        })
+    }, // eslint-disable-next-line
+    [])
 
     let comment_jsx = null
     if(chat_list.length >= 1){

@@ -32,6 +32,8 @@ router.post('/', (req, res)=>{
                 })
             }
         })
+    }else{
+        return res.json({profanity_detected: true})
     }
 })
 
