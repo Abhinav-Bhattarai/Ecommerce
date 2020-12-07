@@ -5,6 +5,7 @@ import uuid from 'react-uuid';
 import axios from 'axios';
 import { withRouter } from 'react-router';
 import StoreContext from '../../Components/Store/StoreContext';
+import LogoPage from '../../Components/UI/Logo Page/logo-page';
 
 const LandingPage = (props) => {
 
@@ -24,6 +25,8 @@ const LandingPage = (props) => {
     const [wishlist, SetWishlist] = useState(null)
     const [infinite_scroll_status, SetInfiniteScrollStatus] = useState(null)
     const [request_redundancy, SetRequestRedundancy] = useState(false)
+    const [spin_status, SetSpinStatus] = useState(false)
+    const [loader, SetLoader] = useState(false)
 
     // useEffect(()=>{
     //     axios.get('/wishlist/:username').then((response)=>{
@@ -193,7 +196,7 @@ const LandingPage = (props) => {
     }
 
     const InfiniteScroll = ()=>{
-        if(request_redundancy === false && product_list){
+        if(request_redundancy === false){
             const WishListArray = [...wishlist]
             axios.get(`/product/${infinite_scroll_num}`).then((response)=>{
                 // implementing binary search O(n^2/2)
@@ -238,6 +241,7 @@ const LandingPage = (props) => {
                     }
                 }}
                 }}else{
+                    SetLoader(false)
                     SetRequestRedundancy(true)
                 }
                 const dummy = [...product_list]
@@ -248,17 +252,20 @@ const LandingPage = (props) => {
                 SetProductList(dummy)
                 SetInfiniteScrollStatus(false)
                 SetInfiniteScrollNum(infinite_scroll_num + 1)
-
-            })}
+                SetLoader(false)  
+            })}else{
+                SetLoader(false)
+            }  
     }
 
     useEffect(()=>{
         if(product_list === null){
             if(localStorage.getItem('WishList')){
-                const WishListArray = [...localStorage.getItem(JSON.parse('WishList'))]
+                const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
                 axios.get(`/product/0`).then((response)=>{
                     const data = [...response.data]
                     // implementing binary search O(n^2/2)
+                    if(WishListArray.length >= 1){
                     let i = 0
                     for(i of WishListArray){
                         const item = i.item_name
@@ -294,19 +301,23 @@ const LandingPage = (props) => {
                                 }
                             }
                         }
+                    }}else{
+                        SetSpinStatus(true)
                     }
+    
                     SetWishlist(WishListArray)
                     SetProductList(data)
                     SetInfiniteScrollStatus(false)
                     SetInfiniteScrollNum(infinite_scroll_num + 1) 
                 })
-            }}}, // eslint-disable-next-line
-            [])
+            }
+        }}, // eslint-disable-next-line
+    [])
 
     useEffect(()=>{
         window.addEventListener('scroll', ()=>{
             if(infinite_scroll_status === false && product_list){
-                if(typeof (product_list.length / 2) === "number"){
+                if(product_list.length >= 10 && typeof (product_list.length / 2) === "number"){
                  if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
                      // calling Infinite Scroll Option
                      SetInfiniteScrollStatus(true)
@@ -314,14 +325,15 @@ const LandingPage = (props) => {
              }
              }   
         })
-     })
+    })
     
-     useEffect(()=>{
-         if(infinite_scroll_status === true){
-             InfiniteScroll()
-         }
-     }, //eslint-disable-next-line 
-     [infinite_scroll_status])
+    useEffect(()=>{
+        if(infinite_scroll_status === true){
+            if(loader === false) SetLoader(true)
+            InfiniteScroll()
+        }
+    }, //eslint-disable-next-line 
+    [infinite_scroll_status])
 
     // Side Nav Clicks
     const HomeIconClick = ()=>{
@@ -364,47 +376,50 @@ const LandingPage = (props) => {
 
     return (
         <Fragment>
-            <StoreContext.Provider value={{
-                    HomeIconClick,
-                    WishListIconClick,
-                    HistoryIconClick,
-                    SoldItemsIconClick,
-                    CartIconClick,
-                    WishListItems: wishlist,
-                    TotalItems: product_list
-            }}>
-            <LandingPageContext.Provider value={{
-                TriggerSignupPopup: TriggerSignupPopup,
-                TriggerLoginPopup: TriggerLoginPopup,
-                Signup_state: signup_popup,
-                Login_state: login_popup,
-                Contactus_state: contactus_popup,
-                ClearScreenHandler: ClearScreenHandler,
-                TriggerContactPopup: TriggerContactPopup,
-                signup_email: signup_email,
-                signup_password,
-                signup_confirm: signup_confirm,
-                signup_phone,
-                login_email,
-                login_password,
-                SignupChangeEmail: (e)=>{ChangeSignupEmail(e)},
-                SignupChangePassword: (e)=>{ChangeSignupPassword(e)},
-                SignupChangeConfirm: (e)=>{ChangeSignupConfirm(e)},
-                SignupChangePhone: (e)=>{ChangeSignupNumber(e)},
-                LoginChangeEmail: (e)=>{ChangeLoginEmail(e)},
-                LoginChangePassword: (e)=>{ChangeLoginPassword(e)},
-                SignupSubmitHandler: (e)=>{SignupSubmitHandler(e)},
-                SubmitLoginHandler: (e)=>{LoginSubmitHandler(e)},
-                contactus_from: contact_from,
-                contactus_reason: contact_reason,
-                ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
-                ChangeContactusReason: (e)=>{ChangeContactReason(e)},
-                SubmitContact: (e)=>{ContactSubmitHandler(e)},
-                Triggerwishlist: (e, wishlist, item_id, item_name)=>TriggerWishlist(e, wishlist, item_id, item_name)
-            }}>
-                <Store/>
-            </LandingPageContext.Provider>
-            </StoreContext.Provider>
+            {(spin_status)?
+            <div>
+                <StoreContext.Provider value={{
+                        HomeIconClick,
+                        WishListIconClick,
+                        HistoryIconClick,
+                        SoldItemsIconClick,
+                        CartIconClick,
+                        WishListItems: wishlist,
+                        TotalItems: product_list
+                }}>
+                <LandingPageContext.Provider value={{
+                    TriggerSignupPopup: TriggerSignupPopup,
+                    TriggerLoginPopup: TriggerLoginPopup,
+                    Signup_state: signup_popup,
+                    Login_state: login_popup,
+                    Contactus_state: contactus_popup,
+                    ClearScreenHandler: ClearScreenHandler,
+                    TriggerContactPopup: TriggerContactPopup,
+                    signup_email: signup_email,
+                    signup_password,
+                    signup_confirm: signup_confirm,
+                    signup_phone,
+                    login_email,
+                    login_password,
+                    SignupChangeEmail: (e)=>{ChangeSignupEmail(e)},
+                    SignupChangePassword: (e)=>{ChangeSignupPassword(e)},
+                    SignupChangeConfirm: (e)=>{ChangeSignupConfirm(e)},
+                    SignupChangePhone: (e)=>{ChangeSignupNumber(e)},
+                    LoginChangeEmail: (e)=>{ChangeLoginEmail(e)},
+                    LoginChangePassword: (e)=>{ChangeLoginPassword(e)},
+                    SignupSubmitHandler: (e)=>{SignupSubmitHandler(e)},
+                    SubmitLoginHandler: (e)=>{LoginSubmitHandler(e)},
+                    contactus_from: contact_from,
+                    contactus_reason: contact_reason,
+                    ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
+                    ChangeContactusReason: (e)=>{ChangeContactReason(e)},
+                    SubmitContact: (e)=>{ContactSubmitHandler(e)},
+                    Triggerwishlist: (e, wishlist, item_id, item_name)=>TriggerWishlist(e, wishlist, item_id, item_name)
+                }}>
+                    <Store/>
+                </LandingPageContext.Provider>
+                </StoreContext.Provider>
+            </div>:<LogoPage/>}
         </Fragment>
     )
 }

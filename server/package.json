@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "client": "cd ../client && npm start",
-    "dev": "concurrently \"npm start\" \"npm run client\""
+    "python": "cd ../Python && python python-api.py",
+    "dev": "concurrently \"npm start\" \"npm run client\" \"npm run python\""
   },
   "author": "Abhinav Bhattarai",
   "license": "MIT",
@@ -21,7 +22,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.11",
     "nodemailer": "^6.4.16",
-    "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.6",
     "redis": "^3.0.2",
     "redis-cli": "^2.0.0",
