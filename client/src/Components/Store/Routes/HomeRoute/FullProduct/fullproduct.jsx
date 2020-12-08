@@ -87,7 +87,6 @@ const FullProduct = (props) => {
                 id: props.match.params.id
             }
             axios.post('/product-review-msg', context).then((response)=>{
-                console.log(response.data)
             })
             SetChatInput('')
         }
@@ -117,8 +116,8 @@ const FullProduct = (props) => {
         axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
             const err = {invalid_id: true}
             if(JSON.stringify(response.data) !== JSON.stringify(err)){
-                if(JSON.parse(response.data.length) >= 1){
-                    SetChatList(JSON.parse(response.data))
+                if(response.data.length >= 1){
+                    SetChatList(response.data)
                 }
             }
         })
@@ -175,6 +174,10 @@ const FullProduct = (props) => {
             </main>
         )
     }
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <Fragment>

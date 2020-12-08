@@ -233,7 +233,7 @@ const Mainpage = (props) => {
                     const data = [...response.data]
                     if(data.length >= 1){
                     if(WishListArray.length >= 1){
-                    localStorage.setItem('WishList', WishListArray)
+                    localStorage.setItem('WishList', JSON.stringify(WishListArray))
                     // implementing binary search O(n^2/2) complexity = O(1) >= O(n) <= 100
                     let i = 0
                     for(i of WishListArray){
@@ -271,7 +271,7 @@ const Mainpage = (props) => {
                                 }
                             }else{
                                 let l = 0
-                                for(l; l <= data.length; l++){
+                                for(l; l <= data.length - 1; l++){
                                     // conditional loop break
                                     if(item_id === data[l]._id){
                                         data[l].Wishlisted = true
