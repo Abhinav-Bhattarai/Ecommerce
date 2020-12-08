@@ -218,17 +218,28 @@ const LandingPage = (props) => {
                                     // condditional loop break
                                     if(item_id === data[j]._id){
                                         data[j].Wishlisted = true
+                                        break
                                     }
                                 }
-                            }else{
+                            }else if(first_letter_wishlist < first_letter_total_product_mid_index){
                                 // to left search
                                 let k = TotalProductMidIndex
                                 for(k; k >= 0; k--){
                                     // conditional loop break
                                     if(item_id === data[k]._id){
                                         data[k].Wishlisted = true
+                                        break
                                     }
 
+                                }
+                            }else{
+                                let l = 0
+                                for(l; l <= data.length; l++){
+                                    // conditional loop break
+                                    if(item_id === data[l]._id){
+                                        data[l].Wishlisted = true
+                                        break
+                                    }
                                 }
                             }
                     }
@@ -278,18 +289,29 @@ const LandingPage = (props) => {
                                     // condditional loop break
                                     if(item_id === data[j]._id){
                                         data[j].Wishlisted = true
+                                        break
                                     }
     
                                 }
-                            }else{
+                            }else if(first_letter_wishlist < first_letter_total_product_mid_index){
                                 // to left search
                                 let k=TotalProductMidIndex
                                 for(k; k >= 0; k--){
                                     // conditional loop break
                                     if(item_id === data[k]._id){
                                         data[k].Wishlisted = true
+                                        break
                                     }
     
+                                }
+                            }else{
+                                let l = 0
+                                for(l; l <= data.length; l++){
+                                    // conditional loop break
+                                    if(item_id === data[l]._id){
+                                        data[l].Wishlisted = true
+                                        break
+                                    }
                                 }
                             }
                         }

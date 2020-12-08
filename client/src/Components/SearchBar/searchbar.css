@@ -35,7 +35,7 @@
     background-color: #ff385c;
     position: absolute;
     top: 2px;
-    right: 23%;
+    right: 22.8%;
 }
 
 .search-bar-rel{
@@ -46,4 +46,15 @@
 
 .search-bar:focus{
     outline: none;
+}
+
+.search-results-container{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateY(-200px);
+    width: 30%;
+    height: 10px;
+    padding: 10px 3%;
+    z-index: 20;
 }
