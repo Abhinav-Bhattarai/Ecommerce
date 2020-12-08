@@ -335,7 +335,6 @@ const LandingPage = (props) => {
                      SetInfiniteScrollStatus(true)
                  }
              }
-             }   
         })
     })
     

@@ -1,8 +1,8 @@
 import React, { Fragment, useContext, useState } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import Navbar from '../../Components/NavBar/navbar';
-import SearchBar from '../../Components/SearchBar/searchbar';
-import SideNav from '../../Components/SideNav/side-nav';
+import Navbar from '../NavBar/navbar';
+import SearchBar from '../SearchBar/searchbar';
+import SideNav from '../SideNav/side-nav';
 import LandingPageContext from '../../Containers/LandingPage/LandingPageContext';
 import Signup from '../LandingPage/Signup/signup';
 import Login from '../LandingPage/Signin/login';
