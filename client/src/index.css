@@ -12,3 +12,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@keyframes click{
+  from{
+    transform: scale(0.9);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+
+button:focus{
+  animation-name: click;
+  animation-duration: 0.5s;
+}

@@ -35,6 +35,10 @@ class Mainroute extends Component {
     }
     
     AuthenticationChange = (authenticated)=>{
+        if(authenticated){
+            localStorage.clear()
+        }
+        localStorage.setItem('authentication-status', !authenticated)
         this.setState({authentication_status: !authenticated})
     }
 

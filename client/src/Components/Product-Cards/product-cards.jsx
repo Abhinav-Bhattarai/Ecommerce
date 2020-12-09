@@ -7,7 +7,7 @@ import MainPageContext from '../../Containers/MainPage/MainPageContext';
 
 const LoveIcon = (props)=>{
     let classname = ''
-    if(props.Wishlisted === true){
+    if(props.WishListed === true){
         classname = 'wishlisted'
     }
     return(
@@ -19,8 +19,8 @@ const LoveIcon = (props)=>{
 
 const ProductCards = (props) => {
     let state = false
-    if(props.Wishlisted !== undefined){
-        state = props.Wishlisted
+    if(props.WishListed !== undefined){
+        state = props.WishListed
     }
     const [wishlist_triggered, SetWishlistTrigger] = useState(state)
     const Context = useContext(LandingPageContext)
@@ -30,8 +30,8 @@ const ProductCards = (props) => {
     }
     return (
         <Fragment>
-            <main className='product-cards' style={{filter: `blur(${props.blur})`}}  onClick={props.Click.bind(this, props.Seller, props.Price, props.ItemName, props.ProductImage, props.Description, props.Wishlisted, props._id)}>
-            <span onClick={WishList}><span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon Wishlisted={props.Wishlisted}/></span></span>
+            <main className='product-cards' style={{filter: `blur(${props.blur})`}}  onClick={props.Click.bind(this, props.Seller, props.Price, props.ItemName, props.ProductImage, props.Description, props.WishListed, props._id)}>
+            <span onClick={WishList}><span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName)}><LoveIcon WishListed={props.WishListed}/></span></span>
                 <img src={props.ProductImage} alt='Product-img' className='product-card-img'/>
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>

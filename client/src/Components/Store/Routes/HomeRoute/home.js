@@ -28,10 +28,10 @@ const Home = (props) => {
                 ItemName={element.ItemName}
                 ProductImage={element.ProductImage} 
                 Description={element.Description} 
-                Wishlisted={element.Wishlisted}
+                WishListed={element.WishListed}
                 _id= {element._id}
                 type={(props.type)?'MainPage':'LandingPage'}
-                Click={(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>ProductClick(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)}
+                Click={(e, Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>ProductClick(e, Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)}
             />
             )
         })

@@ -93,7 +93,7 @@ const Mainpage = (props) => {
                         const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
                         if(item === data[TotalProductMidIndex]){
                             if(item_id === data[TotalProductMidIndex]._id){
-                                data[TotalProductMidIndex].Wishlisted = true
+                                data[TotalProductMidIndex].WishListed = true
                             }
                             // match
                         }else{
@@ -103,7 +103,7 @@ const Mainpage = (props) => {
                                 for(j; j <= data.length - 1; j++){
                                     // condditional loop break
                                     if(item_id === data[j]._id){
-                                        data[j].Wishlisted = true
+                                        data[j].WishListed = true
                                         break
                                     }
                                 }
@@ -113,7 +113,7 @@ const Mainpage = (props) => {
                                 for(k; k >= 0; k--){
                                     // conditional loop break
                                     if(item_id === data[k]._id){
-                                        data[k].Wishlisted = true
+                                        data[k].WishListed = true
                                         break
                                     }
 
@@ -123,7 +123,7 @@ const Mainpage = (props) => {
                                 for(l; l <= data.length; l++){
                                     // conditional loop break
                                     if(item_id === data[l]._id){
-                                        data[l].Wishlisted = true
+                                        data[l].WishListed = true
                                         break
                                     }
                                 }
@@ -181,7 +181,7 @@ const Mainpage = (props) => {
                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
                     if(item === data[TotalProductMidIndex]){
                         if(item_id === data[TotalProductMidIndex]._id){
-                            data[TotalProductMidIndex].Wishlisted = true
+                            data[TotalProductMidIndex].WishListed = true
                         }
                         // match
                     }else{
@@ -191,7 +191,7 @@ const Mainpage = (props) => {
                             for(j; j <= data.length - 1; j++){
                                 // condditional loop break
                                 if(item_id === data[j]._id){
-                                    data[j].Wishlisted = true
+                                    data[j].WishListed = true
                                     break
                                 }
 
@@ -202,7 +202,7 @@ const Mainpage = (props) => {
                             for(k; k >= 0; k--){
                                 // conditional loop break
                                 if(item_id === data[k]._id){
-                                    data[k].Wishlisted = true
+                                    data[k].WishListed = true
                                     break
                                 }
                             }
@@ -211,12 +211,14 @@ const Mainpage = (props) => {
                             for(l; l <= data.length; l++){
                                 // conditional loop break
                                 if(item_id === data[l]._id){
-                                    data[l].Wishlisted = true
+                                    data[l].WishListed = true
                                     break
                                 }
                             }
                         }
                     }
+                    // setting spin status
+                    SetSpinStatus(true)
                 }}else{
                     SetSpinStatus(true)
                 }
@@ -244,7 +246,7 @@ const Mainpage = (props) => {
                         const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
                         if(item === data[TotalProductMidIndex]){
                             if(item_id === data[TotalProductMidIndex]._id){
-                                data[TotalProductMidIndex].Wishlisted = true
+                                data[TotalProductMidIndex].WishListed = true
                             }
                             // match
                         }else{
@@ -254,7 +256,7 @@ const Mainpage = (props) => {
                                 for(j; j <= data.length - 1; j++){
                                     // condditional loop break
                                     if(item_id === data[j]._id){
-                                        data[j].Wishlisted = true
+                                        data[j].WishListed = true
                                         break
                                     }
     
@@ -265,7 +267,7 @@ const Mainpage = (props) => {
                                 for(k; k >= 0; k--){
                                     // conditional loop break
                                     if(item_id === data[k]._id){
-                                        data[k].Wishlisted = true
+                                        data[k].WishListed = true
                                         break
                                     }
                                 }
@@ -274,7 +276,7 @@ const Mainpage = (props) => {
                                 for(l; l <= data.length - 1; l++){
                                     // conditional loop break
                                     if(item_id === data[l]._id){
-                                        data[l].Wishlisted = true
+                                        data[l].WishListed = true
                                         break
                                     }
                                 }
