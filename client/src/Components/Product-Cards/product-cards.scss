@@ -1,8 +1,11 @@
+$green:  rgb(40, 216, 40);
+
 .product-cards{
     position: relative;
-    width: 65%;
+    border-radius: 10px;
+    width: 60%;
     padding: 10px 0.5%;
-    height: 400px;
+    height: 350px;
     background-color: rgba(253, 251, 250, 0.95);
     margin-top: 20px;
     display: flex;
@@ -39,7 +42,7 @@
 
 .product-home-desc{
     font-size: 20px;
-    height: 168px;
+    height: 138px;
     overflow: hidden;
 }
 
@@ -66,32 +69,50 @@
     background-color: rgb(64, 204, 59);
     color: white;
     margin: 3px auto;
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: start;
     width: 80%;
 }
 
-/* .Product-home-price:hover{
-    background-color: rgb(238, 77, 71);
-} */
-
-.product-home-contact{
-    padding: 11px 5%;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 2px auto;
-    color: white;
-    width: 80%;
-    background-color: rgb(67, 147, 194);
-}
-
-.product-home-contact:hover{
-    background-color: rgb(79, 169, 221);
-}
-
-/* .Product-home-price::after, .product-home-contact::after{
-    content: '*';
-} */
 .wishlisted{
     color: #ff385c;
+}
+
+@mixin flex(){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-product-price{
+    width: 43%;
+    @include flex();
+    flex-direction: column;
+    background-color: $green;
+    margin: 10px auto;
+    padding: 5px 2%;
+    margin-top: 60px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 90%;
+    
+    &:hover{
+        background-color: rgb(52, 231, 52);
+    }
+
+    &-tag{
+        font-weight: 200;
+        font-size: 16px;
+        color: rgb(243, 232, 232);
+        margin: 2px auto;
+    }
+
+    .tag{
+        color: white;
+        letter-spacing: 1px;
+        font-weight: 400;
+        font-size: 19px;
+    }
+
 }

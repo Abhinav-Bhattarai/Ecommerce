@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
-import './product-cards.css';
+import './product-cards.scss';
 import { IconContext } from 'react-icons';
 import { FaStar } from 'react-icons/fa';
 import LandingPageContext from '../../Containers/LandingPage/LandingPageContext';
@@ -36,8 +36,11 @@ const ProductCards = (props) => {
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>
                     <footer className='product-home-desc'>{props.Description}</footer>
-                    <div className='Product-home-price'>Price: {props.Price}</div>
-                    <div className='product-home-contact'>Phone: 9861937406</div>
+                    {/* <div className='Product-home-price'>Price: $ {props.Price}</div> */}
+                    <div className='full-product-price'>
+                        <header className='tag'>PURCHASE NOW</header>
+                        <footer className='full-product-price-tag'>Price: $ {props.Price}</footer>
+                    </div>
                 </article>
             </main>
         </Fragment>
