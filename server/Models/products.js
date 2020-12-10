@@ -56,5 +56,5 @@ const Schema = new ProductSchema({
 })
 
 const Model = mongoose.model('ProductModel', Schema)
-// .sort({'ItemName': 1})
+
 export default Model

@@ -17,6 +17,7 @@ import AlternateProductRoute from './Routes/alternate-product-search.js';
 import { profanity_list } from './profanity-list.js';
 import ProductReviewMessageRouter from './Routes/product-review-msg.js';
 import SearchEngineRouter from './Routes/SearchEngineData.js';
+import GetWishListRouter from './Routes/get-wishlist.js';
 
 // dot_env config
 dotenv.config()
@@ -70,6 +71,7 @@ app.use('/file', FileRouter)
 app.use('/alternate-product-search', AlternateProductRoute)
 app.use('/product-review-msg', ProductReviewMessageRouter)
 app.use('/search-engine-data', SearchEngineRouter)
+app.use('/get-wishlist-item', GetWishListRouter)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
