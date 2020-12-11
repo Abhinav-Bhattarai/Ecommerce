@@ -30,6 +30,7 @@ const WishList = (props) => {
                 }
             })
         }
+        window.scroll(0, 100)
     }, // eslint-disable-next-line
     [])
 

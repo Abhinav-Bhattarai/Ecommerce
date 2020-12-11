@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { IconContext } from 'react-icons';
 import { FaAngleLeft, FaAngleRight, FaUserCircle } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import './fullproduct.scss';
 import { withRouter } from 'react-router';
 import io from 'socket.io-client';
 import dotenv from 'dotenv';
+import MainPageContext from '../../../../../Containers/MainPage/MainPageContext';
 
 dotenv.config()
 
@@ -42,6 +43,7 @@ const FullProduct = (props) => {
     const [socket, SetSocket] = useState(null)
     const [chat_input, SetChatInput] = useState('')
     const [chat_list, SetChatList] = useState([])
+    const Context = useContext(MainPageContext)
 
     useEffect(()=>{
         if(props.data){
@@ -154,11 +156,11 @@ const FullProduct = (props) => {
                    <div className='full-product-seller-name-fullname'>{data.Seller}</div>
                 </div>
                 <main className='full-product-button-container'>
-                    <div className='full-product-price'>
+                    <div className='full-product-price' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price)}>
                         <header className='tag'>PURCHASE NOW</header>
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>
-                    <div className='full-product-price full-product-wishlist'>
+                    <div className='full-product-price full-product-wishlist' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price, data.id)}>
                         <header className='tag'>CHECKOUT</header>
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>

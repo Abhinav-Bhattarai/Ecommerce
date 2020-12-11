@@ -1,24 +1,22 @@
 import React, { Fragment, useContext } from 'react';
-import ProductCards from '../../../Product-Cards/product-cards';
 import StoreContext from '../../StoreContext';
+import CartItemCard from './Cart-Item-Card/cart-item-card';
 import './cart.css';
 
-const Cart = (props) => {
+const Cart = () => {
     const Context = useContext(StoreContext)
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
-    if(Context.TotalItems){
-        product_cards_jsx = Context.TotalItems.map((element, i)=>{
+    if(Context.CartItems){
+        const data = [...Context.CartItems]
+        product_cards_jsx = data.map((element, i)=>{
             return (
-            <ProductCards
-                key={i}
-                blur={props.blur} 
-                Seller={element.Seller}
-                Price={element.Price}
-                ItemName={element.ItemName}
-                ProductImage={element.ProductImage} 
-                Description={element.Description} 
-                Wishlisted={element.Wishlisted}
-            />
+                <CartItemCard
+                    key={i}
+                    ProductImage={element.product_img}
+                    ItemName={element.product_name}
+                    Price={element.product_price}
+                    id={element.id}
+                />
             )
         })
     }

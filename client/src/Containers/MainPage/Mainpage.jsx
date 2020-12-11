@@ -24,6 +24,7 @@ const Mainpage = (props) => {
     const [loader, SetLoader] = useState(false)
     const InputFile = useRef(null)
     const [spin_status, SetSpinStatus] = useState(false)
+    const [cart_items, SetCartItems] = useState(null)
 
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
@@ -396,6 +397,27 @@ const Mainpage = (props) => {
         }
     }
 
+    const AddToCartHandler = (product_img, product_name, product_price, id)=>{
+        if(cart_items){
+            const dummy = [...cart_items]
+            dummy.push({product_img, product_name, product_price, id})
+            SetCartItems(dummy)
+        }else{
+            SetCartItems([{product_img, product_name, product_price, id}])
+        }
+    }
+
+    const RemoveFromCartHandler = (product_id)=>{
+        const data = [...cart_items]
+        data.filter((element, index)=>{
+            if(element.id === product_id){
+                data.splice(index, 1)
+            }
+            return null
+        })
+        SetCartItems(data)
+    }
+
     return (
         <Fragment>
             {(spin_status)?
@@ -407,7 +429,8 @@ const Mainpage = (props) => {
                     SoldItemsIconClick,
                     CartIconClick,
                     WishListItems: wishlist,
-                    TotalItems: product_list
+                    TotalItems: product_list,
+                    CartItems: cart_items
                 }}>
                     <MainPageContext.Provider value={{
                         FileEncoder: (e)=>{FileEncoder(e)},
@@ -427,7 +450,9 @@ const Mainpage = (props) => {
                         product_name,
                         product_desc,
                         product_img,
-                        product_price
+                        product_price,
+                        AddToCartHandler: (product_img, product_name, product_price, product_id)=>AddToCartHandler(product_img, product_name, product_price, product_id),
+                        RemoveFromCartHandler: (id)=>RemoveFromCartHandler(id)
                     }}>
                         <Store type="MainPage" loader={loader}/>
                     </MainPageContext.Provider>

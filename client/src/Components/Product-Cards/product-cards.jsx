@@ -39,7 +39,7 @@ const ProductCards = (props) => {
                     {/* <div className='Product-home-price'>Price: $ {props.Price}</div> */}
                     <div className='full-product-price'>
                         <header className='tag'>PURCHASE NOW</header>
-                        <footer className='full-product-price-tag'>Price: $ {props.Price}</footer>
+                        <footer className='full-product-price-tag' onClick={Context1.AddToCartHandler.bind(this, props.ProductImage, props.ItemName, props.Price)}>Price: $ {props.Price}</footer>
                     </div>
                 </article>
             </main>

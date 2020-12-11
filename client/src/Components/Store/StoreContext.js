@@ -7,7 +7,8 @@ const StoreContext = React.createContext({
     SoldItemsIconClick: ()=>{},
     CartIconClick: ()=>{},
     WishListItems: null,
-    TotalItems: null
+    TotalItems: null,
+    CartItems: null
 })
 
 export default StoreContext
