@@ -19,6 +19,7 @@ import ProductReviewMessageRouter from './Routes/product-review-msg.js';
 import SearchEngineRouter from './Routes/SearchEngineData.js';
 import GetWishListRouter from './Routes/get-wishlist.js';
 import CartRoute from './Routes/cart.js';
+import HistoryRoute from './Routes/history.js';
 
 // dot_env config
 dotenv.config()
@@ -74,6 +75,7 @@ app.use('/product-review-msg', ProductReviewMessageRouter)
 app.use('/search-engine-data', SearchEngineRouter)
 app.use('/get-wishlist-item', GetWishListRouter)
 app.use('/cart', CartRoute)
+app.use('/history', HistoryRoute)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{

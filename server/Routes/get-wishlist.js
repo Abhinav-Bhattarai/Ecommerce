@@ -1,13 +1,14 @@
 import express from 'express';
-import ProductModel from '../Models/products.js';
+import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
 router.get('/:email', (req, res)=>{
-    const email = req.params.email
-    ProductModel.find().where('Seller').equals(email).then((response)=>{
-        if(response.length >= 1){
-            return res.json(response)
+    const Email = req.params.email
+    RegistrationModel.findOne({Email}, (err, response)=>{
+        if(err) throw err
+        else{
+            return res.json(response.WishListedItems)
         }
     })
 })

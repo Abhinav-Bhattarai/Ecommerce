@@ -27,12 +27,12 @@ const MainSchema = new Schema({
     },
 
     WishListedItems: {
-        type: [{item_name: String, item_id: String}],
+        type: [{item_name: String, item_id: String, Seller: String, Price: Number, ProductImage: String, Description: String}],
         default: []
     },
 
     CartedItem: {
-        type=[{item_name: String, item_id: String}],
+        type:[{item_name: String, item_id: String}],
         default: []
     },
 

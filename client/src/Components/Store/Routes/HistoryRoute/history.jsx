@@ -1,31 +1,38 @@
-import React, { Fragment, useContext } from 'react';
-import ProductCards from '../../../Product-Cards/product-cards';
-import StoreContext from '../../StoreContext';
+import React, { Fragment, useEffect, useState } from 'react';
+import axios from 'axios';
 import './history.css';
+import Spinner from '../../../UI/Spinner/spinner';
 
-const History = (props) => {
-    const Context = useContext(StoreContext)
+const History = () => {
+    const [spinner, SetSpinner] = useState(false)
+    const [data, SetData] = useState(null)
+
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
-    if(Context.TotalItems){
-        product_cards_jsx = Context.TotalItems.map((element, i)=>{
-            return (
-            <ProductCards
-                key={i}
-                blur={props.blur} 
-                Seller={element.Seller}
-                Price={element.Price}
-                ItemName={element.ItemName}
-                ProductImage={element.ProductImage} 
-                Description={element.Description} 
-                Wishlisted={element.Wishlisted}
-            />
-            )
+
+    useEffect(() => {
+        SetSpinner(true)
+        axios.get(`/history/${localStorage.getItem('Email')}`).then((response)=>{
+            const err = {invalid: true}
+            if(JSON.stringify(err) !== JSON.stringify(response.data)){
+                SetData(response.data)
+                SetSpinner(false)
+            }
         })
+    }, []);
+
+    if(data){
+
+    }
+
+    let spinner_jsx = null
+    if(spinner){
+        spinner_jsx = <Spinner/>
     }
     return (
        <Fragment>
             <main className='product-history-container'>
                 {product_cards_jsx}
+                {spinner_jsx}
             </main>
        </Fragment>
     )

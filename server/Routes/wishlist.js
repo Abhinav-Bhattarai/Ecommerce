@@ -17,9 +17,13 @@ router.put('/:type', (req, res)=>{
     const type = req.params.type
     const item_name = req.body.item_name
     const item_id = req.body.item_id
+    const Seller = req.body.Seller
+    const Price = req.body.price
+    const ProductImage = req.body.img
+    const Description = req.body.desc
     RegistrationModel.findOne({Email: req.body.email}, (err, response)=>{
         if(type === 'add'){
-            const data = {item_name, item_id}
+            const data = {item_name, item_id, Seller, Price, ProductImage, Description}
             response.WishListedItems.push(data)
             response.save().then(()=>{
                 return res.json({product_added: true})

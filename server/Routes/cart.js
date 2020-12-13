@@ -30,7 +30,6 @@ router.put('/:type', (req, res)=>{
                 data.filter((element, i)=>{
                     if(element.item_id === item_id){
                         data.splice(i, 1)
-                        break
                     }
                     return null
                 })

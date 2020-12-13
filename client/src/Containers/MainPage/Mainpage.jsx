@@ -366,7 +366,7 @@ const Mainpage = (props) => {
     }
 
             
-    const TriggerWishlist = (e, wishlist_triggered, item_id, item_name)=>{
+    const TriggerWishlist = (e, wishlist_triggered, item_id, item_name, Seller, price, img, desc)=>{
         if(wishlist_triggered === false){
             e.target.style.color = ' #ff385c'
             const dummy = [...wishlist]
@@ -377,7 +377,11 @@ const Mainpage = (props) => {
             const context = {
                 item_name,
                 item_id,
-                email: localStorage.getItem('Email')
+                email: localStorage.getItem('Email'),
+                Seller,
+                price,
+                img,
+                desc
             }
             axios.put('/wishlist/add', context).then((response)=>{
             })
@@ -389,11 +393,7 @@ const Mainpage = (props) => {
             SetWishlist(dummy)
             localStorage.setItem('WishList', JSON.stringify(dummy))
             // further axios request
-            const context = {
-                item_name,
-                item_id,
-                email: localStorage.getItem('Email')
-            }
+            const context = {item_id}
             axios.put('/wishlist/remove', context).then((response)=>{})
         }
     }
@@ -459,7 +459,7 @@ const Mainpage = (props) => {
                         ChangeProductDesc: (e)=>ChangeProductDesc(e),
                         ChangeProductPrice: (e)=>ChangeProductPrice(e),
                         SubmitContactHandler: (e)=>ContactSubmitHandler(e),
-                        TriggerWishList: (e, status, item_name, item_id)=>TriggerWishlist(e, status, item_name, item_id),
+                        TriggerWishList: (e, status, item_name, item_id, Seller, price, img, desc)=>TriggerWishlist(e, status, item_name, item_id, Seller, price, img, desc),
                         product_name,
                         product_desc,
                         product_img,
