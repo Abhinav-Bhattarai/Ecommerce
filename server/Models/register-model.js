@@ -31,6 +31,11 @@ const MainSchema = new Schema({
         default: []
     },
 
+    CartedItem: {
+        type=[{item_name: String, item_id: String}],
+        default: []
+    },
+
     ActiveStatus: {
         type: Boolean
     },

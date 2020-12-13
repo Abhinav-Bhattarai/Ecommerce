@@ -4,8 +4,11 @@ import RegistrationModel from '../Models/register-model.js';
 const router = express.Router()
 
 router.get('/:email', (req, res)=>{
+    const start = process.hrtime()
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
         const data = response[0].WishListedItems
+        const end = process.hrtime(start)
+        console.log(`${end[0]} secs for wishlist fetching`)
         return res.json(data)
     })
 })

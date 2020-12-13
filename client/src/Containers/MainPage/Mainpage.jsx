@@ -220,7 +220,8 @@ const Mainpage = (props) => {
                     }
                     // setting spin status
                     SetSpinStatus(true)
-                }}else{
+                }
+                }else{
                     SetSpinStatus(true)
                 }
 
@@ -405,6 +406,12 @@ const Mainpage = (props) => {
         }else{
             SetCartItems([{product_img, product_name, product_price, id}])
         }
+        const context = {
+            Email: localStorage.getItem('Email'),
+            item_name: product_name,
+            item_id: id
+        }
+        axios.put('/cart/add', context).then(()=>{})
     }
 
     const RemoveFromCartHandler = (product_id)=>{
@@ -416,6 +423,12 @@ const Mainpage = (props) => {
             return null
         })
         SetCartItems(data)
+        const context = {
+            Email: localStorage.getItem('Email'),
+            item_name: product_name,
+            item_id: id
+        }
+        axios.put('/cart/delete', context).then(()=>{})
     }
 
     return (
