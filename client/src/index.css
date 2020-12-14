@@ -15,7 +15,7 @@ code {
 
 @keyframes click{
   from{
-    transform: scale(0.95);
+    transform: scale(0.98);
   }
   to{
     transform: scale(1);
@@ -25,4 +25,15 @@ code {
 button:focus{
   animation-name: click;
   animation-duration: 0.5s;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;               
+}
+body::-webkit-scrollbar-track {
+  background: rgba(251, 252, 251, 0.3);        
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #ff385c;    
+  border-radius: 10px;      
 }

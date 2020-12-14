@@ -12,11 +12,12 @@ $green:  rgb(40, 216, 40);
 .fullproduct-container{
     position: relative;
     width: 65%;
-    padding: 15px 0.5%;
+    padding: 20px 1%;
     background-color: $background;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
 
     .full-product-ItemName{
         text-align: center;

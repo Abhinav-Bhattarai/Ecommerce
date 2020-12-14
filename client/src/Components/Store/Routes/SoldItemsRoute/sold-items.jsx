@@ -4,10 +4,8 @@ import './sold-items.scss';
 import Spinner from '../../../UI/Spinner/spinner';
 
 const SoldItem = () => {
-    const [spinner, SetSpinner] = useState(false)
+    const [spinner, SetSpinner] = useState(true)
     const [data, SetData] = useState(null)
-
-    let product_cards_jsx = null
 
     useEffect(() => {
         SetSpinner(true)
@@ -24,18 +22,19 @@ const SoldItem = () => {
 
     }
 
-    if(data === null && spinner === false){
-        product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO RECENT TRANSACTIONS</div>
-    }
-
     let spinner_jsx = null
     if(spinner){
         spinner_jsx = <Spinner/>
     }
+
+    let jsx = null
+    if(!data && spinner === false){
+        jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO TRANSACTION'S</div>
+    }
     return (
        <Fragment>
             <main className='product-history-container'>
-                {product_cards_jsx}
+                {jsx}
                 {spinner_jsx}
             </main>
        </Fragment>
