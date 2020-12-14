@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
-import './history.css';
+import './history.scss';
 import Spinner from '../../../UI/Spinner/spinner';
 
 const History = () => {
@@ -21,7 +21,7 @@ const History = () => {
     }, []);
 
     if(data){
-
+        
     }
 
     let spinner_jsx = null

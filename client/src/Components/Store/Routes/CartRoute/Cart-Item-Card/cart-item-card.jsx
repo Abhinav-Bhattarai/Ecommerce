@@ -9,10 +9,10 @@ const CartItemCard = (props) => {
 
     useEffect(()=>{
         axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
-            const err = {invalid: true}
-            if(JSON.stringify(err) === JSON.stringify(response.data)) throw 'error'
+            const invalid = {invalid: true}
+            if(JSON.stringify(invalid) === JSON.stringify(response.data)) console.log('error')
             else{
-                console.log('Further axios fetch')
+                
             }
         })
     }, [])

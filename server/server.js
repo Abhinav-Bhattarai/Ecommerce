@@ -19,6 +19,7 @@ import ProductReviewMessageRouter from './Routes/product-review-msg.js';
 import SearchEngineRouter from './Routes/SearchEngineData.js';
 import GetWishListRouter from './Routes/get-wishlist.js';
 import CartRoute from './Routes/cart.js';
+import SoldItemRoute from './Routes/sold-items.js';
 import HistoryRoute from './Routes/history.js';
 
 // dot_env config
@@ -75,6 +76,7 @@ app.use('/product-review-msg', ProductReviewMessageRouter)
 app.use('/search-engine-data', SearchEngineRouter)
 app.use('/get-wishlist-item', GetWishListRouter)
 app.use('/cart', CartRoute)
+app.use('/sold-item', SoldItemRoute)
 app.use('/history', HistoryRoute)
 
 // db-connection
@@ -88,3 +90,5 @@ mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()
 server.listen(PORT, ()=>{
     console.log('Connected to localhost:8000')
 })
+
+// need to provide auth key for accessing the api endpoints for security and removing password sending even if hashed to react.js. Refactoring the code for more optimizations. Connection to socket to the auth protected from jwt. jwt access token for login and register to be valid for 3days and prtected routes jwt auth key to be valid for 30 mins and adding new auth key after 30 mins to prevent from attacks. Integration stripe payment gatewy systems for payment transactions.

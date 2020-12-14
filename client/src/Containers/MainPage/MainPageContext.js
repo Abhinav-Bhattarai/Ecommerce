@@ -20,7 +20,8 @@ const MainPageContext = React.createContext({
     SubmitProductForSaleHandler: ()=>{},
     TriggerWishList: ()=>{},
     AddToCartHandler: ()=>{},
-    RemoveFromCartHandler: ()=>{}
+    RemoveFromCartHandler: ()=>{},
+    Loader: false
 })
 
 export default MainPageContext

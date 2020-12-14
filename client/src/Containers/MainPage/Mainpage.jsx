@@ -37,7 +37,7 @@ const Mainpage = (props) => {
             const context = {
                 Seller: localStorage.getItem('Email'),
                 Price: '8000',
-                ItemName: 'Something',
+                ItemName: 'Random Product',
                 ProductImage: reader.result,
                 Description: "A product description is the marketing copy used to describe a product's value proposition to potential customers. A compelling product description provides customers with details around features, problems it solves and other benefits to help generate a sale. ... A “good” product description will not do."
             }
@@ -170,6 +170,7 @@ const Mainpage = (props) => {
         if(localStorage.getItem('WishList')){
             const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
             axios.get(`/product/0`).then((response)=>{
+                const start = performance.now()
                 const data = [...response.data]
                 // implementing binary search O(n^2/2)
                 if(WishListArray.length >= 1){
@@ -220,6 +221,8 @@ const Mainpage = (props) => {
                     }
                     // setting spin status
                     SetSpinStatus(true)
+                    const end = performance.now()
+                    console.log(`${end - start} ms`)
                 }
                 }else{
                     SetSpinStatus(true)
@@ -409,7 +412,9 @@ const Mainpage = (props) => {
         const context = {
             Email: localStorage.getItem('Email'),
             item_name: product_name,
-            item_id: id
+            item_id: id,
+            product_price,
+            product_img
         }
         axios.put('/cart/add', context).then(()=>{})
     }
@@ -417,7 +422,7 @@ const Mainpage = (props) => {
     const RemoveFromCartHandler = (product_id)=>{
         const data = [...cart_items]
         data.filter((element, index)=>{
-            if(element.id === product_id){
+            if(element._id === product_id){
                 data.splice(index, 1)
             }
             return null
@@ -426,7 +431,7 @@ const Mainpage = (props) => {
         const context = {
             Email: localStorage.getItem('Email'),
             item_name: product_name,
-            item_id: id
+            item_id: product_id
         }
         axios.put('/cart/delete', context).then(()=>{})
     }
@@ -465,7 +470,8 @@ const Mainpage = (props) => {
                         product_img,
                         product_price,
                         AddToCartHandler: (product_img, product_name, product_price, product_id)=>AddToCartHandler(product_img, product_name, product_price, product_id),
-                        RemoveFromCartHandler: (id)=>RemoveFromCartHandler(id)
+                        RemoveFromCartHandler: (id)=>RemoveFromCartHandler(id),
+                        Loader: loader
                     }}>
                         <Store type="MainPage" loader={loader}/>
                     </MainPageContext.Provider>

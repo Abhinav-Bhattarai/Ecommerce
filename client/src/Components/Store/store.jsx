@@ -13,6 +13,7 @@ import SoldItems from './Routes/SoldItemsRoute/sold-items';
 import Wishlist from './Routes/WishlistRoute/wishlist';
 import History from './Routes/HistoryRoute/history';
 import MainPageContext from '../../Containers/MainPage/MainPageContext';
+import Spinner from '../UI/Spinner/spinner';
 
 const Store = (props) => {
     const [window_height] = useState(window.innerHeight)
@@ -68,6 +69,7 @@ const Store = (props) => {
                     <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur} {...props}/>}/>
                     <Route render={()=><Home blur={blur} {...props}/>}/>
                 </Switch>
+                {(Context1.Loader)? <Spinner/> : null}
             </article>
             {Signup_jsx}
             {Login_jsx}

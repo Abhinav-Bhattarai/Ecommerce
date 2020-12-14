@@ -17,11 +17,13 @@ router.put('/:type', (req, res)=>{
     const item_name = req.body.ItemName
     const item_id = req.body.id
     const type = req.params.type
+    const ProductImage = req.body.product_img
+    const ProductPrice = parseInt(req.body.product_price)
     RegistrationModel.findOne({Email}, (err, response)=>{
         if(err) throw err
         else{
             if(type === 'add'){
-                response.CartedItem.push({item_name, item_id})
+                response.CartedItem.push({item_name, item_id, ProductImage, ProductPrice})
                 response.save().then(()=>{
                     return res.json({carted: true})
                 })

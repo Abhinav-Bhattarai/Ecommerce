@@ -1,15 +1,17 @@
 import express from 'express';
-import ProductModel from '../Models/products.js';
+import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
 router.get('/:email', (req, res)=>{
-    const email = req.params.email
-    ProductModel.find().where('Seller').equals(email).then((response)=>{
+    const Email = req.params.email
+    RegistrationModel.find().where('Email').equals(Email).then((response)=>{
         if(response.length >= 1){
-            return res.json(response)
+            return res.json(response[0].Purchases)
+        }else{
+            return res.json({invalid: true})
         }
     })
 })
 
-export default router 
+export default router

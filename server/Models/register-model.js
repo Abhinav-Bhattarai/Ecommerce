@@ -19,11 +19,8 @@ const MainSchema = new Schema({
     },
 
     Purchases:{
-        type: [{item: String, price: Number}]
-    },
-
-    SoldItems:{
-        type: [{item: String, price: Number}]
+        type: [{item: String, price: Number, type: String}],
+        default: []
     },
 
     WishListedItems: {
@@ -32,7 +29,7 @@ const MainSchema = new Schema({
     },
 
     CartedItem: {
-        type:[{item_name: String, item_id: String}],
+        type:[{item_name: String, item_id: String, ProductImage: String, ProductPrice: Number}],
         default: []
     },
 
