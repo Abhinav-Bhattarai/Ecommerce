@@ -315,8 +315,9 @@ const LandingPage = (props) => {
                                 }
                             }
                         }
-                        SetWishlist(WishListArray)
-                    }}else{
+                    }
+                    SetWishlist(WishListArray)
+                    }else{
                         SetSpinStatus(true)
                     }
                     SetProductList(data)

@@ -170,7 +170,6 @@ const Mainpage = (props) => {
         if(localStorage.getItem('WishList')){
             const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
             axios.get(`/product/0`).then((response)=>{
-                const start = performance.now()
                 const data = [...response.data]
                 // implementing binary search O(n^2/2)
                 if(WishListArray.length >= 1){
@@ -219,11 +218,8 @@ const Mainpage = (props) => {
                             }
                         }
                     }
-                    // setting spin status
-                    SetSpinStatus(true)
-                    const end = performance.now()
-                    console.log(`${end - start} ms`)
                 }
+                SetSpinStatus(true)
                 }else{
                     SetSpinStatus(true)
                 }
@@ -287,8 +283,8 @@ const Mainpage = (props) => {
                                 }
                             }
                         }
-                        SetSpinStatus(true)
                     }
+                    SetSpinStatus(true)
                     }else{
                         SetSpinStatus(true)
                     }
@@ -304,6 +300,7 @@ const Mainpage = (props) => {
         }}
     }, // eslint-disable-next-line
     []) 
+
 
     useEffect(()=>{
         
@@ -483,4 +480,4 @@ const Mainpage = (props) => {
     )
 }
 
-export default withRouter(Mainpage)
+export default React.memo(withRouter(Mainpage))
