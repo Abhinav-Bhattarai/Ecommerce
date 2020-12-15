@@ -1,21 +1,10 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { Fragment, useContext, useState } from 'react';
 import MainPageContext from '../../../../../Containers/MainPage/MainPageContext';
 import './cart-item-card.scss';
 
 const CartItemCard = (props) => {
     const Context = useContext(MainPageContext)
-    const [data, SetData] = useState(props.id ? props : null)
-
-    useEffect(()=>{
-        axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
-            const invalid = {invalid: true}
-            if(JSON.stringify(invalid) === JSON.stringify(response.data)) console.log('error')
-            else{
-                
-            }
-        })
-    }, [])
+    const [data] = useState(props)
 
     let jsx = null
     if(data){

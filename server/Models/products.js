@@ -48,6 +48,11 @@ const Schema = new ProductSchema({
          type: Boolean,
          default: false
      },
+
+     Status: {
+         type: Boolean,
+         default: false
+     },
     
      Messages: {
          type: [{username: String, msg: String}],

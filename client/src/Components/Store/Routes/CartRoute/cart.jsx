@@ -1,14 +1,31 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 import StoreContext from '../../StoreContext';
 import CartItemCard from './Cart-Item-Card/cart-item-card';
 import './cart.css';
 
 const Cart = () => {
     const Context = useContext(StoreContext)
+    const [data, SetData] = useState(Context.CartItems ? Context.CartItems : null)
+
+    useEffect(()=>{
+        if(data === null){
+            axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
+                const invalid = {invalid: true}
+                if(JSON.stringify(invalid) !== JSON.stringify(response.data)){
+                    if(response.data.length >= 1){
+                        SetData(response.data)
+                    }
+                }
+            })
+        }
+    }, [])
+
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
+
     if(Context.CartItems){
-        const data = [...Context.CartItems]
-        product_cards_jsx = data.map((element, i)=>{
+        const dummy = [...data]
+        product_cards_jsx = dummy.map((element, i)=>{
             return (
                 <CartItemCard
                     key={i}

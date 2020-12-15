@@ -166,6 +166,7 @@ const Mainpage = (props) => {
     }
 
     useEffect(()=>{
+        console.log('mainpage')
         if(product_list === null){
         if(localStorage.getItem('WishList')){
             const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]

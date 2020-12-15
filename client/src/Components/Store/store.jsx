@@ -42,6 +42,7 @@ const Store = (props) => {
         Contactus_jsx = <Contact type='MainPage'/>
         blur = '3px'
     }
+    console.log('store')
 
     return (
         <Fragment>

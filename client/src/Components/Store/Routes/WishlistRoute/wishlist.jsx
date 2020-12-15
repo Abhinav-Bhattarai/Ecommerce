@@ -21,6 +21,7 @@ const WishList = (props) => {
     }
 
     useEffect(()=>{
+        console.log('wishlist')
         if(wishlist === null){
             axios.get(`/get-wishlist-item/${localStorage.getItem('Email')}`).then((response)=>{
                 const data = [...response.data]

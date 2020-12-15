@@ -2,10 +2,15 @@ import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import './sold-items.scss';
 import Spinner from '../../../UI/Spinner/spinner';
+import ProductCard from '../../../Product-Cards/product-cards';
 
-const SoldItem = () => {
+const SoldItem = (props) => {
     const [spinner, SetSpinner] = useState(true)
     const [data, SetData] = useState(null)
+
+    const ProductClick = (e, Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>{
+        
+    }
 
     useEffect(() => {
         SetSpinner(true)
@@ -18,19 +23,33 @@ const SoldItem = () => {
         })
     }, []);
 
-    if(data){
-
-    }
-
     let spinner_jsx = null
     if(spinner){
         spinner_jsx = <Spinner/>
     }
 
     let jsx = null
-    if(!data && spinner === false){
-        jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO TRANSACTION'S</div>
+
+    if(data && spinner === false){
+        const dummy = [...data]
+        jsx = dummy.map((element, i)=>{
+            return (<ProductCard
+                key={i}
+                blur={props.blur} 
+                Seller={element.Seller}
+                Price={element.Price}
+                ItemName={element.ItemName}
+                ProductImage={element.ProductImage} 
+                Description={element.Description} 
+                WishListed={element.WishListed}
+                _id= {element._id}
+                from= 'sold-item'
+                type={(localStorage.getItem('authentication-status'))?'MainPage':'LandingPage'}
+                Click={(e, Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>ProductClick(e, Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)}
+            />)
+        })
     }
+
     return (
        <Fragment>
             <main className='product-history-container'>
