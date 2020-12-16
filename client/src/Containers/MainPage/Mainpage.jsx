@@ -25,6 +25,7 @@ const Mainpage = (props) => {
     const InputFile = useRef(null)
     const [spin_status, SetSpinStatus] = useState(false)
     const [cart_items, SetCartItems] = useState(null)
+    const [logout_popup, SetLogoutPopup] = useState(false)
 
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
@@ -330,6 +331,9 @@ const Mainpage = (props) => {
         if(contactus_popup){
             SetContactusPopup(false)
         }
+        if(logout_popup){
+            SetLogoutPopup(false)
+        }
     }
 
     const ContactSubmitHandler = (event)=>{
@@ -434,6 +438,14 @@ const Mainpage = (props) => {
         axios.put('/cart/delete', context).then(()=>{})
     }
 
+    const LogoutPopupHandler = ()=>{
+        SetLogoutPopup(!logout_popup)
+    }
+
+    const LogoutConfirmHandler = ()=>{
+        props.ChangeAuthentication(true)
+    }
+
     return (
         <Fragment>
             {(spin_status)?
@@ -469,7 +481,10 @@ const Mainpage = (props) => {
                         product_price,
                         AddToCartHandler: (product_img, product_name, product_price, product_id)=>AddToCartHandler(product_img, product_name, product_price, product_id),
                         RemoveFromCartHandler: (id)=>RemoveFromCartHandler(id),
-                        Loader: loader
+                        Loader: loader,
+                        LogoutPopupHandler: LogoutPopupHandler,
+                        logout_popup,
+                        LogoutConfirmHandler: LogoutConfirmHandler
                     }}>
                         <Store type="MainPage" loader={loader}/>
                     </MainPageContext.Provider>

@@ -30,7 +30,7 @@ const LandingPage = (props) => {
     const [contact_form_error, SetContactFormError] = useState(null)
     const [login_form_error, SetLoginFormError] = useState(null)
     const [signup_form_error, SetSignupFormError] = useState(null)
-    const [signin_cred_error, SetSigninCredError] = useState(null)
+    const [cancel_token, SetCancelToken] = useState(null)
 
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
@@ -43,7 +43,6 @@ const LandingPage = (props) => {
     const TriggerLoginPopup = ()=>{
         props.history.push(`/${uuid()}/?login`)
         if(login_popup){
-            SetSigninCredError(null)
             SetLoginFormError(null)
         }
         SetLoginPopup(!login_popup)
@@ -131,7 +130,7 @@ const LandingPage = (props) => {
                 const data = repsonse.data
                 const invalidity = {invalid_credentials: true}
                 const redundancy = {user_redundancy: true}
-                if(data !== invalidity || redundancy){
+                if(JSON.stringify(data) !== JSON.stringify(invalidity) && JSON.stringify(data) !== JSON.stringify(redundancy)){
                     SetSignupEmail('')
                     SetSignupPassword('')
                     SetSignupConfirm('')
@@ -144,12 +143,22 @@ const LandingPage = (props) => {
                     localStorage.setItem('auth-token', data.token)
                     props.ChangeAuthentication(false)
                     // auth function from parent component
+                }else{
+                    SetSignupFormError([{type: 'EmailGet', error: 'Email already taken. Use some other email'}])
                 }
             })
             
         }else{
             // signup submit exception
-
+            if(!email_check){
+                SetSignupFormError([{type: 'Email', error: 'Email not found'}])
+            }
+            else if(!password_check){
+                SetSignupFormError([{type: 'Password', error: 'Password must contain 8 characters including number[0-9] and a capital letter [A-Z]'}])
+            }
+            else{
+                SetSignupFormError([{type: 'Confirm', error: "Password doesn't match"}])
+            }
         }
     }
 
@@ -160,7 +169,7 @@ const LandingPage = (props) => {
                 Email: login_email,
                 Password: login_password
             }
-            axios.post('/login', context).then((response)=>{
+            axios.post('/login', context, {cancelToken: cancel_token.token}).then((response)=>{
                 const data = response.data
                 const invalidity = {invalid_credentials: true}
                 if(JSON.stringify(data) !== JSON.stringify(invalidity)){
@@ -175,8 +184,10 @@ const LandingPage = (props) => {
                     // auth function from parent component
                     props.ChangeAuthentication(false)
                 }else{
-                    SetSigninCredError([{error: 'Invalid Credentials'}])
+                    SetLoginFormError([{type:'invalidity', error: 'Invalid Credentials'}])
                 }
+            }).catch(()=>{
+                console.log('request cancelled')
             })
         }else{
             // exceptions
@@ -189,6 +200,14 @@ const LandingPage = (props) => {
 
         }
     }
+
+    useEffect(()=>{
+        let token = axios.CancelToken.source()
+        SetCancelToken(token)
+        return ()=>{
+            if(cancel_token) cancel_token.cancel('request cancelled')
+        }
+    }, [])
 
     const ContactSubmitHandler = (event)=>{
         event.preventDefault()
@@ -218,7 +237,6 @@ const LandingPage = (props) => {
         }
         if(login_popup){
             SetLoginPopup(false)
-            SetSigninCredError(null)
             SetLoginFormError(null)
         }
         if(contactus_popup){
@@ -469,7 +487,6 @@ const LandingPage = (props) => {
                     SignInFormError: login_form_error,
                     SignupFormError: signup_form_error,
                     ContactFormError: contact_form_error,
-                    SigninCredentialError: signin_cred_error
                 }}>
                     <Store/>
                 </LandingPageContext.Provider>

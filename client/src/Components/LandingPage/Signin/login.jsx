@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaTimes, FaExclamationCircle } from 'react-icons/fa'
 import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';
 
-const TimesIcon = ()=>{
+export const TimesIcon = ()=>{
     return (
         <IconContext.Provider value={{className:'cross-icon'}}>
             <FaTimes/>
@@ -26,46 +26,41 @@ const Login = () => {
     let username_err = null
     let invalid_cred_err = null
 
-    if(Context.SignInFormError && Context.SigninCredentialError !== null){
-        Context.SignInFormError.map((element, i)=>{
-            if(element.type === 'Email'){
-                username_err = (
-                    <main key={i} className='login-error'>
-                        <ErrIcon/>
-                        <div style={{marginLeft: '1%'}}>
-                            {element.error}
-                        </div>
-                        
-                    </main>
-                )
-            }else{
-                password_err = (
-                    <main key={i} className='login-error'>
-                        <ErrIcon/>
-                        <div>
-                            {element.error}
-                        </div>
-                    </main>
-                )
-            }
-            return null
-        })
-    }
-
-    if(Context.SigninCredentialError){
-        password_err = null
-        username_err = null
-        invalid_cred_err = Context.SigninCredentialError.map((element, i)=>{
-            return (
-                <main key={i} className='login-error'>
+    if(Context.SignInFormError){
+        const element = {...Context.SignInFormError[0]}
+        if(element.type === 'Email'){
+            username_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div style={{marginLeft: '1%'}}>
+                        {element.error}
+                    </div>
+                    
+                </main>
+            )
+        }
+        else if(element.type === 'invalidity'){
+            invalid_cred_err = (
+                <main className='login-error'>
                     <ErrIcon/>
                     <div>
                         {element.error}
                     </div>
                 </main>
             )
-        })
+        }
+        else{
+            password_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div>
+                        {element.error}
+                    </div>
+                </main>
+            )
+        }
     }
+
     return (
         <Fragment>
             <main className='signup-container login-container'>

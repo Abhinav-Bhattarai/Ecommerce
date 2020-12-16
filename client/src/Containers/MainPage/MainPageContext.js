@@ -21,7 +21,10 @@ const MainPageContext = React.createContext({
     TriggerWishList: ()=>{},
     AddToCartHandler: ()=>{},
     RemoveFromCartHandler: ()=>{},
-    Loader: false
+    Loader: false,
+    LogoutPopupHandler: ()=>{},
+    logout_popup: false,
+    LogoutConfirmHandler: ()=>{}
 })
 
 export default MainPageContext

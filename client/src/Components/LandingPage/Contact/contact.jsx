@@ -22,29 +22,28 @@ const Contact = (props) => {
     let username_err = null
 
     if(Context.ContactFormError){
-        Context.ContactFormError.map((element, i)=>{
-            if(element.type === 'Email'){
-                username_err = (
-                    <main key={i} className='contact-error'>
-                        <ErrIcon/>
-                        <div style={{marginLeft: '1%'}}>
-                            {element.error}
-                        </div>
-                        
-                    </main>
-                )
-            }else{
-                response_err = (
-                    <main key={i} className='contact-error'>
-                        <ErrIcon/>
-                        <div>
-                            {element.error}
-                        </div>
-                    </main>
-                )
-            }
-            return null
-        })
+        const element = {...Context.SignInFormError[0]}
+        if(element.type === 'Email'){
+            username_err = (
+                <main className='contact-error'>
+                    <ErrIcon/>
+                    <div style={{marginLeft: '1%'}}>
+                        {element.error}
+                    </div>
+                    
+                </main>
+            )
+        }else{
+            response_err = (
+                <main className='contact-error'>
+                    <ErrIcon/>
+                    <div>
+                        {element.error}
+                    </div>
+                </main>
+            )
+        }
+
     }
     return (
         <Fragment>

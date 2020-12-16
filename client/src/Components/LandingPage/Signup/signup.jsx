@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import './signup.scss';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa'
+import { ErrIcon } from '../Signin/login'
 import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';
 
 const TimesIcon = ()=>{
@@ -14,6 +15,56 @@ const TimesIcon = ()=>{
 
 const Signup = () => {
     const Context = useContext(LandingPageContext)
+    let password_err = null
+    let username_err = null
+    let confirm_err = null
+    let email_exist_err = null
+
+    if(Context.SignupFormError){
+        const element = {...Context.SignInFormError[0]}
+        if(element.type === 'Email'){
+            username_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div style={{marginLeft: '1%'}}>
+                        {element.error}
+                    </div>
+                    
+                </main>
+            )
+        }else if(element.type === 'Password'){
+            password_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div>
+                        {element.error}
+                    </div>
+                </main>
+            )
+        }
+        else if(element.type === "EmailGet"){
+            email_exist_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div style={{marginLeft: '1%'}}>
+                        {element.error}
+                    </div>
+                    
+                </main>
+            )
+        }
+        else{
+            confirm_err = (
+                <main className='login-error'>
+                    <ErrIcon/>
+                    <div>
+                            {element.error}
+                        </div>
+                    </main>
+                )
+        }
+    }
+
     return (
         <Fragment>
             <main className='signup-container'>
@@ -28,16 +79,20 @@ const Signup = () => {
                 <main className='signup-input-container'>
                     <label>Email</label>
                     <div className='signup-input-rel'>
-                        <input type='email' autoFocus spellCheck='false' className='signup-input' onChange={Context.SignupChangeEmail} value={Context.signup_email}/>
+                        <input type='email' autoFocus spellCheck='false' className='signup-input' onChange={Context.SignupChangeEmail} value={Context.signup_email} style={(username_err)?{border: '2px solid red'}:{}}/>
                     </div>    
+                    {username_err}
+                    {email_exist_err}
                     <label>Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input' onChange={Context.SignupChangePassword} value={Context.signup_password}/>
+                        <input type='password' className='signup-input' onChange={Context.SignupChangePassword} value={Context.signup_password} style={(password_err)?{border: '2px solid red'}:{}}/>
                     </div>
+                    {password_err}
                     <label>Confirm Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input' onChange={Context.SignupChangeConfirm} value={Context.signup_confirm}/>
+                        <input type='password' className='signup-input' onChange={Context.SignupChangeConfirm} value={Context.signup_confirm} style={(confirm_err)?{border: '2px solid red'}:{}}/>
                     </div>
+                    {confirm_err}
                     <label>Phone no</label>
                     <div className='signup-input-rel'>
                         <input type='Phone' spellCheck='false' className='signup-input' onChange={Context.SignupChangePhone} value={Context.signup_phone}/>

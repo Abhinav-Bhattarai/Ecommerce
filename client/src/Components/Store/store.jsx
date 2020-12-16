@@ -14,6 +14,7 @@ import Wishlist from './Routes/WishlistRoute/wishlist';
 import History from './Routes/HistoryRoute/history';
 import MainPageContext from '../../Containers/MainPage/MainPageContext';
 import Spinner from '../UI/Spinner/spinner';
+import Logout from '../LandingPage/Logout/logout';
 
 const Store = (props) => {
     const [window_height] = useState(window.innerHeight)
@@ -22,6 +23,7 @@ const Store = (props) => {
     let Signup_jsx = null
     let Login_jsx = null
     let Contactus_jsx = null
+    let Logout_jsx = null
     let blur = '0px'
     if(Context.Login_state){
         Login_jsx = <Login/>
@@ -40,6 +42,11 @@ const Store = (props) => {
 
     if(Context1.contactus_popup){
         Contactus_jsx = <Contact type='MainPage'/>
+        blur = '3px'
+    }
+
+    if(Context1.logout_popup){
+        Logout_jsx = <Logout/>
         blur = '3px'
     }
 
@@ -74,6 +81,7 @@ const Store = (props) => {
             {Signup_jsx}
             {Login_jsx}
             {Contactus_jsx}
+            {Logout_jsx}
             </main>
         </Fragment>
     )
