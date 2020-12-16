@@ -15,7 +15,7 @@ code {
 
 @keyframes click{
   from{
-    transform: scale(0.98);
+    transform: scale(0.95);
   }
   to{
     transform: scale(1);

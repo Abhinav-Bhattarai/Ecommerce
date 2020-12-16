@@ -22,10 +22,8 @@ router.post('/', (req, res)=>{
        html: `<h1 style="margin: 10px auto; margin-bottom: 50px; text-align: center;">${req.body.Username}</h1><div>${req.body.Message}</div>`
     }, (err, info)=>{
         if(err){
-            console.log(err)
         }
         if(!err){
-            console.log(info)
             return res.json({success: true})
         }
     })

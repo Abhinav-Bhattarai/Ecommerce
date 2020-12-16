@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react';
-import './signup.css';
+import './signup.scss';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa'
 import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';

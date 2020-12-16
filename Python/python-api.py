@@ -12,4 +12,7 @@ def home():
     data = json.loads(request.data)
     return data
 
+@app.route('/name', methods=['GET'])
+def get_name():
+    return jsonify({"hello": True})
 app.run()

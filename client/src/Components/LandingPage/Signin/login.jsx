@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react';
-import '../Signup/signup.css';
+import '../Signup/signup.scss';
 import { IconContext } from 'react-icons';
-import { FaTimes } from 'react-icons/fa'
+import { FaTimes, FaExclamationCircle } from 'react-icons/fa'
 import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';
 
 const TimesIcon = ()=>{
@@ -12,8 +12,60 @@ const TimesIcon = ()=>{
     )
 }
 
+export const ErrIcon = ()=>{
+    return (
+        <IconContext.Provider value={{style:{color: 'red', marginRight: '1%'}}}>
+            <FaExclamationCircle/>
+        </IconContext.Provider>
+    )
+}
+
 const Login = () => {
     const Context = useContext(LandingPageContext)
+    let password_err = null
+    let username_err = null
+    let invalid_cred_err = null
+
+    if(Context.SignInFormError && Context.SigninCredentialError !== null){
+        Context.SignInFormError.map((element, i)=>{
+            if(element.type === 'Email'){
+                username_err = (
+                    <main key={i} className='login-error'>
+                        <ErrIcon/>
+                        <div style={{marginLeft: '1%'}}>
+                            {element.error}
+                        </div>
+                        
+                    </main>
+                )
+            }else{
+                password_err = (
+                    <main key={i} className='login-error'>
+                        <ErrIcon/>
+                        <div>
+                            {element.error}
+                        </div>
+                    </main>
+                )
+            }
+            return null
+        })
+    }
+
+    if(Context.SigninCredentialError){
+        password_err = null
+        username_err = null
+        invalid_cred_err = Context.SigninCredentialError.map((element, i)=>{
+            return (
+                <main key={i} className='login-error'>
+                    <ErrIcon/>
+                    <div>
+                        {element.error}
+                    </div>
+                </main>
+            )
+        })
+    }
     return (
         <Fragment>
             <main className='signup-container login-container'>
@@ -28,12 +80,16 @@ const Login = () => {
                 <main className='signup-input-container'>
                     <label>Email</label>
                     <div className='signup-input-rel'>
-                        <input type='email' spellCheck='false' autoFocus className='signup-input' onChange={Context.LoginChangeEmail} value={Context.login_email}/>
+                        <input type='email' spellCheck='false' autoFocus className='signup-input' onChange={Context.LoginChangeEmail} value={Context.login_email} style={(username_err || invalid_cred_err)?{'border': '2px solid red'}:{}}/>
                     </div>    
+                    {username_err}
+                    {invalid_cred_err}
                     <label>Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input' onChange={Context.LoginChangePassword} value={Context.login_password}/>
+                        <input type='password' className='signup-input' onChange={Context.LoginChangePassword} value={Context.login_password} style={(password_err || invalid_cred_err)?{'border': '2px solid red'}:{}}/>
                     </div>
+                    {password_err}
+                    {invalid_cred_err}
                 </main>
                 <button className='signup-btn'>Continue</button>
                 </form>

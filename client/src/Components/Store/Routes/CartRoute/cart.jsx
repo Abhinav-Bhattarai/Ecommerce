@@ -19,7 +19,7 @@ const Cart = () => {
                 }
             })
         }
-    }, [])
+    }, [data])
 
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
 

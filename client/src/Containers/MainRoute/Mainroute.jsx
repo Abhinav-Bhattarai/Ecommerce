@@ -21,16 +21,19 @@ class Mainroute extends Component {
     }
 
     componentDidMount(){
-        const token = localStorage.getItem('auth-token')
-        if(token){
-            axios.get(`/check/${token}`).then((response)=>{
-                const data = response.data
-                if(data !== {}){
-                    this.setState({
-                        authentication_status: true
-                    })
-                }
-            })
+        const authenticated = localStorage.getItem('authentication-status')
+        if(authenticated === true || authenticated === undefined){
+            const token = localStorage.getItem('auth-token')
+            if(token){
+                axios.post(`/check/`, {token}).then((response)=>{
+                    const data = response.data
+                    if(JSON.stringify(data) !== JSON.stringify({})){
+                        this.setState({
+                            authentication_status: true
+                        })
+                    }
+                })
+            }
         }
     }
     

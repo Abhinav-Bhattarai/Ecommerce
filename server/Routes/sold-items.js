@@ -9,6 +9,7 @@ router.get('/:email', (req, res)=>{
         if(response.length >= 1){
             return res.json(response)
         }
+        return res.json({invalid: true})
     })
 })
 

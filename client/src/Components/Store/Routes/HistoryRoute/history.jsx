@@ -12,7 +12,6 @@ const History = () => {
     useEffect(() => {
         SetSpinner(true)
         axios.get(`/history/${localStorage.getItem('Email')}`).then((response)=>{
-            console.log(response.data)
             const err = {invalid: true}
             if(JSON.stringify(err) !== JSON.stringify(response.data)){
                 if(response.data.length >= 1){

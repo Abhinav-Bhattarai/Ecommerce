@@ -27,7 +27,11 @@ const LandingPageContext = React.createContext({
     ChangeContactusFrom: ()=>{},
     ChangeContactusReason: ()=>{},
     SubmitContact: ()=>{},
-    Triggerwishlist: ()=>{}
+    Triggerwishlist: ()=>{},
+    SignInFormError: null,
+    SignupFormError: null,
+    ContactFormError: null,
+    SigninCredentialError: null
 })
 
 export default LandingPageContext

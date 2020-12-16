@@ -166,7 +166,6 @@ const Mainpage = (props) => {
     }
 
     useEffect(()=>{
-        console.log('mainpage')
         if(product_list === null){
         if(localStorage.getItem('WishList')){
             const WishListArray = [...JSON.parse(localStorage.getItem('WishList'))]
@@ -182,6 +181,7 @@ const Mainpage = (props) => {
                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
                     if(item === data[TotalProductMidIndex]){
+                        console.log('true')
                         if(item_id === data[TotalProductMidIndex]._id){
                             data[TotalProductMidIndex].WishListed = true
                         }
@@ -224,6 +224,7 @@ const Mainpage = (props) => {
                 }else{
                     SetSpinStatus(true)
                 }
+                console.log(data)
 
                 SetWishlist(WishListArray)
                 SetProductList(data)
@@ -362,7 +363,6 @@ const Mainpage = (props) => {
     }
 
     const CartIconClick = ()=>{
-        InputFile.current.click()
         props.history.push('/e-commerce/cartItems')
     }
 
@@ -420,7 +420,7 @@ const Mainpage = (props) => {
     const RemoveFromCartHandler = (product_id)=>{
         const data = [...cart_items]
         data.filter((element, index)=>{
-            if(element._id === product_id){
+            if(element.id === product_id){
                 data.splice(index, 1)
             }
             return null

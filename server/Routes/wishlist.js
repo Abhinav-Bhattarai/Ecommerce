@@ -8,7 +8,6 @@ router.get('/:email', (req, res)=>{
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
         const data = response[0].WishListedItems
         const end = process.hrtime(start)
-        console.log(`${end[0]} secs for wishlist fetching`)
         return res.json(data)
     })
 })

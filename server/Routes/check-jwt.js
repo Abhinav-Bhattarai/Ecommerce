@@ -6,8 +6,8 @@ dotenv.config()
 
 const router = express.Router()
 
-router.get('/:token', (req, res)=>{
-    jwt.verify(req.params.token, process.env.JWT_AUTH_KEY, (err, response)=>{
+router.post('/', (req, res)=>{
+    jwt.verify(req.body.token, process.env.JWT_AUTH_KEY, (err, response)=>{
         if(err){return res.json({})}
         if(response){
             return res.json(response)

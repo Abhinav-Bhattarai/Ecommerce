@@ -27,19 +27,33 @@ const LandingPage = (props) => {
     const [request_redundancy, SetRequestRedundancy] = useState(false)
     const [spin_status, SetSpinStatus] = useState(false)
     const [loader, SetLoader] = useState(false)
+    const [contact_form_error, SetContactFormError] = useState(null)
+    const [login_form_error, SetLoginFormError] = useState(null)
+    const [signup_form_error, SetSignupFormError] = useState(null)
+    const [signin_cred_error, SetSigninCredError] = useState(null)
 
     const TriggerSignupPopup = ()=>{
         props.history.push(`/${uuid()}/?signup`)
+        if(signup_popup){
+            SetSignupFormError(null)
+        }
         SetSignupPopup(!signup_popup)
     }
 
     const TriggerLoginPopup = ()=>{
         props.history.push(`/${uuid()}/?login`)
+        if(login_popup){
+            SetSigninCredError(null)
+            SetLoginFormError(null)
+        }
         SetLoginPopup(!login_popup)
     }
 
     const TriggerContactPopup = ()=>{
         props.history.push(`/${uuid()}/#contact-us`)
+        if(contactus_popup){
+            SetContactFormError(null)
+        }
         SetContactusPopup(!contactus_popup)
     }
 
@@ -133,6 +147,9 @@ const LandingPage = (props) => {
                 }
             })
             
+        }else{
+            // signup submit exception
+
         }
     }
 
@@ -157,14 +174,25 @@ const LandingPage = (props) => {
                     localStorage.setItem('auth-token', data.token)
                     // auth function from parent component
                     props.ChangeAuthentication(false)
+                }else{
+                    SetSigninCredError([{error: 'Invalid Credentials'}])
                 }
             })
+        }else{
+            // exceptions
+            if(login_email.length < 11){
+                SetLoginFormError([{type: 'Email', error: 'Email didnot match'}])
+            } 
+            else if(login_password.length < 8){
+                SetLoginFormError([{type: 'Password', error: 'Password length sould be greater than 8 characters'}])
+            }
+
         }
     }
 
     const ContactSubmitHandler = (event)=>{
         event.preventDefault()
-        if(contact_from.length >= 11 && contact_reason.length >= 10){
+        if(contact_from.length >= 11 && contact_reason.length >= 20){
             const context = {
                 Username: contact_from,
                 Message: contact_reason
@@ -173,18 +201,29 @@ const LandingPage = (props) => {
             SetContactFrom('')
             SetContactReason('')
             SetContactusPopup(false)
+        }else{
+            if(contact_from.length < 11){
+                SetContactFormError([{type: 'Email', error: 'Invalid Email'}])
+            }
+            else if(contact_reason.length < 20){
+                SetContactFormError([{type: 'ReasonError', error: 'Too short description'}])
+            }
         }
     }
 
     const ClearScreenHandler = ()=>{
         if(signup_popup){
             SetSignupPopup(false)
+            SetSignupFormError(null)
         }
         if(login_popup){
             SetLoginPopup(false)
+            SetSigninCredError(null)
+            SetLoginFormError(null)
         }
         if(contactus_popup){
             SetContactusPopup(false)
+            SetContactFormError(null)
         }
     }
 
@@ -375,13 +414,13 @@ const LandingPage = (props) => {
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})
             SetWishlist(dummy)
-            // localStorage.setItem('WishList', JSON.stringify(dummy))
+            localStorage.setItem('WishList', JSON.stringify(dummy))
         }else{
             e.target.style.color = 'grey'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})
             SetWishlist(dummy)
-            // localStorage.setItem('WishList', JSON.stringify(dummy))
+            localStorage.setItem('WishList', JSON.stringify(dummy))
         }
     }
 
@@ -426,7 +465,11 @@ const LandingPage = (props) => {
                     ChangeContactusFrom: (e)=>{ChangeContactFrom(e)},
                     ChangeContactusReason: (e)=>{ChangeContactReason(e)},
                     SubmitContact: (e)=>{ContactSubmitHandler(e)},
-                    Triggerwishlist: (e, wishlist, item_id, item_name)=>TriggerWishlist(e, wishlist, item_id, item_name)
+                    Triggerwishlist: (e, wishlist, item_id, item_name)=>TriggerWishlist(e, wishlist, item_id, item_name),
+                    SignInFormError: login_form_error,
+                    SignupFormError: signup_form_error,
+                    ContactFormError: contact_form_error,
+                    SigninCredentialError: signin_cred_error
                 }}>
                     <Store/>
                 </LandingPageContext.Provider>

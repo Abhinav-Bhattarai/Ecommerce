@@ -41,8 +41,6 @@ router.post('/', (req, res)=>{
     //                 subject: 'Product Listed',
     //                 text: `You've successfully uploaded Your product ${Data}`
     //             }, (err, info)=>{
-    //                 if(err){console.log(err)}else{
-    //                     console.log('Product Mail Sent')
     //                 }
     //             })
     //             return res.json({product_posted: true})
@@ -63,7 +61,6 @@ router.delete('/:product_id', (req, res)=>{
     ProductModel.findByIdAndDelete(req.params.product_id).then((response)=>{
         return res.json({product_deleted: true})
     }).catch((err)=>{
-        console.log(err)
     })
 })
 

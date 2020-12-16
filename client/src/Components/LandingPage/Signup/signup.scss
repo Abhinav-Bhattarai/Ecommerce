@@ -120,3 +120,26 @@
 .signup-btn:focus{
     outline: none;
 }
+
+.login-error{
+    font-size: 14px;
+    color: red;
+    font-weight: 400;
+    width: 86%;
+    padding: 1px 0%;
+    margin: 5px auto;
+    display: flex;
+    align-items: center;
+}
+
+.contact-error{
+    @extend .login-error;
+}
+
+.signup-error{
+    @extend .login-error
+}
+
+.contact-container{
+    height: 530px;
+}
