@@ -21,7 +21,8 @@ class Mainroute extends Component {
     }
 
     componentDidMount(){
-        const authenticated = localStorage.getItem('authentication-status')
+        const authenticated = JSON.parse(localStorage.getItem('authentication-status'))
+        console.log(typeof authenticated)
         if(authenticated === true || authenticated === undefined){
             const token = localStorage.getItem('auth-token')
             if(token){
@@ -41,7 +42,7 @@ class Mainroute extends Component {
         if(authenticated){
             localStorage.clear()
         }
-        localStorage.setItem('authentication-status', !authenticated)
+        JSON.stringify(localStorage.setItem('authentication-status', !authenticated))
         this.setState({authentication_status: !authenticated})
     }
 

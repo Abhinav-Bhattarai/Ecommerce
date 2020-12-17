@@ -22,7 +22,7 @@ const Contact = (props) => {
     let username_err = null
 
     if(Context.ContactFormError){
-        const element = {...Context.SignInFormError[0]}
+        const element = {...Context.ContactFormError[0]}
         if(element.type === 'Email'){
             username_err = (
                 <main className='contact-error'>

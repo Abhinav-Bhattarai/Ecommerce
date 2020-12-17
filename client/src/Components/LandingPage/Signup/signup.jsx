@@ -21,7 +21,7 @@ const Signup = () => {
     let email_exist_err = null
 
     if(Context.SignupFormError){
-        const element = {...Context.SignInFormError[0]}
+        const element = {...Context.SignupFormError[0]}
         if(element.type === 'Email'){
             username_err = (
                 <main className='login-error'>
