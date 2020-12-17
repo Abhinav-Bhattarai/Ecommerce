@@ -59,13 +59,13 @@ const SideNav = (props) => {
                 <div className='side-nav-icon-container' onClick={Context.WishListIconClick} data-tool-tip='WishList'>
                     <FavoraitesIcon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.CartIconClick}>
+                <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={(auth_state === false)?LPContext.TriggerSignupPopup:Context.CartIconClick}>
                     <CartIcon/>
                 </div>
-                <div className='side-nav-icon-container' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.HistoryIconClick} data-tool-tip='History'>
+                <div className='side-nav-icon-container' onClick={(auth_state === false)?LPContext.TriggerSignupPopup:Context.HistoryIconClick} data-tool-tip='History'>
                     <HistoryIcon/>
                 </div>
-                <div className='side-nav-icon-container' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.SoldItemsIconClick} data-tool-tip='Sold Items'>
+                <div className='side-nav-icon-container' onClick={(auth_state === false)?LPContext.TriggerSignupPopup:Context.SoldItemsIconClick} data-tool-tip='Sold Items'>
                     <SoldIcon/>
                 </div>
            </div>
