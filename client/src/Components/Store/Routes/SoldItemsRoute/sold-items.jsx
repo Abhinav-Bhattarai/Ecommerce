@@ -12,15 +12,19 @@ const SoldItem = (props) => {
         
     }
 
+    const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
+
     useEffect(() => {
-        SetSpinner(true)
-        axios.get(`/sold-item/${localStorage.getItem('Email')}`).then((response)=>{
-            const err = {invalid: true}
-            if(JSON.stringify(err) !== JSON.stringify(response.data)){
-                SetData(response.data)
-            }
-             SetSpinner(false)
-        })
+        if(auth_status=== true){
+            SetSpinner(true)
+            axios.get(`/sold-item/${localStorage.getItem('Email')}`).then((response)=>{
+                const err = {invalid: true}
+                if(JSON.stringify(err) !== JSON.stringify(response.data)){
+                    SetData(response.data)
+                }
+                 SetSpinner(false)
+            })
+        }
     }, []);
 
     let spinner_jsx = null
@@ -30,7 +34,7 @@ const SoldItem = (props) => {
 
     let jsx = null
 
-    if(data && spinner === false){
+    if(data && spinner === false && auth_status === true){
         const dummy = [...data]
         jsx = dummy.map((element, i)=>{
             return (<ProductCard

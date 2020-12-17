@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 import { FaHistory, FaHome, FaShoppingBag, FaShoppingCart, FaStar } from 'react-icons/fa';
 import StoreContext from '../Store/StoreContext';
 import { withRouter } from 'react-router';
+import LandingPageContext from '../../Containers/LandingPage/LandingPageContext';
 
 const Icon = ()=>{
     return (
@@ -47,6 +48,8 @@ const SoldIcon = ()=>{
 
 const SideNav = (props) => {
     const Context = useContext(StoreContext)
+    const LPContext = useContext(LandingPageContext)
+    const auth_state = JSON.parse(localStorage.getItem('authentication-status'))
     return (
        <Fragment>
            <div className='side-nav-container' style={{filter: `blur(${props.blur})`}}>
@@ -56,13 +59,13 @@ const SideNav = (props) => {
                 <div className='side-nav-icon-container' onClick={Context.WishListIconClick} data-tool-tip='WishList'>
                     <FavoraitesIcon/>
                 </div>
-                <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={Context.CartIconClick}>
+                <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.CartIconClick}>
                     <CartIcon/>
                 </div>
-                <div className='side-nav-icon-container' onClick={Context.HistoryIconClick} data-tool-tip='History'>
+                <div className='side-nav-icon-container' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.HistoryIconClick} data-tool-tip='History'>
                     <HistoryIcon/>
                 </div>
-                <div className='side-nav-icon-container' onClick={Context.SoldItemsIconClick} data-tool-tip='Sold Items'>
+                <div className='side-nav-icon-container' onClick={(auth_state === true)?LPContext.TriggerSignupPopup:Context.SoldItemsIconClick} data-tool-tip='Sold Items'>
                     <SoldIcon/>
                 </div>
            </div>

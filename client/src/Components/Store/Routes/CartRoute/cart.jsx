@@ -8,8 +8,9 @@ const Cart = () => {
     const Context = useContext(StoreContext)
     const [data, SetData] = useState(Context.CartItems ? Context.CartItems : null)
 
+    const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
     useEffect(()=>{
-        if(data === null){
+        if(data === null && auth_status === true){
             axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
                 const invalid = {invalid: true}
                 if(JSON.stringify(invalid) !== JSON.stringify(response.data)){
@@ -23,7 +24,7 @@ const Cart = () => {
 
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
 
-    if(Context.CartItems){
+    if(Context.CartItems && auth_status === true){
         const dummy = [...data]
         product_cards_jsx = dummy.map((element, i)=>{
             return (

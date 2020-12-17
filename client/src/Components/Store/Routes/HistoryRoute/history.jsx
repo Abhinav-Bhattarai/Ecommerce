@@ -8,25 +8,27 @@ const History = () => {
     const [data, SetData] = useState(null)
 
     let product_cards_jsx = null
-
+    const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
     useEffect(() => {
-        SetSpinner(true)
-        axios.get(`/history/${localStorage.getItem('Email')}`).then((response)=>{
-            const err = {invalid: true}
-            if(JSON.stringify(err) !== JSON.stringify(response.data)){
-                if(response.data.length >= 1){
-                    SetData(response.data)
+        if(JSON.parse(localStorage.getItem('authentication-status')) === true){
+            SetSpinner(true)
+            axios.get(`/history/${localStorage.getItem('Email')}`).then((response)=>{
+                const err = {invalid: true}
+                if(JSON.stringify(err) !== JSON.stringify(response.data)){
+                    if(response.data.length >= 1){
+                        SetData(response.data)
+                    }
                 }
-            }
-            SetSpinner(false)
-        })
+                SetSpinner(false)
+            })
+        }
     }, []);
 
-    if(data){
+    if(data && auth_status === true){
         
     }
 
-    if(spinner === false && data === null){
+    if(spinner === false && data === null && auth_status === true){
         product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
     }
 
