@@ -427,7 +427,8 @@ const LandingPage = (props) => {
 
         
     const TriggerWishlist = (e, wishlist_triggered, item_id, item_name)=>{
-        if(wishlist_triggered === false){
+        e.stopPropagation()
+        if(wishlist_triggered === true){
             e.target.style.color = ' #ff385c'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})

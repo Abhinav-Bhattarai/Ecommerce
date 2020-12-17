@@ -372,7 +372,7 @@ const Mainpage = (props) => {
 
             
     const TriggerWishlist = (e, wishlist_triggered, item_id, item_name, Seller, price, img, desc)=>{
-        if(wishlist_triggered === false){
+        if(wishlist_triggered === true){
             e.target.style.color = ' #ff385c'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})
@@ -388,18 +388,17 @@ const Mainpage = (props) => {
                 img,
                 desc
             }
-            axios.put('/wishlist/add', context).then((response)=>{
-            })
+            axios.put('/wishlist/add', context).then(()=>{})
         }else{
             e.target.style.color = 'grey'
             const dummy = [...wishlist]
-            const index = dummy.findIndex((e)=>{return e.item_id === item_id})
+            const index = dummy.findIndex((element)=>{return element.item_id === item_id})
             dummy.splice(index, 1)
             SetWishlist(dummy)
             localStorage.setItem('WishList', JSON.stringify(dummy))
             // further axios request
-            const context = {item_id}
-            axios.put('/wishlist/remove', context).then((response)=>{})
+            const context = {item_id, email: localStorage.getItem('Email')}
+            axios.put('/wishlist/remove', context).then(()=>{})
         }
     }
 

@@ -40,7 +40,6 @@ const ProductCards = (props) => {
                 <article className='product-description-container'>
                     <header className='product-home-title'>{props.ItemName}</header>
                     <footer className='product-home-desc'>{props.Description}</footer>
-                    {/* <div className='Product-home-price'>Price: $ {props.Price}</div> */}
                     <div className='full-product-price'>
                         <header className='tag'>{(props.from)?'STATUS': 'PURCHASE NOW'}</header>
                         <footer className='full-product-price-tag' onClick={Context1.AddToCartHandler.bind(this, props.ProductImage, props.ItemName, props.Price)}>Price: $ {props.Price}</footer>
