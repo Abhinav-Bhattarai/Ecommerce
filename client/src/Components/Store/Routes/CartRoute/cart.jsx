@@ -7,8 +7,8 @@ import './cart.css';
 const Cart = () => {
     const Context = useContext(StoreContext)
     const [data, SetData] = useState(Context.CartItems ? Context.CartItems : null)
-
     const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
+    
     useEffect(()=>{
         if(data === null && auth_status === true){
             axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
@@ -20,7 +20,7 @@ const Cart = () => {
                 }
             })
         }
-    }, [data])
+    }, [data, auth_status])
 
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
 

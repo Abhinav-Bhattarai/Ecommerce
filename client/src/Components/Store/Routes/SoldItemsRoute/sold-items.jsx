@@ -25,7 +25,7 @@ const SoldItem = (props) => {
                  SetSpinner(false)
             })
         }
-    }, []);
+    }, [auth_status]);
 
     let spinner_jsx = null
     if(spinner){

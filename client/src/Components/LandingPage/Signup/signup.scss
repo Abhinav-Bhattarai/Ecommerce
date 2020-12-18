@@ -166,6 +166,11 @@
         background-color: #fc2d53;
         color: white;
         border: none;
+
+        &:focus{
+            outline: none;
+        }
+
     }
 
     .logout-btn-neg{

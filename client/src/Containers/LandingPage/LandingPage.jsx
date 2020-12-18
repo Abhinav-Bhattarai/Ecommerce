@@ -207,7 +207,7 @@ const LandingPage = (props) => {
         return ()=>{
             if(cancel_token) cancel_token.cancel('request cancelled')
         }
-    }, [])
+    }, [cancel_token])
 
     const ContactSubmitHandler = (event)=>{
         event.preventDefault()
@@ -427,8 +427,7 @@ const LandingPage = (props) => {
 
         
     const TriggerWishlist = (e, wishlist_triggered, item_id, item_name)=>{
-        e.stopPropagation()
-        if(wishlist_triggered === true){
+        if(wishlist_triggered === false){
             e.target.style.color = ' #ff385c'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})

@@ -18,21 +18,19 @@ const LoveIcon = (props)=>{
 }
 
 const ProductCards = (props) => {
-    let state = false
-    if(props.WishListed !== undefined){
-        state = props.WishListed
-    }
-    const [wishlist_triggered, SetWishlistTrigger] = useState(state)
+    const [wishlist_triggered, SetWishlistTrigger] = useState(props.WishListed? props.WishListed:false)
     const Context = useContext(LandingPageContext)
     const Context1 = useContext(MainPageContext)
-    const WishList = ()=>{
+    const WishList = (event)=>{
+        event.stopPropagation()
         SetWishlistTrigger(!wishlist_triggered)
     }
+    const auth = JSON.parse(localStorage.getItem('authentication-status'))
     return (
         <Fragment>
             <main className='product-cards' style={{filter: `blur(${props.blur})`}}  onClick={props.Click.bind(this, props.Seller, props.Price, props.ItemName, props.ProductImage, props.Description, props.WishListed, props._id)}>
             <span onClick={WishList}>
-                <span onClick={(props.type === 'MainPage')?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName, props.Seller, props.Price, props.ProductImage, props.Description):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName, props.Seller, props.Price, props.ProductImage, props.Description)}>
+                <span onClick={(auth === true)?(e)=>Context1.TriggerWishList(e, wishlist_triggered, props._id, props.ItemName, props.Seller, props.Price, props.ProductImage, props.Description):(e)=>Context.Triggerwishlist(e, wishlist_triggered, props._id, props.ItemName, props.Seller, props.Price, props.ProductImage, props.Description)}>
                     <LoveIcon WishListed={props.WishListed}/>
                 </span>
             </span>

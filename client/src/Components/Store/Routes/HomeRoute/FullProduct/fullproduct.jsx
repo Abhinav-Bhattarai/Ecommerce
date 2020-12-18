@@ -165,13 +165,18 @@ const FullProduct = (props) => {
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>
                 </main>
-                <main className='review-container'>
-                <header className='review-input-container'>
-                    <div className='review-input-pic'><UserIcon/></div>
-                    <input className='review-input' type='text' value={chat_input} onChange={ChangeChatInput} placeholder='Leave a comment'/>
-                    <button className='review-send' onClick={SendMessageHandler}>Send</button>
-                </header>
-                </main>
+                {(JSON.parse(localStorage.getItem('authentication-status')) === true)?(
+                    <article>
+                        <header className='question-answer'>QUESTION & ANSWER SECTION</header>
+                        <main className='review-container'>
+                        <header className='review-input-container'>
+                            <div className='review-input-pic'><UserIcon/></div>
+                            <input className='review-input' type='text' value={chat_input} onChange={ChangeChatInput} placeholder='Ask a Question about the product'/>
+                            <button className='review-send' onClick={SendMessageHandler}>Send</button>
+                        </header>
+                        </main>
+                    </article>
+                ):null}
                 {comment_jsx}
             </main>
         )

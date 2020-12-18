@@ -1,9 +1,10 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useRef } from 'react';
 import './signup.scss';
 import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa'
 import { ErrIcon } from '../Signin/login'
 import LandingPageContext from '../../../Containers/LandingPage/LandingPageContext';
+import PasswordLogo from '../../PasswordLogo/password-logo';
 
 const TimesIcon = ()=>{
     return (
@@ -14,6 +15,10 @@ const TimesIcon = ()=>{
 }
 
 const Signup = () => {
+
+    const password_ref = useRef(null)
+    const confirm_ref = useRef(null)
+
     const Context = useContext(LandingPageContext)
     let password_err = null
     let username_err = null
@@ -85,12 +90,14 @@ const Signup = () => {
                     {email_exist_err}
                     <label>Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input' onChange={Context.SignupChangePassword} value={Context.signup_password} style={(password_err)?{border: '2px solid red'}:{}}/>
+                        <input type='password' className='signup-input' onChange={Context.SignupChangePassword} ref={password_ref} value={Context.signup_password} style={(password_err)?{border: '2px solid red'}:{}}/>
+                        <PasswordLogo reference={password_ref}/>
                     </div>
                     {password_err}
                     <label>Confirm Password</label>
                     <div className='signup-input-rel'>
-                        <input type='password' className='signup-input' onChange={Context.SignupChangeConfirm} value={Context.signup_confirm} style={(confirm_err)?{border: '2px solid red'}:{}}/>
+                        <input type='password' className='signup-input' onChange={Context.SignupChangeConfirm} ref={confirm_ref} value={Context.signup_confirm} style={(confirm_err)?{border: '2px solid red'}:{}}/>
+                        <PasswordLogo reference={confirm_ref}/>
                     </div>
                     {confirm_err}
                     <label>Phone no</label>

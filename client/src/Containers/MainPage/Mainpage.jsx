@@ -182,7 +182,6 @@ const Mainpage = (props) => {
                     const TotalProductMidIndex = Math.floor(data.length - 1 / 2)
                     const first_letter_total_product_mid_index = data[TotalProductMidIndex].ItemName[0]
                     if(item === data[TotalProductMidIndex]){
-                        console.log('true')
                         if(item_id === data[TotalProductMidIndex]._id){
                             data[TotalProductMidIndex].WishListed = true
                         }
@@ -225,7 +224,6 @@ const Mainpage = (props) => {
                 }else{
                     SetSpinStatus(true)
                 }
-                console.log(data)
 
                 SetWishlist(WishListArray)
                 SetProductList(data)
@@ -372,7 +370,7 @@ const Mainpage = (props) => {
 
             
     const TriggerWishlist = (e, wishlist_triggered, item_id, item_name, Seller, price, img, desc)=>{
-        if(wishlist_triggered === true){
+        if(wishlist_triggered === false){
             e.target.style.color = ' #ff385c'
             const dummy = [...wishlist]
             dummy.push({item_id, item_name})

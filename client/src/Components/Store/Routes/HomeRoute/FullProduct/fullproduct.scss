@@ -141,7 +141,7 @@ $green:  rgb(40, 216, 40);
     @include flex();
     padding: 10px 3%;
     margin: 10px auto;
-    margin-top: 20px;
+    margin-top: 10px;
 
     input{
         display: block;
@@ -151,10 +151,11 @@ $green:  rgb(40, 216, 40);
         margin: 0px 2%;
         border: none;
         background-color: rgb(211, 211, 211);
-        border-bottom: 3px solid $green;
+        border-radius: 10px;
 
         &:focus{
             outline: none;
+            border: 2.55px solid $green;
         }
     }
 
@@ -169,7 +170,7 @@ $green:  rgb(40, 216, 40);
 
         @keyframes click{
             from{
-                transform: scale(0.92);
+                transform: scale(0.96);
             }
             to{
                 transform: scale(1);
@@ -178,7 +179,7 @@ $green:  rgb(40, 216, 40);
         
         &:focus{
             animation-name: click;
-            animation-duration: 0.7s;
+            animation-duration: 0.5s;
             outline: none;
         }
     }
@@ -200,4 +201,14 @@ $green:  rgb(40, 216, 40);
         background-color: rgb(202, 202, 202);
         border-radius: 20px;
     }
+}
+
+.question-answer{
+    margin: 10px auto;
+    border-top: 1px solid black;
+    padding: 10px 4%;
+    margin-top: 25px;
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: 500;
 }
