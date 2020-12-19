@@ -1,9 +1,10 @@
 import express from 'express';
+import Middleware from '../Middleware/auth-check.js';
 import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
-router.get('/:email', (req, res)=>{
+router.get('/:email/:auth', Middleware, (req, res)=>{
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
         if(response.length >= 1){
             return res.json(response)
@@ -12,7 +13,7 @@ router.get('/:email', (req, res)=>{
     })
 })
 
-router.put('/:type', (req, res)=>{
+router.put('/:type/:auth', Middleware, (req, res)=>{
     const Email = req.body.email
     const item_name = req.body.ItemName
     const item_id = req.body.id

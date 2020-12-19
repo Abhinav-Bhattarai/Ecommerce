@@ -12,7 +12,6 @@ import DeleteRouter from './Routes/deleter.js';
 import ProductRouter from './Routes/add-product.js';
 import WishListRouter from './Routes/wishlist.js';
 import AdminRouter from './Routes/Make-admin.js';
-import FileRouter from  './Routes/file.js';
 import AlternateProductRoute from './Routes/alternate-product-search.js'; 
 import { profanity_list } from './profanity-list.js';
 import ProductReviewMessageRouter from './Routes/product-review-msg.js';
@@ -38,9 +37,7 @@ app.use(bodyparser.json({limit: '50mb'}))
 
 // socket connection for real-time functions  
 io.on('connect', (socket)=>{
-    socket.on('join-room', (room)=>{
-        socket.join(room)
-    })
+    socket.on('join-room', (room)=>{socket.join(room)})
 
     socket.on('server-receiver', (client_id, msg, room)=>{
         const profanity = profanity_list
@@ -56,9 +53,7 @@ io.on('connect', (socket)=>{
         }
     })
 
-    socket.on('disconnect', ()=>{
-        console.log('user disconnected')
-    })
+    socket.on('disconnect', ()=>{})
 })
 
 // api endpoints
@@ -70,7 +65,6 @@ app.use('/delete', DeleteRouter)
 app.use('/product', ProductRouter)
 app.use('/wishlist', WishListRouter)
 app.use('/admin', AdminRouter)
-app.use('/file', FileRouter)
 app.use('/alternate-product-search', AlternateProductRoute)
 app.use('/product-review-msg', ProductReviewMessageRouter)
 app.use('/search-engine-data', SearchEngineRouter)

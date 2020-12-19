@@ -33,8 +33,6 @@ const Mainpage = (props) => {
         const reader = new FileReader()
         reader.onloadend = ()=>{
             SetProductImage(reader.result)
-            axios.post('/file', {result: reader.result}).then((response)=>{
-            })
             const context = {
                 Seller: localStorage.getItem('Email'),
                 Price: '8000',
