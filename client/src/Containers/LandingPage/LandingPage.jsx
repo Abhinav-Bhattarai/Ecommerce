@@ -136,7 +136,6 @@ const LandingPage = (props) => {
                     SetSignupConfirm('')
                     SetSignupPhone('')
                     SetSignupPopup(false)
-                    localStorage.removeItem('WishList')
                     localStorage.clear()
                     localStorage.setItem('User-data', JSON.stringify(data.Data))
                     localStorage.setItem('Email', data.Data.Email)
@@ -187,7 +186,6 @@ const LandingPage = (props) => {
                     SetLoginFormError([{type:'invalidity', error: 'Invalid Credentials'}])
                 }
             }).catch(()=>{
-                console.log('request cancelled')
             })
         }else{
             // exceptions
@@ -202,8 +200,10 @@ const LandingPage = (props) => {
     }
 
     useEffect(()=>{
-        let token = axios.CancelToken.source()
-        SetCancelToken(token)
+        if(cancel_token === null){
+            let token = axios.CancelToken.source()
+            SetCancelToken(token)
+        }
         return ()=>{
             if(cancel_token) cancel_token.cancel('request cancelled')
         }

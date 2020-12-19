@@ -303,6 +303,7 @@ const Mainpage = (props) => {
     []) 
 
 
+
     useEffect(()=>{
         
        window.addEventListener('scroll', ()=>{

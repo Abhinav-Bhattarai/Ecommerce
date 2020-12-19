@@ -19,7 +19,7 @@ router.post('/', (req, res)=>{
             bcrypt.hash(Password, 10).then((hash)=>{
                 Password = hash
                 bcrypt.compare(Confirm, Password, (err, state)=>{
-                    const data = new RegistrationModel({
+                    const Data = new RegistrationModel({
                         Email,
                         Password,
                         ActiveStatus: true,
@@ -40,7 +40,7 @@ router.post('/', (req, res)=>{
                     
                         if(state){
                         if(username_check && password_check){
-                            data.save().then((response)=>{
+                            Data.save().then((response)=>{
                                 const DAY_3 = 84600*3 
                                 jwt.sign(response.toJSON(), process.env.JWT_AUTH_KEY, {expiresIn: DAY_3}, (err, token)=>{
                                     if(err){
@@ -67,8 +67,6 @@ router.post('/', (req, res)=>{
                                         
                                     }})
                         
-                                    const Data = {...data}
-                                    delete Data.Password
                                     return res.json({token, Data})
                                 })
                             })

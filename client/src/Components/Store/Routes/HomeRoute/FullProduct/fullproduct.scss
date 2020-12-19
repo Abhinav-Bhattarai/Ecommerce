@@ -188,18 +188,35 @@ $green:  rgb(40, 216, 40);
 .chat-area{
     @include flex();
     justify-content: flex-start;
+    flex-direction: column;
     margin: 10px auto;
 
-    &-pic{
-        margin: 0px 3%;
-        margin-right: 2%;
+    &-header{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 5px auto;
+        width: 95%;
+        .chat-area-pic{
+            margin-right: 2%;
+        }
+        
+        .chat-area-name{
+            font-size: 20px;
+            font-weight: 400;
+        }
     }
-    
-    &-msg{
-        padding: 5px 3%;
-        max-width: 60%;
-        background-color: rgb(202, 202, 202);
-        border-radius: 20px;
+
+    footer{
+        width:80%;
+        margin: 5px auto;
+        background-color: rgb(172, 171, 171);
+        border-radius: 10px;
+        padding: 10px 3%;
+    }
+
+    .chat-area-reply{
+        background-color: #0A7CFF;
     }
 }
 

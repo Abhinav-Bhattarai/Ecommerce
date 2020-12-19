@@ -19,35 +19,29 @@ router.post('/', (req, res)=>{
     const Data = new ProductModel({
         Seller, Price, ItemName, ProductImage, Description, PostDate
     })
-
-    Data.save().then(()=>{
-        return res.json({'product-added': true})
+    RegistrationModel.find().where('Email').equals(Seller).then((response)=>{
+        if(response.length >= 1){
+            if(Seller.length >= 11 && Price >= 10 && ItemName.length >= 4 && ProductImage.length > 100 && Description.length >= 10){  
+                Data.save().then((response)=>{
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth:{
+                            user: process.env.Email,
+                            pass: process.env.Password
+                        }
+                    })
+                    transporter.sendMail({
+                        from: 'Light web community',
+                        to: Seller,
+                        subject: 'Product Listed',
+                        text: `You've successfully uploaded Your product ${Data}`
+                    }), (err, info)=>{
+                        }
+                    })
+                    return res.json({product_posted: true})
+                }    
+        }    
     })
-
-    // RegistrationModel.find().where('Email').equals(Seller).then((response)=>{
-    // if(response.length >= 1){
-    //     if(Seller.length >= 11 && Price >= 100 && ItemName.length >= 4 && Image.length > 100 && Description.length >= 10){  
-    //         Data.save().then((response)=>{
-    //             const transporter = nodemailer.createTransport({
-    //                 service: 'gmail',
-    //                 auth:{
-    //                     user: process.env.Email,
-    //                     pass: process.env.Password
-    //                 }
-    //             })
-    //             transporter.sendMail({
-    //                 from: 'Light web community',
-    //                 to: Seller,
-    //                 subject: 'Product Listed',
-    //                 text: `You've successfully uploaded Your product ${Data}`
-    //             }, (err, info)=>{
-    //                 }
-    //             })
-    //             return res.json({product_posted: true})
-    //         })
-    //     }
-    // }
-    // })
 })
 
 router.get('/:n', (req, res)=>{

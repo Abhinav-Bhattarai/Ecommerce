@@ -7,10 +7,11 @@ import { withRouter } from 'react-router';
 import io from 'socket.io-client';
 import dotenv from 'dotenv';
 import MainPageContext from '../../../../../Containers/MainPage/MainPageContext';
+import MessageBox from './MessageBox/message-box';
 
 dotenv.config()
 
-const UserIcon = ()=>{
+export const UserIcon = ()=>{
     return (
         <IconContext.Provider value={{
             className: 'user-icon'
@@ -43,6 +44,7 @@ const FullProduct = (props) => {
     const [socket, SetSocket] = useState(null)
     const [chat_input, SetChatInput] = useState('')
     const [chat_list, SetChatList] = useState([])
+    const [seller, SetSeller] = useState(null)
     const Context = useContext(MainPageContext)
 
     useEffect(()=>{
@@ -113,7 +115,7 @@ const FullProduct = (props) => {
         }
     }, // eslint-disable-next-line
     [])
-
+    
     useEffect(()=>{
         axios.get(`/product-review-msg/${props.match.params.id}`).then((response)=>{
             const err = {invalid_id: true}
@@ -126,21 +128,39 @@ const FullProduct = (props) => {
     }, // eslint-disable-next-line
     [])
 
+    useEffect(()=>{
+        axios.post('/check', {token: localStorage.getItem('auth-token')}).then((response)=>{
+            const data = JSON.parse(localStorage.getItem('User-data'))
+            if(response.data._id === data._id && response.data.Password === data.Password){
+                SetSeller(true)
+            }else{
+                SetSeller(false)
+            }
+        })
+    }, [])
+
     let comment_jsx = null
-    if(chat_list.length >= 1){
+    if(chat_list.length >= 1 && seller){
        const dummy = [...chat_list] 
        comment_jsx = dummy.map((element, i)=>{
            return (
                <main className='chat-area' key={i}>
+                <header className='chat-area-header'>
                     <div className='chat-area-pic'><UserIcon/></div>
-                    <div className='chat-area-msg'>{element.msg}</div>
+                    <div className='chat-area-name'>{element.username}</div>
+                </header>
+                <footer className='chat-area-msg'>{element.msg}</footer>
+                {(element.answer.length >= 1)?(
+                    <footer className='chat-area-msg chat-area-reply'>{element.answer}</footer>
+                ):null}
+                {(seller === true)?<MessageBox ChangeChatInput={ChangeChatInput} SendMessageHandler={SendMessageHandler} chat_input={chat_input}/>:null}
                </main>
            )
        })
     }
 
     let product_jsx = null
-    if(data){
+    if(data && seller){
         product_jsx = (
             <main>
                 <div className='full-product-image-container'>
@@ -165,17 +185,9 @@ const FullProduct = (props) => {
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>
                 </main>
-                {(JSON.parse(localStorage.getItem('authentication-status')) === true)?(
-                    <article>
-                        <header className='question-answer'>QUESTION & ANSWER SECTION</header>
-                        <main className='review-container'>
-                        <header className='review-input-container'>
-                            <div className='review-input-pic'><UserIcon/></div>
-                            <input className='review-input' type='text' value={chat_input} onChange={ChangeChatInput} placeholder='Ask a Question about the product'/>
-                            <button className='review-send' onClick={SendMessageHandler}>Send</button>
-                        </header>
-                        </main>
-                    </article>
+                <header className='question-answer'>QUESTION & ANSWER SECTION</header>
+                {(JSON.parse(localStorage.getItem('authentication-status')) === true && seller === false)?(
+                    <MessageBox ChangeChatInput={ChangeChatInput} SendMessageHandler={SendMessageHandler} chat_input={chat_input}/>
                 ):null}
                 {comment_jsx}
             </main>
@@ -188,7 +200,7 @@ const FullProduct = (props) => {
 
     return (
         <Fragment>
-           {(invalidity === false)?(
+           {(invalidity === false && data && seller)?(
                 <div className='fullproduct-container'>
                     {product_jsx}
                 </div>

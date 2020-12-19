@@ -55,7 +55,7 @@ const Schema = new ProductSchema({
      },
     
      Messages: {
-         type: [{username: String, msg: String}],
+         type: [{username: String, msg: String, answer: String}],
          default: []
      }
 })
