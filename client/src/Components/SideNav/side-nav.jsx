@@ -50,6 +50,17 @@ const SideNav = (props) => {
     const Context = useContext(StoreContext)
     const LPContext = useContext(LandingPageContext)
     const auth_state = JSON.parse(localStorage.getItem('authentication-status'))
+
+    let jsx = null
+    if(Context.CartItems){
+        if(Context.CartItems.length >= 1){
+            jsx = (
+                <main className='cart-notifications'>
+                    {Context.CartItems.length}
+                </main>
+            )
+        }
+    }
     return (
        <Fragment>
            <div className='side-nav-container' style={{filter: `blur(${props.blur})`}}>
@@ -61,6 +72,7 @@ const SideNav = (props) => {
                 </div>
                 <div className='side-nav-icon-container' data-tool-tip='Cart' onClick={(auth_state === false)?LPContext.TriggerSignupPopup:Context.CartIconClick}>
                     <CartIcon/>
+                    {jsx}
                 </div>
                 <div className='side-nav-icon-container' onClick={(auth_state === false)?LPContext.TriggerSignupPopup:Context.HistoryIconClick} data-tool-tip='History'>
                     <HistoryIcon/>

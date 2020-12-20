@@ -176,11 +176,11 @@ const FullProduct = (props) => {
                    <div className='full-product-seller-name-fullname'>{data.Seller}</div>
                 </div>
                 <main className='full-product-button-container'>
-                    <div className='full-product-price' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price)}>
+                    <div className='full-product-price' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price, data._id)}>
                         <header className='tag'>PURCHASE NOW</header>
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>
-                    <div className='full-product-price full-product-wishlist' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price, data.id)}>
+                    <div className='full-product-price full-product-wishlist' onClick={Context.AddToCartHandler.bind(this, data.ProductImage, data.ItemName, data.Price, data._id)}>
                         <header className='tag'>CHECKOUT</header>
                         <footer className='full-product-price-tag'>Price: Rs {data.Price}</footer>
                     </div>

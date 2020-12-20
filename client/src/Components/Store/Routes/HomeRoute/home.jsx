@@ -13,7 +13,7 @@ const Home = (props) => {
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO PRODUCT LISTED</div>
 
     const ProductClick = (Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>{
-        SetProductData({Seller, Price, ItemName, ProductImage, Description, Wishlisted})
+        SetProductData({Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id})
         props.history.push(`/products/${ItemName}/${_id}`)
     }
 

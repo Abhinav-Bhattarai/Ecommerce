@@ -402,36 +402,54 @@ const Mainpage = (props) => {
     const AddToCartHandler = (product_img, product_name, product_price, id)=>{
         if(cart_items){
             const dummy = [...cart_items]
-            dummy.push({product_img, product_name, product_price, id})
-            SetCartItems(dummy)
-        }else{
-            SetCartItems([{product_img, product_name, product_price, id}])
+            const filtered = dummy.find((arr)=>{
+                return arr.id === id
+            })
+            if(!filtered){
+                dummy.push({product_img, product_name, product_price, id})
+                SetCartItems(dummy)
+                // const context = {
+                //     Email: localStorage.getItem('Email'),
+                //     item_name: product_name,
+                //     item_id: id,
+                //     product_price,
+                //     product_img
+                // }
+                // axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
+            }
+            }else{
+                SetCartItems([{product_img, product_name, product_price, id}])
+                // const context = {
+                // Email: localStorage.getItem('Email'),
+                // item_name: product_name,
+                // item_id: id,
+                // product_price,
+                // product_img
+                // }
+                // axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
         }
-        const context = {
-            Email: localStorage.getItem('Email'),
-            item_name: product_name,
-            item_id: id,
-            product_price,
-            product_img
-        }
-        axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
     }
 
     const RemoveFromCartHandler = (product_id)=>{
         const data = [...cart_items]
-        data.filter((element, index)=>{
-            if(element.id === product_id){
-                data.splice(index, 1)
-            }
-            return null
+        const finder = data.find((arr)=>{
+            return arr.id === product_id
         })
-        SetCartItems(data)
-        const context = {
-            Email: localStorage.getItem('Email'),
-            item_name: product_name,
-            item_id: product_id
+        if(finder){
+            data.filter((element, index)=>{
+                if(element.id === product_id){
+                    data.splice(index, 1)
+                }
+                return null
+            })
+            SetCartItems(data)
+            // const context = {
+            //     Email: localStorage.getItem('Email'),
+            //     item_name: product_name,
+            //     item_id: product_id
+            // }
+            // axios.put(`/cart/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
         }
-        axios.put(`/cart/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
     }
 
     const LogoutPopupHandler = ()=>{
