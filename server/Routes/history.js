@@ -4,7 +4,7 @@ import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
-router.get('/:email/:auth', Middleware, (req, res)=>{
+router.get('/:auth/:email', Middleware, (req, res)=>{
     const Email = req.params.email
     RegistrationModel.find().where('Email').equals(Email).then((response)=>{
         if(response.length >= 1){

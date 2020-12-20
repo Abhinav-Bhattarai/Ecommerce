@@ -4,14 +4,14 @@ import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
-router.get('/:email/:auth', Middleware, (req, res)=>{
+router.get('/:auth/:email', Middleware, (req, res)=>{
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
         const data = response[0].WishListedItems
         return res.json(data)
     })
 })
 
-router.put('/:type/:auth', Middleware, (req, res)=>{
+router.put('/:auth/:type', Middleware, (req, res)=>{
     const type = req.params.type
     const item_name = req.body.item_name
     const item_id = req.body.item_id

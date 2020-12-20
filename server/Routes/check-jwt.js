@@ -10,7 +10,6 @@ router.post('/', (req, res)=>{
     jwt.verify(req.body.token, process.env.JWT_AUTH_KEY, (err, response)=>{
         if(err){return res.json({})}
         if(response){
-            console.log(response)
             return res.json(response)
         }else{
             return res.json({})

@@ -3,12 +3,11 @@ import ProductModel from '../Models/products.js';
 import RegistrationModel from  '../Models/register-model.js';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import Middleware from '../Middleware/auth-check.js';
 dotenv.config()
 
 const router = express.Router()
 
-router.post('/:auth', Middleware, (req, res)=>{
+router.post('/', (req, res)=>{
     const Seller = req.body.Seller
     const Price = parseInt(req.body.Price)
     const ItemName = req.body.ItemName

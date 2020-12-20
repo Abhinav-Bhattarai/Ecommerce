@@ -229,7 +229,7 @@ const Mainpage = (props) => {
                 SetInfiniteScrollNum(infinite_scroll_num + 1) 
             })
         }else{
-            axios.get(`/wishlist/${localStorage.getItem('Email')}`).then((wishlist)=>{
+            axios.get(`/wishlist/${localStorage.getItem('auth-token')}/${localStorage.getItem('Email')}`).then((wishlist)=>{
                 const WishListArray = [...wishlist.data]
                 axios.get('/product/0').then((response)=>{
                     const data = [...response.data]
@@ -385,7 +385,7 @@ const Mainpage = (props) => {
                 img,
                 desc
             }
-            axios.put('/wishlist/add', context).then(()=>{})
+            axios.put(`/wishlist/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
         }else{
             e.target.style.color = 'grey'
             const dummy = [...wishlist]
@@ -395,7 +395,7 @@ const Mainpage = (props) => {
             localStorage.setItem('WishList', JSON.stringify(dummy))
             // further axios request
             const context = {item_id, email: localStorage.getItem('Email')}
-            axios.put('/wishlist/remove', context).then(()=>{})
+            axios.put(`/wishlist/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
         }
     }
 
@@ -414,7 +414,7 @@ const Mainpage = (props) => {
             product_price,
             product_img
         }
-        axios.put('/cart/add', context).then(()=>{})
+        axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
     }
 
     const RemoveFromCartHandler = (product_id)=>{
@@ -431,7 +431,7 @@ const Mainpage = (props) => {
             item_name: product_name,
             item_id: product_id
         }
-        axios.put('/cart/delete', context).then(()=>{})
+        axios.put(`/cart/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
     }
 
     const LogoutPopupHandler = ()=>{

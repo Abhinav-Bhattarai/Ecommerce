@@ -15,11 +15,13 @@ const SoldItem = (props) => {
     const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
 
     useEffect(() => {
+        
         if(auth_status=== true){
             SetSpinner(true)
-            axios.get(`/sold-item/${localStorage.getItem('Email')}`).then((response)=>{
+            axios.get(`/sold-item/${localStorage.getItem('auth-token')}/${localStorage.getItem('Email')}`).then((response)=>{
                 const err = {invalid: true}
-                if(JSON.stringify(err) !== JSON.stringify(response.data)){
+                const denial = {access_denied: true}
+                if(JSON.stringify(err) !== JSON.stringify(response.data) && JSON.stringify(response.data) !== JSON.stringify(denial)){
                     SetData(response.data)
                 }
                  SetSpinner(false)

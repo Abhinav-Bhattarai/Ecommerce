@@ -12,7 +12,7 @@ const History = () => {
     useEffect(() => {
         if(JSON.parse(localStorage.getItem('authentication-status')) === true){
             SetSpinner(true)
-            axios.get(`/history/${localStorage.getItem('Email')}`).then((response)=>{
+            axios.get(`/history/${localStorage.getItem('auth-token')}/${localStorage.getItem('Email')}`).then((response)=>{
                 const err = {invalid: true}
                 if(JSON.stringify(err) !== JSON.stringify(response.data)){
                     if(response.data.length >= 1){

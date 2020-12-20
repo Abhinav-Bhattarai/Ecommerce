@@ -8,7 +8,7 @@ const Middleware = (req, res, next)=>{
     jwt.verify(token, process.env.JWT_AUTH_KEY, (err, response)=>{
         if(err) return res.json({access_denied: true})
         else{
-            if(JSON.stringify(response) !== "{}"){
+            if(response !== undefined && JSON.stringify(response) !== "{}"){
                 next()
             }else{
                 return res.json({access_denied_without_err: true})

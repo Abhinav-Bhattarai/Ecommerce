@@ -4,7 +4,7 @@ import ProductModel from '../Models/products.js';
 
 const router = express.Router()
 
-router.get('/:email/:auth', Middleware, (req, res)=>{
+router.get('/:auth/:email', Middleware, (req, res)=>{
     const email = req.params.email
     ProductModel.find().where('Seller').equals(email).then((response)=>{
         if(response.length >= 1){
