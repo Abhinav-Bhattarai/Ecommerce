@@ -24,7 +24,8 @@ const MainPageContext = React.createContext({
     Loader: false,
     LogoutPopupHandler: ()=>{},
     logout_popup: false,
-    LogoutConfirmHandler: ()=>{}
+    LogoutConfirmHandler: ()=>{},
+    SellerPageTrigger: ()=>{}
 })
 
 export default MainPageContext

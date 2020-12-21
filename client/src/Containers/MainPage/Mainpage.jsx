@@ -457,6 +457,10 @@ const Mainpage = (props) => {
         props.ChangeAuthentication(true)
     }
 
+    const SellerRouteTrigger = ()=>{
+        props.history.push('/e-commerce/seller-nav')
+    }
+
     return (
         <Fragment>
             {(spin_status)?
@@ -472,6 +476,7 @@ const Mainpage = (props) => {
                     CartItems: cart_items
                 }}>
                     <MainPageContext.Provider value={{
+                        SellerPageTrigger: SellerRouteTrigger,
                         FileEncoder: (e)=>{FileEncoder(e)},
                         ChangeContactFrom: (e)=>ChangeContactFrom(e),
                         ChangeContactReason: (e)=>ChangeContactReason(e),
