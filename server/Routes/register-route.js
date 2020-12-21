@@ -10,10 +10,10 @@ dotenv.config()
 const router = express.Router()
 
 router.post('/', (req, res)=>{
-    let Password = req.body.Password
-    let Confirm = req.body.Confirm
-    const Email = req.body.Email
-    const Phone = req.body.Phone
+    let Password = req.sanitize(req.body.Password)
+    let Confirm = req.sanitize(req.body.Confirm)
+    const Email = req.sanitize(req.body.Email)
+    const Phone = req.sanitize(req.body.Phone)
     RegistrationModel.find().where('Email').equals(Email).then((checker)=>{
         if(checker.length === 0){
             bcrypt.hash(Password, 10).then((hash)=>{

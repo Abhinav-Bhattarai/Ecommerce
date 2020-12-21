@@ -9,8 +9,8 @@ dotenv.config()
 const router = express.Router()
 
 router.post('/', (req, res)=>{
-    const Email = req.body.Email
-    let Password = req.body.Password
+    const Email = req.sanitize(req.body.Email)
+    let Password = req.sanitize(req.body.Password)
     const DAY_3 = 84600*3 
     RegistrationModel.find().where("Email").equals(Email).then((response)=>{
         if(response.length >= 1){

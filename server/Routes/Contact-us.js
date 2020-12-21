@@ -19,10 +19,8 @@ router.post('/', (req, res)=>{
        from: 'Light Web Community',
        to: 'jsdeveloper48@gmail.com',
        subject: 'Light Web: Contact Us FeedBacks', 
-       html: `<h1 style="margin: 10px auto; margin-bottom: 50px; text-align: center;">${req.body.Username}</h1><div>${req.body.Message}</div>`
+       html: `<h1 style="margin: 10px auto; margin-bottom: 50px; text-align: center;">${req.sanitize(req.body.Username)}</h1><div>${req.sanitize(req.body.Message)}</div>`
     }, (err, info)=>{
-        if(err){
-        }
         if(!err){
             return res.json({success: true})
         }

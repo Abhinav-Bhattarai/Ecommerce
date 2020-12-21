@@ -20,6 +20,7 @@ import GetWishListRouter from './Routes/get-wishlist.js';
 import CartRoute from './Routes/cart.js';
 import SoldItemRoute from './Routes/sold-items.js';
 import HistoryRoute from './Routes/history.js';
+import sanitize from 'express-sanitizer';
 
 // dot_env config
 dotenv.config()
@@ -34,6 +35,7 @@ const URI = process.env.URI
 
 // allows json entry and dispatch upto 50mb
 app.use(bodyparser.json({limit: '50mb'}))
+app.use(sanitize())
 
 // socket connection for real-time functions  
 io.on('connect', (socket)=>{
