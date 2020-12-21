@@ -408,25 +408,25 @@ const Mainpage = (props) => {
             if(!filtered){
                 dummy.push({product_img, product_name, product_price, id})
                 SetCartItems(dummy)
-                // const context = {
-                //     Email: localStorage.getItem('Email'),
-                //     item_name: product_name,
-                //     item_id: id,
-                //     product_price,
-                //     product_img
-                // }
-                // axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
+                const context = {
+                    Email: localStorage.getItem('Email'),
+                    item_name: product_name,
+                    item_id: id,
+                    product_price,
+                    product_img
+                }
+                axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
             }
             }else{
                 SetCartItems([{product_img, product_name, product_price, id}])
-                // const context = {
-                // Email: localStorage.getItem('Email'),
-                // item_name: product_name,
-                // item_id: id,
-                // product_price,
-                // product_img
-                // }
-                // axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
+                const context = {
+                Email: localStorage.getItem('Email'),
+                item_name: product_name,
+                item_id: id,
+                product_price,
+                product_img
+                }
+                axios.put(`/cart/${localStorage.getItem('auth-token')}/add`, context).then(()=>{})
         }
     }
 
@@ -440,12 +440,12 @@ const Mainpage = (props) => {
             const index = data.findIndex(()=>finder)
             data.splice(index, 1)
             SetCartItems(data)
-            // const context = {
-            //     Email: localStorage.getItem('Email'),
-            //     item_name: product_name,
-            //     item_id: product_id
-            // }
-            // axios.put(`/cart/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
+            const context = {
+                Email: localStorage.getItem('Email'),
+                item_name: product_name,
+                item_id: product_id
+            }
+            axios.put(`/cart/${localStorage.getItem('auth-token')}/remove`, context).then(()=>{})
         }
     }
 

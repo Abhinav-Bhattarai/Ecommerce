@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, Suspense, useContext, useState } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import Navbar from '../NavBar/navbar';
 import SearchBar from '../SearchBar/searchbar';
@@ -15,6 +15,10 @@ import History from './Routes/HistoryRoute/history';
 import MainPageContext from '../../Containers/MainPage/MainPageContext';
 import Spinner from '../UI/Spinner/spinner';
 import Logout from '../LandingPage/Logout/logout';
+
+const AsyncSellerPage = React.lazy(()=>{
+    return import('./Routes/SellerRoute/seller-page');
+})
 
 const Store = (props) => {
     const [window_height] = useState(window.innerHeight)
@@ -74,6 +78,13 @@ const Store = (props) => {
                     <Route exact path='/e-commerce/cartItems' render={()=><Cart blur={blur} {...props}/>}/>                    
                     <Route exact path='/e-commerce/history' render={()=><History blur={blur} {...props}/>}/>
                     <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur} {...props}/>}/>
+                    <Route exact path='/e-commerce/seller-nav' render={()=>{
+                        return (
+                            <Suspense fallback={<Spinner/>}>
+                                <AsyncSellerPage blur={blur} {...props}/>
+                            </Suspense>
+                        )
+                    }}/>
                     <Route render={()=><Home blur={blur} {...props}/>}/>
                 </Switch>
                 {(Context1.Loader)? <Spinner/> : null}
