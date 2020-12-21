@@ -33,12 +33,12 @@
 
 .cart-notifications{
     position: absolute;
-    padding: 0px 8%;
+    padding: 0px 10%;
     border-radius: 50%;
     top: 0px;
     right: 2%;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 14px;
     color: white;
     background-color: rgb(241, 74, 44);
 }

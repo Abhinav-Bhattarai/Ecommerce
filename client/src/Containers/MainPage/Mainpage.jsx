@@ -436,12 +436,9 @@ const Mainpage = (props) => {
             return arr.id === product_id
         })
         if(finder){
-            data.filter((element, index)=>{
-                if(element.id === product_id){
-                    data.splice(index, 1)
-                }
-                return null
-            })
+            console.log(true)
+            const index = data.findIndex(()=>finder)
+            data.splice(index, 1)
             SetCartItems(data)
             // const context = {
             //     Email: localStorage.getItem('Email'),

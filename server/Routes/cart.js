@@ -4,10 +4,10 @@ import RegistrationModel from '../Models/register-model.js';
 
 const router = express.Router()
 
-router.get('/:email', (req, res)=>{
+router.get('/:auth/:email', Middleware, (req, res)=>{
     RegistrationModel.find().where('Email').equals(req.params.email).then((response)=>{
         if(response.length >= 1){
-            return res.json(response)
+            return res.json(response.CartedItem)
         }
         return res.json({invalid: true})
     })

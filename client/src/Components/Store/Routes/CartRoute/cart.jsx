@@ -8,10 +8,10 @@ const Cart = () => {
     const Context = useContext(StoreContext)
     const [data, SetData] = useState(Context.CartItems ? Context.CartItems : null)
     const auth_status = JSON.parse(localStorage.getItem('authentication-status'))
-    
     useEffect(()=>{
         if(data === null && auth_status === true){
-            axios.get(`/cart/${localStorage.getItem('Email')}`).then((response)=>{
+            axios.get(`/cart/${localStorage.getItem('auth-token')}/${localStorage.getItem('Email')}`).then((response)=>{
+                console.log(response.data)
                 const invalid = {invalid: true}
                 if(JSON.stringify(invalid) !== JSON.stringify(response.data)){
                     if(response.data.length >= 1){
@@ -25,8 +25,9 @@ const Cart = () => {
     let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>SORRY</div>
 
     if(Context.CartItems && auth_status === true){
-        const dummy = [...data]
-        product_cards_jsx = dummy.map((element, i)=>{
+        if(Context.CartItems.length >= 1){
+            const dummy = [...Context.CartItems]
+            product_cards_jsx = dummy.map((element, i)=>{
             return (
                 <CartItemCard
                     key={i}
@@ -37,6 +38,24 @@ const Cart = () => {
                 />
             )
         })
+        }
+    }
+
+    if(Context.CartItems === null && data && auth_status === true){
+        if(data.length >= 1){
+            const dummy = [...data]
+            product_cards_jsx = dummy.map((element, i)=>{
+            return (
+                <CartItemCard
+                    key={i}
+                    ProductImage={element.product_img}
+                    ItemName={element.product_name}
+                    Price={element.product_price}
+                    id={element.id}
+                />
+            )
+        })
+        }
     }
     return (
        <Fragment>
