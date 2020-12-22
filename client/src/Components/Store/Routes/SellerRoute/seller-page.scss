@@ -1,3 +1,6 @@
+$white: rgba(251, 250, 252, 0.95);
+$red: #fc2d53;
+
 .seller-container{
     position: relative;
     width: 100%;
@@ -6,5 +9,64 @@
     flex-direction: column;
     align-items: center;
     padding: 10px 0%;
-    height: 200px;
+
+    .seller-form{
+        background-color: $white;
+        width: 60%;
+        border-radius: 10px;
+        padding: 10px 0;
+
+        header{
+            font-weight: 500;
+            font-size: 19px;
+            padding: 15px 1%;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+    }
+}
+
+.seller-page-input-container{
+    display: flex;
+    margin: 10px auto;
+    flex-direction: column;
+    padding: 1px 3%;
+    justify-content: flex-start;
+
+    &-label{
+        display: block;
+        font-weight: 500;
+        font-size: 16px;
+        margin: 10px 0;
+        padding: 1px 2%;
+        width: 50%;
+        text-transform: uppercase;
+    }
+
+    &-input{
+        display: block;
+        width: 90%;
+        margin: 0px auto;
+        padding: 15px 3%;
+        color: black;
+        font-size: 18px;
+        border-radius: 10px;
+        border: 1px solid #AFAFAF;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        &:focus{
+            outline: none;
+            border: 1px solid $red;
+        }
+    }
+
+    &-text-area{
+        @extend .seller-page-input-container-input;
+        height: 200px;
+        &:focus{
+            outline: none;
+            border: 1px solid $red;
+        }
+    }
 }

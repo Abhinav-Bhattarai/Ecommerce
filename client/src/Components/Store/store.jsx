@@ -78,13 +78,14 @@ const Store = (props) => {
                     <Route exact path='/e-commerce/cartItems' render={()=><Cart blur={blur} {...props}/>}/>                    
                     <Route exact path='/e-commerce/history' render={()=><History blur={blur} {...props}/>}/>
                     <Route exact path='/e-commerce/soldItems' render={()=><SoldItems blur={blur} {...props}/>}/>
+                    {(JSON.parse(localStorage.getItem('authentication-status')) === true)?
                     <Route exact path='/e-commerce/seller-nav' render={()=>{
                         return (
                             <Suspense fallback={<Spinner/>}>
                                 <AsyncSellerPage blur={blur} {...props}/>
                             </Suspense>
                         )
-                    }}/>
+                    }}/>:null}
                     <Route render={()=><Home blur={blur} {...props}/>}/>
                 </Switch>
                 {(Context1.Loader)? <Spinner/> : null}

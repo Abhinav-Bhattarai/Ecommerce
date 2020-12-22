@@ -23,10 +23,6 @@
     transition: 0.2s;
 }
 
-.navbar-logout{
-    background-color: rgba(133, 223, 60, 0.959);
-}
-
 .scroll-nav{
     background-color: rgb(233, 45, 77);
     transition: background 0.1s;

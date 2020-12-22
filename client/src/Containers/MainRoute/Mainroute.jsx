@@ -28,8 +28,15 @@ class Mainroute extends Component {
                 axios.post(`/check/`, {token}).then((response)=>{
                     const data = response.data
                     if(JSON.stringify(data) !== JSON.stringify({})){
+                        console.log(true)
                         this.setState({
                             authentication_status: true
+                        })
+                    }else{
+                        localStorage.clear()
+                        localStorage.setItem('authentication-status', false)
+                        this.setState({
+                            authentication_status: false
                         })
                     }
                 })

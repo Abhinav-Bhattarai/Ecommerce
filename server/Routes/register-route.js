@@ -59,13 +59,7 @@ router.post('/', (req, res)=>{
                                        to: Email,
                                        subject: 'Light web Invitation', 
                                        html: '<h1 style="margin: 10px auto; text-align: center;">Welcome to Light Web</h1><div style="padding: 10px 2%; margin: 10px auto; font-size: 16px">Please confirm your Email to further continue with LightWeb.</div><a href="https://localhost:3000" style="width: 95%; display:block; margin:10px auto; padding:18px 4%; background-color: #ff374e; color:#fff; font-size:20px; border: none;  border-radius: 10px; margin-top:30px; text-align: center;">Accept to Confirm</a>'
-                                    }, (err, info)=>{
-                                        if(err){
-                                            
-                                        }
-                                        if(!err){
-                                        
-                                    }})
+                                    }, (err, info)=>{})
                         
                                     return res.json({token, Data})
                                 })

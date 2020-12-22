@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "nodemon --max-http-header-size=1642 server.js",
     "client": "cd ../client && npm start",
     "python": "cd ../Python && python python-api.py",
     "dev": "concurrently \"npm start\" \"npm run client\""

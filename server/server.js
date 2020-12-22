@@ -47,7 +47,6 @@ io.on('connect', (socket)=>{
             const regex_msg = new RegExp(`${element}`, 'g')
             return regex_msg.exec(msg) !== null
         })
-        console.log(safe, client_id, msg, room)
         if(JSON.stringify(safe) === "[]"){
             socket.broadcast.to(room).emit('client-receiver', client_id, msg)
         }else{
@@ -77,14 +76,14 @@ app.use('/history', HistoryRoute)
 
 // db-connection
 mongoose.connect(URI, {useUnifiedTopology: true, useNewUrlParser: true}).then(()=>{
-    console.log('Connected to MongoDB')
+    console.log('Connected to mongoDB')
 }).catch(()=>{
-    console.log('Not Connected to MongoDB')
+    console.log('Failed to connect to mongoDB')
 })
 
 // server listener
 server.listen(PORT, ()=>{
-    console.log('Connected to localhost:8000')
+    console.log('Listening to localhost:8000')
 })
 
 // need to provide auth key for accessing the api endpoints for security and removing password sending even if hashed to react.js. Refactoring the code for more optimizations. Connection to socket to the auth protected from jwt. jwt access token for login and register to be valid for 3days and prtected routes jwt auth key to be valid for 30 mins and adding new auth key after 30 mins to prevent from attacks. Integration stripe payment gatewy systems for payment transactions.
