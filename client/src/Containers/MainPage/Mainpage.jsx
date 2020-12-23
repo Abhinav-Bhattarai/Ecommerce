@@ -26,6 +26,7 @@ const Mainpage = (props) => {
     const [spin_status, SetSpinStatus] = useState(false)
     const [cart_items, SetCartItems] = useState(null)
     const [logout_popup, SetLogoutPopup] = useState(false)
+    const [product_list_err, SetProductListError] = useState([])
 
     // FileEncoder To Binary Bit64 and need to apply onChange event listener
     const FileEncoder = (event)=>{
@@ -33,14 +34,6 @@ const Mainpage = (props) => {
         const reader = new FileReader()
         reader.onloadend = ()=>{
             SetProductImage(reader.result)
-            const context = {
-                Seller: localStorage.getItem('Email'),
-                Price: '8000',
-                ItemName: 'Random Product',
-                ProductImage: reader.result,
-                Description: "A product description is the marketing copy used to describe a product's value proposition to potential customers. A compelling product description provides customers with details around features, problems it solves and other benefits to help generate a sale. ... A “good” product description will not do."
-            }
-            axios.post('/product', context).then((response)=>{})
         }
         reader.readAsDataURL(file)
     }
@@ -52,7 +45,10 @@ const Mainpage = (props) => {
 
     const ChangeProductPrice = (event)=>{
         const value = event.target.value
-        SetProductPrice(value)
+        const num_regex = /[0-9]/
+        if(num_regex.exec(value) !== null || value === ''){
+            SetProductPrice(value)
+        }
     }
 
     const ChangeProductDesc = (event)=>{
@@ -69,7 +65,24 @@ const Mainpage = (props) => {
             ItemName: product_name,
             Image: product_img
         }
-        axios.post('/product', Context).then((response)=>{})
+        if(parseInt(product_price) >= 10 && product_desc.length >= 30 && product_name >= 3 && product_img.length >= 100){
+            axios.post('/product', Context).then((response)=>{})
+        }else{
+            const dummy = [...product_list_err]
+            if(parseInt(product_price) < 10 || product_price.length === 0){
+                dummy.push({type: 'Price', error: 'Minimum price is 10$'})
+            }
+            if(product_desc.length < 30){
+                dummy.push({type: 'Desc', error: 'Minimum description length is 30 chars'})
+            }
+            if(product_name < 3){
+                dummy.push({type: 'Name', error: 'Minimum Product-name is 3 chars'})
+            }
+            if(product_img.length < 100){
+                dummy.push({type: 'Image', error: 'Product Image is not added'})
+            }
+            SetProductListError(dummy)
+        }
     }
     
 
@@ -436,7 +449,6 @@ const Mainpage = (props) => {
             return arr.id === product_id
         })
         if(finder){
-            console.log(true)
             const index = data.findIndex(()=>finder)
             data.splice(index, 1)
             SetCartItems(data)
@@ -500,7 +512,8 @@ const Mainpage = (props) => {
                         Loader: loader,
                         LogoutPopupHandler: LogoutPopupHandler,
                         logout_popup,
-                        LogoutConfirmHandler: LogoutConfirmHandler
+                        LogoutConfirmHandler: LogoutConfirmHandler,
+                        err: product_list_err
                     }}>
                         <Store type="MainPage" loader={loader}/>
                     </MainPageContext.Provider>

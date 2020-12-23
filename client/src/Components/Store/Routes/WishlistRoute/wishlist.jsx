@@ -10,15 +10,15 @@ const WishList = (props) => {
     const Context = useContext(StoreContext)
     const [product_data, SetProductData] = useState(null)
 
-    let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO WISHLIST YET !! </div>
+    let product_cards_jsx = <div style={{textAlign: "center", color: "black", fontSize: "20px"}}>NO WISHLISTS YET !! </div>
 
     const ProductClick = (Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>{
-        SetProductData({Seller, Price, ItemName, ProductImage, Description, Wishlisted})
-        props.history.push(`/products/${ItemName}/${_id}`)
+        SetProductData({Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id})
+        props.history.replace(`/products/${ItemName}/${_id}`)
     }
 
     useEffect(()=>{
-        window.scroll(0, 85)
+        window.scroll(0, 55)
     }, [])
 
     if(Context.TotalItems){
@@ -40,12 +40,11 @@ const WishList = (props) => {
                     WishListed= {true}
                     _id= {element.item_id}
                     type={(props.type)?'MainPage':'LandingPage'}
-                    Click={(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)=>ProductClick(Seller, Price, ItemName, ProductImage, Description, Wishlisted, _id)}
+                    Click={ProductClick.bind(this, element.Seller, element.Price, element.ItemName, element.ProductImage, element.Description, element.Wishlisted, element._id)}
                 />
                 )
             })
         }}
-
     return (
         <Fragment>
             <main className='product-home-container'>

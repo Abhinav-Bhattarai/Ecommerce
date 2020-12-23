@@ -16,7 +16,7 @@ const MainPageContext = React.createContext({
     product_name: '',
     product_price: '',
     product_desc: '',
-    product_image: '',
+    product_img: '',
     SubmitProductForSaleHandler: ()=>{},
     TriggerWishList: ()=>{},
     AddToCartHandler: ()=>{},
@@ -25,7 +25,8 @@ const MainPageContext = React.createContext({
     LogoutPopupHandler: ()=>{},
     logout_popup: false,
     LogoutConfirmHandler: ()=>{},
-    SellerPageTrigger: ()=>{}
+    SellerPageTrigger: ()=>{},
+    err: null
 })
 
 export default MainPageContext

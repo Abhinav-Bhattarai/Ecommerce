@@ -74,7 +74,7 @@ const LandingPage = (props) => {
     const ChangeSignupNumber = (event)=>{
         const value = event.target.value
         const number_regex = /[0-9]/
-        if(number_regex.exec(value[value.length - 1])){
+        if(number_regex.exec(value[value.length - 1]) || value === ''){
             SetSignupPhone(value)
         }
     }

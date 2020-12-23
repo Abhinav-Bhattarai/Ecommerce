@@ -1,5 +1,6 @@
 $white: rgba(251, 250, 252, 0.95);
 $red: #fc2d53;
+$green: #34E734;
 
 .seller-container{
     position: relative;
@@ -33,6 +34,19 @@ $red: #fc2d53;
     flex-direction: column;
     padding: 1px 3%;
     justify-content: flex-start;
+
+    &-row{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        #status{
+            font-weight: 500;
+            font-size: 15px;
+            color: rgb(27, 223, 174);
+            margin-left: 5%;
+        }
+    }
 
     &-label{
         display: block;
@@ -68,5 +82,73 @@ $red: #fc2d53;
             outline: none;
             border: 1px solid $red;
         }
+    }
+
+    &-btn{
+        display: block;
+        width: 45%;
+        margin: 0px 1%;
+        text-align: center;
+        padding: 15px 3%;
+        border-radius: 10px;
+        background-color: $green;
+        color: white;
+        text-transform: uppercase;
+        border: none;
+
+        &:focus{
+            outline: none;
+        }
+    }
+}
+
+.seller-page-image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 5px 2%;
+    height: 250px;
+    margin: 10px auto;
+
+    img{
+        width: 70%;
+        height: 100%;
+        border-radius: 10px;
+    }
+}
+
+.seller-page-err-msg{
+    font-size: 14px;
+    color: red;
+    font-weight: 400;
+    width: 86%;
+    padding: 1px 0%;
+    margin: 5px auto;
+    display: flex;
+    align-items: center;
+}
+
+.seperator{
+    height: 1px;
+    background-color: $red;
+}
+
+.signup-btn{
+    padding: 16px 3%;
+    width: 60%;
+    font-weight: 600;
+    color: white;
+    font-size: 18px;
+    display: block;
+    margin: 15px auto;
+    background-image: linear-gradient(to right, #fc2d53, rgb(255, 64, 64), rgb(247, 68, 68));
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    margin-top: 40px;
+
+    &:focus{
+        outline: none;
     }
 }

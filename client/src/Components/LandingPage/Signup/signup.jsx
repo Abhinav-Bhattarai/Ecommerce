@@ -54,7 +54,6 @@ const Signup = () => {
                     <div style={{marginLeft: '1%'}}>
                         {element.error}
                     </div>
-                    
                 </main>
             )
         }

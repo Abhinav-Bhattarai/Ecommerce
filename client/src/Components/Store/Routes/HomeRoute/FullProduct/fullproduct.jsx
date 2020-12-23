@@ -131,7 +131,7 @@ const FullProduct = (props) => {
     useEffect(()=>{
         axios.post('/check', {token: localStorage.getItem('auth-token')}).then((response)=>{
             const data = JSON.parse(localStorage.getItem('User-data'))
-            if(response.data._id === data._id && response.data.Password === data.Password){
+            if(response.data.Password === data.Password && response.data.Email === data.Email){
                 SetSeller(true)
             }else{
                 SetSeller(false)
@@ -209,4 +209,4 @@ const FullProduct = (props) => {
     )
 }
 
-export default withRouter(FullProduct)
+export default withRouter(React.memo(FullProduct))
